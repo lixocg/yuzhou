@@ -45,6 +45,7 @@ public class LRU {
         }
         tail = tail.prev;
         tail.next = null;
+        size--;
     }
 
     //向LRU缓存获取元素

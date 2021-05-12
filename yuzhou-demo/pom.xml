@@ -4,16 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.yuzhou</groupId>
-    <artifactId>yuzhou</artifactId>
-    <packaging>pom</packaging>
+    <groupId>com.yuzhou.demo</groupId>
+    <artifactId>yuzhou-demo</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>yuzhou-algorithm</module>
-        <module>yuzhou-demo</module>
-    </modules>
 
-    <name>yuzhou</name>
+    <name>yuzhou-demo</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -11,6 +11,7 @@
     <modules>
         <module>yuzhou-algorithm</module>
         <module>yuzhou-demo</module>
+        <module>yuzhou-basic</module>
     </modules>
 
     <name>yuzhou</name>

@@ -3,7 +3,7 @@ package com.yuzhou.algorithm.lru;
 public class LRU {
     private final static int DEFAULT_CAPACITY = 10;
 
-    private int capacity;
+    private final int capacity;
     private Node head;
     private Node tail;
     private int size;

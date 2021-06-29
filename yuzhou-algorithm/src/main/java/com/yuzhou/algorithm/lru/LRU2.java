@@ -7,12 +7,9 @@ import java.util.Set;
 public class LRU2 {
     private final static int DEFAULT_CAPACITY = 10;
 
-    private int capacity;
-
     private LinkedHashMap<String, String> cache;
 
     public LRU2(final int capacity) {
-        this.capacity = capacity;
         cache = new LinkedHashMap<String, String>(capacity, 0.75f, true) {
             @Override
             protected boolean removeEldestEntry(Map.Entry eldest) {

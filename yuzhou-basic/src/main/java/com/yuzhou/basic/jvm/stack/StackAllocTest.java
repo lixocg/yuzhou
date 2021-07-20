@@ -22,10 +22,14 @@ public class StackAllocTest {
     }
 
     private static void alloc() {
-        User u = new User();
+        User u = new User();//未逃逸对象，优先分配到栈上
+        //为逃逸对象可直接在栈上做对象拆解，做到标量替换
+        u.age = 18;
+        u.name = "zs";
     }
 
     static class User{
-
+        private  int age;
+        private String name;
     }
 }

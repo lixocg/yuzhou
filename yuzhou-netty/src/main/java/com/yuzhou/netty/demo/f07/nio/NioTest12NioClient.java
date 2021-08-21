@@ -1,6 +1,5 @@
 package com.yuzhou.netty.demo.f07.nio;
 
-import com.netty.BaseTest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +15,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class NioTest12NioClient extends BaseTest {
+public class NioTest12NioClient {
     public static void main(String[] args) {
         try {
             SocketChannel socketChannel = SocketChannel.open();
@@ -81,7 +80,7 @@ public class NioTest12NioClient extends BaseTest {
                             int count = client.read(readBuffer);
                             if (count > 0) {
                                 String receivedMsg = new String(readBuffer.array(), 0, count);
-                                print(receivedMsg);
+                                System.out.println(receivedMsg);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();

@@ -1,14 +1,14 @@
 package com.yuzhou.netty.demo.zorecopy;
 
-import com.netty.BaseTest;
 
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.Socket;
+import java.text.MessageFormat;
 import java.util.concurrent.TimeUnit;
 
-public class OldIOClient extends BaseTest {
+public class OldIOClient {
     public static void main(String[] args) throws Exception {
         Socket socket = new Socket("localhost", 8899);
         //指定一个大文件
@@ -30,8 +30,7 @@ public class OldIOClient extends BaseTest {
             dataOutputStream.write(buffer);
         }
 
-        print("发送总字节数:{0},耗时:{1}", tocalCount, System.currentTimeMillis() - start);
-
+        System.out.println(MessageFormat.format("发送总字节数:{0},耗时:{1}", tocalCount, System.currentTimeMillis() - start));
         dataOutputStream.close();
         socket.close();
         inputStream.close();

@@ -1,6 +1,5 @@
 package com.yuzhou.netty.demo.zorecopy;
 
-import com.netty.BaseTest;
 
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -8,7 +7,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 
-public class NewIOServer extends BaseTest {
+public class NewIOServer {
     public static void main(String[] args) throws Exception{
         InetSocketAddress inetSocketAddress = new InetSocketAddress(8899);
 

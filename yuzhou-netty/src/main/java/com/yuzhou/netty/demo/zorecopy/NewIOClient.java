@@ -1,13 +1,13 @@
 package com.yuzhou.netty.demo.zorecopy;
 
-import com.netty.BaseTest;
 
 import java.io.FileInputStream;
 import java.net.InetSocketAddress;
 import java.nio.channels.FileChannel;
 import java.nio.channels.SocketChannel;
+import java.text.MessageFormat;
 
-public class NewIOClient extends BaseTest {
+public class NewIOClient {
     public static void main(String[] args) throws Exception {
         SocketChannel socketChannel = SocketChannel.open();
         socketChannel.connect(new InetSocketAddress("localhost", 8899));
@@ -18,6 +18,6 @@ public class NewIOClient extends BaseTest {
 
         long start = System.currentTimeMillis();
         long transferCount = fileChannel.transferTo(0, fileChannel.size(), socketChannel);
-        print("发送总字节数:{0},耗时:{1}", transferCount, (System.currentTimeMillis() - start));
+        System.out.println(MessageFormat.format("发送总字节数:{0},耗时:{1}", transferCount, (System.currentTimeMillis() - start)));
     }
 }

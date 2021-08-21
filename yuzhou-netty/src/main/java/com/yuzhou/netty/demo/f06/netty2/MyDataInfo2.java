@@ -15,65 +15,65 @@ public final class MyDataInfo2 {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface MyMessageOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.netty.f06.netty2.MyMessage)
+      // @@protoc_insertion_point(interface_extends:com.yuzhou.netty.demo.f06.netty2.MyMessage)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required .com.netty.f06.netty2.MyMessage.DataType data_type = 1;</code>
+     * <code>required .com.yuzhou.netty.demo.f06.netty2.MyMessage.DataType data_type = 1;</code>
      */
     boolean hasDataType();
     /**
-     * <code>required .com.netty.f06.netty2.MyMessage.DataType data_type = 1;</code>
+     * <code>required .com.yuzhou.netty.demo.f06.netty2.MyMessage.DataType data_type = 1;</code>
      */
-    com.netty.f06.netty2.MyDataInfo2.MyMessage.DataType getDataType();
+    com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.DataType getDataType();
 
     /**
-     * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
      */
     boolean hasPerson();
     /**
-     * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
      */
-    com.netty.f06.netty2.MyDataInfo2.Person getPerson();
+    com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person getPerson();
     /**
-     * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
      */
-    com.netty.f06.netty2.MyDataInfo2.PersonOrBuilder getPersonOrBuilder();
+    com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.PersonOrBuilder getPersonOrBuilder();
 
     /**
-     * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
      */
     boolean hasDog();
     /**
-     * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
      */
-    com.netty.f06.netty2.MyDataInfo2.Dog getDog();
+    com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog getDog();
     /**
-     * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
      */
-    com.netty.f06.netty2.MyDataInfo2.DogOrBuilder getDogOrBuilder();
+    com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.DogOrBuilder getDogOrBuilder();
 
     /**
-     * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
      */
     boolean hasCat();
     /**
-     * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
      */
-    com.netty.f06.netty2.MyDataInfo2.Cat getCat();
+    com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat getCat();
     /**
-     * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
      */
-    com.netty.f06.netty2.MyDataInfo2.CatOrBuilder getCatOrBuilder();
+    com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.CatOrBuilder getCatOrBuilder();
 
-    public com.netty.f06.netty2.MyDataInfo2.MyMessage.DataBodyCase getDataBodyCase();
+    public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.DataBodyCase getDataBodyCase();
   }
   /**
-   * Protobuf type {@code com.netty.f06.netty2.MyMessage}
+   * Protobuf type {@code com.yuzhou.netty.demo.f06.netty2.MyMessage}
    */
   public  static final class MyMessage extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.netty.f06.netty2.MyMessage)
+      // @@protoc_insertion_point(message_implements:com.yuzhou.netty.demo.f06.netty2.MyMessage)
       MyMessageOrBuilder {
   private static final long serialVersionUID = 0L;
     // Use MyMessage.newBuilder() to construct.
@@ -111,7 +111,7 @@ public final class MyDataInfo2 {
             case 8: {
               int rawValue = input.readEnum();
                 @SuppressWarnings("deprecation")
-              com.netty.f06.netty2.MyDataInfo2.MyMessage.DataType value = com.netty.f06.netty2.MyDataInfo2.MyMessage.DataType.valueOf(rawValue);
+              com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.DataType value = com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.DataType.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(1, rawValue);
               } else {
@@ -121,42 +121,42 @@ public final class MyDataInfo2 {
               break;
             }
             case 18: {
-              com.netty.f06.netty2.MyDataInfo2.Person.Builder subBuilder = null;
+              com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.Builder subBuilder = null;
               if (dataBodyCase_ == 2) {
-                subBuilder = ((com.netty.f06.netty2.MyDataInfo2.Person) dataBody_).toBuilder();
+                subBuilder = ((com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person) dataBody_).toBuilder();
               }
               dataBody_ =
-                  input.readMessage(com.netty.f06.netty2.MyDataInfo2.Person.PARSER, extensionRegistry);
+                  input.readMessage(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.PARSER, extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((com.netty.f06.netty2.MyDataInfo2.Person) dataBody_);
+                subBuilder.mergeFrom((com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person) dataBody_);
                 dataBody_ = subBuilder.buildPartial();
               }
               dataBodyCase_ = 2;
               break;
             }
             case 26: {
-              com.netty.f06.netty2.MyDataInfo2.Dog.Builder subBuilder = null;
+              com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.Builder subBuilder = null;
               if (dataBodyCase_ == 3) {
-                subBuilder = ((com.netty.f06.netty2.MyDataInfo2.Dog) dataBody_).toBuilder();
+                subBuilder = ((com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog) dataBody_).toBuilder();
               }
               dataBody_ =
-                  input.readMessage(com.netty.f06.netty2.MyDataInfo2.Dog.PARSER, extensionRegistry);
+                  input.readMessage(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.PARSER, extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((com.netty.f06.netty2.MyDataInfo2.Dog) dataBody_);
+                subBuilder.mergeFrom((com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog) dataBody_);
                 dataBody_ = subBuilder.buildPartial();
               }
               dataBodyCase_ = 3;
               break;
             }
             case 34: {
-              com.netty.f06.netty2.MyDataInfo2.Cat.Builder subBuilder = null;
+              com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.Builder subBuilder = null;
               if (dataBodyCase_ == 4) {
-                subBuilder = ((com.netty.f06.netty2.MyDataInfo2.Cat) dataBody_).toBuilder();
+                subBuilder = ((com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat) dataBody_).toBuilder();
               }
               dataBody_ =
-                  input.readMessage(com.netty.f06.netty2.MyDataInfo2.Cat.PARSER, extensionRegistry);
+                  input.readMessage(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.PARSER, extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((com.netty.f06.netty2.MyDataInfo2.Cat) dataBody_);
+                subBuilder.mergeFrom((com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat) dataBody_);
                 dataBody_ = subBuilder.buildPartial();
               }
               dataBodyCase_ = 4;
@@ -183,19 +183,19 @@ public final class MyDataInfo2 {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_MyMessage_descriptor;
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_MyMessage_descriptor;
     }
 
     @Override
     protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_MyMessage_fieldAccessorTable
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_MyMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.netty.f06.netty2.MyDataInfo2.MyMessage.class, com.netty.f06.netty2.MyDataInfo2.MyMessage.Builder.class);
+              com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.class, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.Builder.class);
     }
 
     /**
-     * Protobuf enum {@code com.netty.f06.netty2.MyMessage.DataType}
+     * Protobuf enum {@code com.yuzhou.netty.demo.f06.netty2.MyMessage.DataType}
      */
     public enum DataType
         implements com.google.protobuf.ProtocolMessageEnum {
@@ -270,7 +270,7 @@ public final class MyDataInfo2 {
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptor() {
-        return com.netty.f06.netty2.MyDataInfo2.MyMessage.getDescriptor().getEnumTypes().get(0);
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.getDescriptor().getEnumTypes().get(0);
       }
 
       private static final DataType[] VALUES = values();
@@ -290,7 +290,7 @@ public final class MyDataInfo2 {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:com.netty.f06.netty2.MyMessage.DataType)
+      // @@protoc_insertion_point(enum_scope:com.yuzhou.netty.demo.f06.netty2.MyMessage.DataType)
     }
 
     private int bitField0_;
@@ -337,96 +337,96 @@ public final class MyDataInfo2 {
     public static final int DATA_TYPE_FIELD_NUMBER = 1;
     private int dataType_;
     /**
-     * <code>required .com.netty.f06.netty2.MyMessage.DataType data_type = 1;</code>
+     * <code>required .com.yuzhou.netty.demo.f06.netty2.MyMessage.DataType data_type = 1;</code>
      */
     public boolean hasDataType() {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>required .com.netty.f06.netty2.MyMessage.DataType data_type = 1;</code>
+     * <code>required .com.yuzhou.netty.demo.f06.netty2.MyMessage.DataType data_type = 1;</code>
      */
-    public com.netty.f06.netty2.MyDataInfo2.MyMessage.DataType getDataType() {
+    public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.DataType getDataType() {
       @SuppressWarnings("deprecation")
-      com.netty.f06.netty2.MyDataInfo2.MyMessage.DataType result = com.netty.f06.netty2.MyDataInfo2.MyMessage.DataType.valueOf(dataType_);
-      return result == null ? com.netty.f06.netty2.MyDataInfo2.MyMessage.DataType.PersonType : result;
+      com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.DataType result = com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.DataType.valueOf(dataType_);
+      return result == null ? com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.DataType.PersonType : result;
     }
 
     public static final int PERSON_FIELD_NUMBER = 2;
     /**
-     * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
      */
     public boolean hasPerson() {
       return dataBodyCase_ == 2;
     }
     /**
-     * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
      */
-    public com.netty.f06.netty2.MyDataInfo2.Person getPerson() {
+    public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person getPerson() {
       if (dataBodyCase_ == 2) {
-         return (com.netty.f06.netty2.MyDataInfo2.Person) dataBody_;
+         return (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person) dataBody_;
       }
-      return com.netty.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
     }
     /**
-     * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
      */
-    public com.netty.f06.netty2.MyDataInfo2.PersonOrBuilder getPersonOrBuilder() {
+    public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.PersonOrBuilder getPersonOrBuilder() {
       if (dataBodyCase_ == 2) {
-         return (com.netty.f06.netty2.MyDataInfo2.Person) dataBody_;
+         return (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person) dataBody_;
       }
-      return com.netty.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
     }
 
     public static final int DOG_FIELD_NUMBER = 3;
     /**
-     * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
      */
     public boolean hasDog() {
       return dataBodyCase_ == 3;
     }
     /**
-     * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
      */
-    public com.netty.f06.netty2.MyDataInfo2.Dog getDog() {
+    public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog getDog() {
       if (dataBodyCase_ == 3) {
-         return (com.netty.f06.netty2.MyDataInfo2.Dog) dataBody_;
+         return (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog) dataBody_;
       }
-      return com.netty.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
     }
     /**
-     * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
      */
-    public com.netty.f06.netty2.MyDataInfo2.DogOrBuilder getDogOrBuilder() {
+    public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.DogOrBuilder getDogOrBuilder() {
       if (dataBodyCase_ == 3) {
-         return (com.netty.f06.netty2.MyDataInfo2.Dog) dataBody_;
+         return (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog) dataBody_;
       }
-      return com.netty.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
     }
 
     public static final int CAT_FIELD_NUMBER = 4;
     /**
-     * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
      */
     public boolean hasCat() {
       return dataBodyCase_ == 4;
     }
     /**
-     * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
      */
-    public com.netty.f06.netty2.MyDataInfo2.Cat getCat() {
+    public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat getCat() {
       if (dataBodyCase_ == 4) {
-         return (com.netty.f06.netty2.MyDataInfo2.Cat) dataBody_;
+         return (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat) dataBody_;
       }
-      return com.netty.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
     }
     /**
-     * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+     * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
      */
-    public com.netty.f06.netty2.MyDataInfo2.CatOrBuilder getCatOrBuilder() {
+    public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.CatOrBuilder getCatOrBuilder() {
       if (dataBodyCase_ == 4) {
-         return (com.netty.f06.netty2.MyDataInfo2.Cat) dataBody_;
+         return (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat) dataBody_;
       }
-      return com.netty.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -451,13 +451,13 @@ public final class MyDataInfo2 {
         output.writeEnum(1, dataType_);
       }
       if (dataBodyCase_ == 2) {
-        output.writeMessage(2, (com.netty.f06.netty2.MyDataInfo2.Person) dataBody_);
+        output.writeMessage(2, (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person) dataBody_);
       }
       if (dataBodyCase_ == 3) {
-        output.writeMessage(3, (com.netty.f06.netty2.MyDataInfo2.Dog) dataBody_);
+        output.writeMessage(3, (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog) dataBody_);
       }
       if (dataBodyCase_ == 4) {
-        output.writeMessage(4, (com.netty.f06.netty2.MyDataInfo2.Cat) dataBody_);
+        output.writeMessage(4, (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat) dataBody_);
       }
       unknownFields.writeTo(output);
     }
@@ -474,15 +474,15 @@ public final class MyDataInfo2 {
       }
       if (dataBodyCase_ == 2) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, (com.netty.f06.netty2.MyDataInfo2.Person) dataBody_);
+          .computeMessageSize(2, (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person) dataBody_);
       }
       if (dataBodyCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, (com.netty.f06.netty2.MyDataInfo2.Dog) dataBody_);
+          .computeMessageSize(3, (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog) dataBody_);
       }
       if (dataBodyCase_ == 4) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, (com.netty.f06.netty2.MyDataInfo2.Cat) dataBody_);
+          .computeMessageSize(4, (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat) dataBody_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -494,10 +494,10 @@ public final class MyDataInfo2 {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.netty.f06.netty2.MyDataInfo2.MyMessage)) {
+      if (!(obj instanceof com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage)) {
         return super.equals(obj);
       }
-      com.netty.f06.netty2.MyDataInfo2.MyMessage other = (com.netty.f06.netty2.MyDataInfo2.MyMessage) obj;
+      com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage other = (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage) obj;
 
       if (hasDataType() != other.hasDataType()) return false;
       if (hasDataType()) {
@@ -556,69 +556,69 @@ public final class MyDataInfo2 {
       return hash;
     }
 
-    public static com.netty.f06.netty2.MyDataInfo2.MyMessage parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.MyMessage parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.MyMessage parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.MyMessage parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.MyMessage parseFrom(byte[] data)
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.MyMessage parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.MyMessage parseFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.MyMessage parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.MyMessage parseDelimitedFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.MyMessage parseDelimitedFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.MyMessage parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.MyMessage parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -631,7 +631,7 @@ public final class MyDataInfo2 {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.netty.f06.netty2.MyDataInfo2.MyMessage prototype) {
+    public static Builder newBuilder(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @Override
@@ -647,26 +647,26 @@ public final class MyDataInfo2 {
       return builder;
     }
     /**
-     * Protobuf type {@code com.netty.f06.netty2.MyMessage}
+     * Protobuf type {@code com.yuzhou.netty.demo.f06.netty2.MyMessage}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.netty.f06.netty2.MyMessage)
-        com.netty.f06.netty2.MyDataInfo2.MyMessageOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.yuzhou.netty.demo.f06.netty2.MyMessage)
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_MyMessage_descriptor;
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_MyMessage_descriptor;
       }
 
       @Override
       protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_MyMessage_fieldAccessorTable
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_MyMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.netty.f06.netty2.MyDataInfo2.MyMessage.class, com.netty.f06.netty2.MyDataInfo2.MyMessage.Builder.class);
+                com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.class, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.Builder.class);
       }
 
-      // Construct using com.netty.f06.netty2.MyDataInfo2.MyMessage.newBuilder()
+      // Construct using com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -694,17 +694,17 @@ public final class MyDataInfo2 {
       @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_MyMessage_descriptor;
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_MyMessage_descriptor;
       }
 
       @Override
-      public com.netty.f06.netty2.MyDataInfo2.MyMessage getDefaultInstanceForType() {
-        return com.netty.f06.netty2.MyDataInfo2.MyMessage.getDefaultInstance();
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage getDefaultInstanceForType() {
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.getDefaultInstance();
       }
 
       @Override
-      public com.netty.f06.netty2.MyDataInfo2.MyMessage build() {
-        com.netty.f06.netty2.MyDataInfo2.MyMessage result = buildPartial();
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage build() {
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -712,8 +712,8 @@ public final class MyDataInfo2 {
       }
 
       @Override
-      public com.netty.f06.netty2.MyDataInfo2.MyMessage buildPartial() {
-        com.netty.f06.netty2.MyDataInfo2.MyMessage result = new com.netty.f06.netty2.MyDataInfo2.MyMessage(this);
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage buildPartial() {
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage result = new com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
@@ -781,16 +781,16 @@ public final class MyDataInfo2 {
       }
       @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.netty.f06.netty2.MyDataInfo2.MyMessage) {
-          return mergeFrom((com.netty.f06.netty2.MyDataInfo2.MyMessage)other);
+        if (other instanceof com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage) {
+          return mergeFrom((com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.netty.f06.netty2.MyDataInfo2.MyMessage other) {
-        if (other == com.netty.f06.netty2.MyDataInfo2.MyMessage.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage other) {
+        if (other == com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.getDefaultInstance()) return this;
         if (other.hasDataType()) {
           setDataType(other.getDataType());
         }
@@ -829,11 +829,11 @@ public final class MyDataInfo2 {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.netty.f06.netty2.MyDataInfo2.MyMessage parsedMessage = null;
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.netty.f06.netty2.MyDataInfo2.MyMessage) e.getUnfinishedMessage();
+          parsedMessage = (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -861,23 +861,23 @@ public final class MyDataInfo2 {
 
       private int dataType_ = 1;
       /**
-       * <code>required .com.netty.f06.netty2.MyMessage.DataType data_type = 1;</code>
+       * <code>required .com.yuzhou.netty.demo.f06.netty2.MyMessage.DataType data_type = 1;</code>
        */
       public boolean hasDataType() {
         return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>required .com.netty.f06.netty2.MyMessage.DataType data_type = 1;</code>
+       * <code>required .com.yuzhou.netty.demo.f06.netty2.MyMessage.DataType data_type = 1;</code>
        */
-      public com.netty.f06.netty2.MyDataInfo2.MyMessage.DataType getDataType() {
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.DataType getDataType() {
         @SuppressWarnings("deprecation")
-        com.netty.f06.netty2.MyDataInfo2.MyMessage.DataType result = com.netty.f06.netty2.MyDataInfo2.MyMessage.DataType.valueOf(dataType_);
-        return result == null ? com.netty.f06.netty2.MyDataInfo2.MyMessage.DataType.PersonType : result;
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.DataType result = com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.DataType.valueOf(dataType_);
+        return result == null ? com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.DataType.PersonType : result;
       }
       /**
-       * <code>required .com.netty.f06.netty2.MyMessage.DataType data_type = 1;</code>
+       * <code>required .com.yuzhou.netty.demo.f06.netty2.MyMessage.DataType data_type = 1;</code>
        */
-      public Builder setDataType(com.netty.f06.netty2.MyDataInfo2.MyMessage.DataType value) {
+      public Builder setDataType(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage.DataType value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -887,7 +887,7 @@ public final class MyDataInfo2 {
         return this;
       }
       /**
-       * <code>required .com.netty.f06.netty2.MyMessage.DataType data_type = 1;</code>
+       * <code>required .com.yuzhou.netty.demo.f06.netty2.MyMessage.DataType data_type = 1;</code>
        */
       public Builder clearDataType() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -897,33 +897,33 @@ public final class MyDataInfo2 {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.netty.f06.netty2.MyDataInfo2.Person, com.netty.f06.netty2.MyDataInfo2.Person.Builder, com.netty.f06.netty2.MyDataInfo2.PersonOrBuilder> personBuilder_;
+          com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.Builder, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.PersonOrBuilder> personBuilder_;
       /**
-       * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
        */
       public boolean hasPerson() {
         return dataBodyCase_ == 2;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
        */
-      public com.netty.f06.netty2.MyDataInfo2.Person getPerson() {
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person getPerson() {
         if (personBuilder_ == null) {
           if (dataBodyCase_ == 2) {
-            return (com.netty.f06.netty2.MyDataInfo2.Person) dataBody_;
+            return (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person) dataBody_;
           }
-          return com.netty.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
+          return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
         } else {
           if (dataBodyCase_ == 2) {
             return personBuilder_.getMessage();
           }
-          return com.netty.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
+          return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
        */
-      public Builder setPerson(com.netty.f06.netty2.MyDataInfo2.Person value) {
+      public Builder setPerson(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person value) {
         if (personBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -937,10 +937,10 @@ public final class MyDataInfo2 {
         return this;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
        */
       public Builder setPerson(
-          com.netty.f06.netty2.MyDataInfo2.Person.Builder builderForValue) {
+          com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.Builder builderForValue) {
         if (personBuilder_ == null) {
           dataBody_ = builderForValue.build();
           onChanged();
@@ -951,13 +951,13 @@ public final class MyDataInfo2 {
         return this;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
        */
-      public Builder mergePerson(com.netty.f06.netty2.MyDataInfo2.Person value) {
+      public Builder mergePerson(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person value) {
         if (personBuilder_ == null) {
           if (dataBodyCase_ == 2 &&
-              dataBody_ != com.netty.f06.netty2.MyDataInfo2.Person.getDefaultInstance()) {
-            dataBody_ = com.netty.f06.netty2.MyDataInfo2.Person.newBuilder((com.netty.f06.netty2.MyDataInfo2.Person) dataBody_)
+              dataBody_ != com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.getDefaultInstance()) {
+            dataBody_ = com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.newBuilder((com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person) dataBody_)
                 .mergeFrom(value).buildPartial();
           } else {
             dataBody_ = value;
@@ -973,7 +973,7 @@ public final class MyDataInfo2 {
         return this;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
        */
       public Builder clearPerson() {
         if (personBuilder_ == null) {
@@ -992,37 +992,37 @@ public final class MyDataInfo2 {
         return this;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
        */
-      public com.netty.f06.netty2.MyDataInfo2.Person.Builder getPersonBuilder() {
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.Builder getPersonBuilder() {
         return getPersonFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
        */
-      public com.netty.f06.netty2.MyDataInfo2.PersonOrBuilder getPersonOrBuilder() {
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.PersonOrBuilder getPersonOrBuilder() {
         if ((dataBodyCase_ == 2) && (personBuilder_ != null)) {
           return personBuilder_.getMessageOrBuilder();
         } else {
           if (dataBodyCase_ == 2) {
-            return (com.netty.f06.netty2.MyDataInfo2.Person) dataBody_;
+            return (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person) dataBody_;
           }
-          return com.netty.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
+          return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Person person = 2;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Person person = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.netty.f06.netty2.MyDataInfo2.Person, com.netty.f06.netty2.MyDataInfo2.Person.Builder, com.netty.f06.netty2.MyDataInfo2.PersonOrBuilder>
+          com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.Builder, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.PersonOrBuilder>
           getPersonFieldBuilder() {
         if (personBuilder_ == null) {
           if (!(dataBodyCase_ == 2)) {
-            dataBody_ = com.netty.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
+            dataBody_ = com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
           }
           personBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.netty.f06.netty2.MyDataInfo2.Person, com.netty.f06.netty2.MyDataInfo2.Person.Builder, com.netty.f06.netty2.MyDataInfo2.PersonOrBuilder>(
-                  (com.netty.f06.netty2.MyDataInfo2.Person) dataBody_,
+              com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.Builder, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.PersonOrBuilder>(
+                  (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person) dataBody_,
                   getParentForChildren(),
                   isClean());
           dataBody_ = null;
@@ -1033,33 +1033,33 @@ public final class MyDataInfo2 {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.netty.f06.netty2.MyDataInfo2.Dog, com.netty.f06.netty2.MyDataInfo2.Dog.Builder, com.netty.f06.netty2.MyDataInfo2.DogOrBuilder> dogBuilder_;
+          com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.Builder, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.DogOrBuilder> dogBuilder_;
       /**
-       * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
        */
       public boolean hasDog() {
         return dataBodyCase_ == 3;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
        */
-      public com.netty.f06.netty2.MyDataInfo2.Dog getDog() {
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog getDog() {
         if (dogBuilder_ == null) {
           if (dataBodyCase_ == 3) {
-            return (com.netty.f06.netty2.MyDataInfo2.Dog) dataBody_;
+            return (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog) dataBody_;
           }
-          return com.netty.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
+          return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
         } else {
           if (dataBodyCase_ == 3) {
             return dogBuilder_.getMessage();
           }
-          return com.netty.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
+          return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
        */
-      public Builder setDog(com.netty.f06.netty2.MyDataInfo2.Dog value) {
+      public Builder setDog(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog value) {
         if (dogBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1073,10 +1073,10 @@ public final class MyDataInfo2 {
         return this;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
        */
       public Builder setDog(
-          com.netty.f06.netty2.MyDataInfo2.Dog.Builder builderForValue) {
+          com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.Builder builderForValue) {
         if (dogBuilder_ == null) {
           dataBody_ = builderForValue.build();
           onChanged();
@@ -1087,13 +1087,13 @@ public final class MyDataInfo2 {
         return this;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
        */
-      public Builder mergeDog(com.netty.f06.netty2.MyDataInfo2.Dog value) {
+      public Builder mergeDog(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog value) {
         if (dogBuilder_ == null) {
           if (dataBodyCase_ == 3 &&
-              dataBody_ != com.netty.f06.netty2.MyDataInfo2.Dog.getDefaultInstance()) {
-            dataBody_ = com.netty.f06.netty2.MyDataInfo2.Dog.newBuilder((com.netty.f06.netty2.MyDataInfo2.Dog) dataBody_)
+              dataBody_ != com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.getDefaultInstance()) {
+            dataBody_ = com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.newBuilder((com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog) dataBody_)
                 .mergeFrom(value).buildPartial();
           } else {
             dataBody_ = value;
@@ -1109,7 +1109,7 @@ public final class MyDataInfo2 {
         return this;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
        */
       public Builder clearDog() {
         if (dogBuilder_ == null) {
@@ -1128,37 +1128,37 @@ public final class MyDataInfo2 {
         return this;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
        */
-      public com.netty.f06.netty2.MyDataInfo2.Dog.Builder getDogBuilder() {
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.Builder getDogBuilder() {
         return getDogFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
        */
-      public com.netty.f06.netty2.MyDataInfo2.DogOrBuilder getDogOrBuilder() {
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.DogOrBuilder getDogOrBuilder() {
         if ((dataBodyCase_ == 3) && (dogBuilder_ != null)) {
           return dogBuilder_.getMessageOrBuilder();
         } else {
           if (dataBodyCase_ == 3) {
-            return (com.netty.f06.netty2.MyDataInfo2.Dog) dataBody_;
+            return (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog) dataBody_;
           }
-          return com.netty.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
+          return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Dog dog = 3;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Dog dog = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.netty.f06.netty2.MyDataInfo2.Dog, com.netty.f06.netty2.MyDataInfo2.Dog.Builder, com.netty.f06.netty2.MyDataInfo2.DogOrBuilder>
+          com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.Builder, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.DogOrBuilder>
           getDogFieldBuilder() {
         if (dogBuilder_ == null) {
           if (!(dataBodyCase_ == 3)) {
-            dataBody_ = com.netty.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
+            dataBody_ = com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
           }
           dogBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.netty.f06.netty2.MyDataInfo2.Dog, com.netty.f06.netty2.MyDataInfo2.Dog.Builder, com.netty.f06.netty2.MyDataInfo2.DogOrBuilder>(
-                  (com.netty.f06.netty2.MyDataInfo2.Dog) dataBody_,
+              com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.Builder, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.DogOrBuilder>(
+                  (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog) dataBody_,
                   getParentForChildren(),
                   isClean());
           dataBody_ = null;
@@ -1169,33 +1169,33 @@ public final class MyDataInfo2 {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.netty.f06.netty2.MyDataInfo2.Cat, com.netty.f06.netty2.MyDataInfo2.Cat.Builder, com.netty.f06.netty2.MyDataInfo2.CatOrBuilder> catBuilder_;
+          com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.Builder, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.CatOrBuilder> catBuilder_;
       /**
-       * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
        */
       public boolean hasCat() {
         return dataBodyCase_ == 4;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
        */
-      public com.netty.f06.netty2.MyDataInfo2.Cat getCat() {
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat getCat() {
         if (catBuilder_ == null) {
           if (dataBodyCase_ == 4) {
-            return (com.netty.f06.netty2.MyDataInfo2.Cat) dataBody_;
+            return (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat) dataBody_;
           }
-          return com.netty.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
+          return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
         } else {
           if (dataBodyCase_ == 4) {
             return catBuilder_.getMessage();
           }
-          return com.netty.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
+          return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
        */
-      public Builder setCat(com.netty.f06.netty2.MyDataInfo2.Cat value) {
+      public Builder setCat(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat value) {
         if (catBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1209,10 +1209,10 @@ public final class MyDataInfo2 {
         return this;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
        */
       public Builder setCat(
-          com.netty.f06.netty2.MyDataInfo2.Cat.Builder builderForValue) {
+          com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.Builder builderForValue) {
         if (catBuilder_ == null) {
           dataBody_ = builderForValue.build();
           onChanged();
@@ -1223,13 +1223,13 @@ public final class MyDataInfo2 {
         return this;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
        */
-      public Builder mergeCat(com.netty.f06.netty2.MyDataInfo2.Cat value) {
+      public Builder mergeCat(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat value) {
         if (catBuilder_ == null) {
           if (dataBodyCase_ == 4 &&
-              dataBody_ != com.netty.f06.netty2.MyDataInfo2.Cat.getDefaultInstance()) {
-            dataBody_ = com.netty.f06.netty2.MyDataInfo2.Cat.newBuilder((com.netty.f06.netty2.MyDataInfo2.Cat) dataBody_)
+              dataBody_ != com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.getDefaultInstance()) {
+            dataBody_ = com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.newBuilder((com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat) dataBody_)
                 .mergeFrom(value).buildPartial();
           } else {
             dataBody_ = value;
@@ -1245,7 +1245,7 @@ public final class MyDataInfo2 {
         return this;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
        */
       public Builder clearCat() {
         if (catBuilder_ == null) {
@@ -1264,37 +1264,37 @@ public final class MyDataInfo2 {
         return this;
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
        */
-      public com.netty.f06.netty2.MyDataInfo2.Cat.Builder getCatBuilder() {
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.Builder getCatBuilder() {
         return getCatFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
        */
-      public com.netty.f06.netty2.MyDataInfo2.CatOrBuilder getCatOrBuilder() {
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.CatOrBuilder getCatOrBuilder() {
         if ((dataBodyCase_ == 4) && (catBuilder_ != null)) {
           return catBuilder_.getMessageOrBuilder();
         } else {
           if (dataBodyCase_ == 4) {
-            return (com.netty.f06.netty2.MyDataInfo2.Cat) dataBody_;
+            return (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat) dataBody_;
           }
-          return com.netty.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
+          return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .com.netty.f06.netty2.Cat cat = 4;</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.netty2.Cat cat = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.netty.f06.netty2.MyDataInfo2.Cat, com.netty.f06.netty2.MyDataInfo2.Cat.Builder, com.netty.f06.netty2.MyDataInfo2.CatOrBuilder>
+          com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.Builder, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.CatOrBuilder>
           getCatFieldBuilder() {
         if (catBuilder_ == null) {
           if (!(dataBodyCase_ == 4)) {
-            dataBody_ = com.netty.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
+            dataBody_ = com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
           }
           catBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.netty.f06.netty2.MyDataInfo2.Cat, com.netty.f06.netty2.MyDataInfo2.Cat.Builder, com.netty.f06.netty2.MyDataInfo2.CatOrBuilder>(
-                  (com.netty.f06.netty2.MyDataInfo2.Cat) dataBody_,
+              com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.Builder, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.CatOrBuilder>(
+                  (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat) dataBody_,
                   getParentForChildren(),
                   isClean());
           dataBody_ = null;
@@ -1316,16 +1316,16 @@ public final class MyDataInfo2 {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.netty.f06.netty2.MyMessage)
+      // @@protoc_insertion_point(builder_scope:com.yuzhou.netty.demo.f06.netty2.MyMessage)
     }
 
-    // @@protoc_insertion_point(class_scope:com.netty.f06.netty2.MyMessage)
-    private static final com.netty.f06.netty2.MyDataInfo2.MyMessage DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.yuzhou.netty.demo.f06.netty2.MyMessage)
+    private static final com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.netty.f06.netty2.MyDataInfo2.MyMessage();
+      DEFAULT_INSTANCE = new com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage();
     }
 
-    public static com.netty.f06.netty2.MyDataInfo2.MyMessage getDefaultInstance() {
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1350,14 +1350,14 @@ public final class MyDataInfo2 {
     }
 
     @Override
-    public com.netty.f06.netty2.MyDataInfo2.MyMessage getDefaultInstanceForType() {
+    public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.MyMessage getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface PersonOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.netty.f06.netty2.Person)
+      // @@protoc_insertion_point(interface_extends:com.yuzhou.netty.demo.f06.netty2.Person)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1398,11 +1398,11 @@ public final class MyDataInfo2 {
         getAddressBytes();
   }
   /**
-   * Protobuf type {@code com.netty.f06.netty2.Person}
+   * Protobuf type {@code com.yuzhou.netty.demo.f06.netty2.Person}
    */
   public  static final class Person extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.netty.f06.netty2.Person)
+      // @@protoc_insertion_point(message_implements:com.yuzhou.netty.demo.f06.netty2.Person)
       PersonOrBuilder {
   private static final long serialVersionUID = 0L;
     // Use Person.newBuilder() to construct.
@@ -1476,15 +1476,15 @@ public final class MyDataInfo2 {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Person_descriptor;
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Person_descriptor;
     }
 
     @Override
     protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Person_fieldAccessorTable
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Person_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.netty.f06.netty2.MyDataInfo2.Person.class, com.netty.f06.netty2.MyDataInfo2.Person.Builder.class);
+              com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.class, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.Builder.class);
     }
 
     private int bitField0_;
@@ -1639,10 +1639,10 @@ public final class MyDataInfo2 {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.netty.f06.netty2.MyDataInfo2.Person)) {
+      if (!(obj instanceof com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person)) {
         return super.equals(obj);
       }
-      com.netty.f06.netty2.MyDataInfo2.Person other = (com.netty.f06.netty2.MyDataInfo2.Person) obj;
+      com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person other = (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person) obj;
 
       if (hasName() != other.hasName()) return false;
       if (hasName()) {
@@ -1687,69 +1687,69 @@ public final class MyDataInfo2 {
       return hash;
     }
 
-    public static com.netty.f06.netty2.MyDataInfo2.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Person parseFrom(byte[] data)
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Person parseFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Person parseDelimitedFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Person parseDelimitedFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1762,7 +1762,7 @@ public final class MyDataInfo2 {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.netty.f06.netty2.MyDataInfo2.Person prototype) {
+    public static Builder newBuilder(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @Override
@@ -1778,26 +1778,26 @@ public final class MyDataInfo2 {
       return builder;
     }
     /**
-     * Protobuf type {@code com.netty.f06.netty2.Person}
+     * Protobuf type {@code com.yuzhou.netty.demo.f06.netty2.Person}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.netty.f06.netty2.Person)
-        com.netty.f06.netty2.MyDataInfo2.PersonOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.yuzhou.netty.demo.f06.netty2.Person)
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.PersonOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Person_descriptor;
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Person_descriptor;
       }
 
       @Override
       protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Person_fieldAccessorTable
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Person_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.netty.f06.netty2.MyDataInfo2.Person.class, com.netty.f06.netty2.MyDataInfo2.Person.Builder.class);
+                com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.class, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.Builder.class);
       }
 
-      // Construct using com.netty.f06.netty2.MyDataInfo2.Person.newBuilder()
+      // Construct using com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1827,17 +1827,17 @@ public final class MyDataInfo2 {
       @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Person_descriptor;
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Person_descriptor;
       }
 
       @Override
-      public com.netty.f06.netty2.MyDataInfo2.Person getDefaultInstanceForType() {
-        return com.netty.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person getDefaultInstanceForType() {
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.getDefaultInstance();
       }
 
       @Override
-      public com.netty.f06.netty2.MyDataInfo2.Person build() {
-        com.netty.f06.netty2.MyDataInfo2.Person result = buildPartial();
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person build() {
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1845,8 +1845,8 @@ public final class MyDataInfo2 {
       }
 
       @Override
-      public com.netty.f06.netty2.MyDataInfo2.Person buildPartial() {
-        com.netty.f06.netty2.MyDataInfo2.Person result = new com.netty.f06.netty2.MyDataInfo2.Person(this);
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person buildPartial() {
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person result = new com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
@@ -1900,16 +1900,16 @@ public final class MyDataInfo2 {
       }
       @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.netty.f06.netty2.MyDataInfo2.Person) {
-          return mergeFrom((com.netty.f06.netty2.MyDataInfo2.Person)other);
+        if (other instanceof com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person) {
+          return mergeFrom((com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.netty.f06.netty2.MyDataInfo2.Person other) {
-        if (other == com.netty.f06.netty2.MyDataInfo2.Person.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person other) {
+        if (other == com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person.getDefaultInstance()) return this;
         if (other.hasName()) {
           bitField0_ |= 0x00000001;
           name_ = other.name_;
@@ -1938,11 +1938,11 @@ public final class MyDataInfo2 {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.netty.f06.netty2.MyDataInfo2.Person parsedMessage = null;
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.netty.f06.netty2.MyDataInfo2.Person) e.getUnfinishedMessage();
+          parsedMessage = (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2149,16 +2149,16 @@ public final class MyDataInfo2 {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.netty.f06.netty2.Person)
+      // @@protoc_insertion_point(builder_scope:com.yuzhou.netty.demo.f06.netty2.Person)
     }
 
-    // @@protoc_insertion_point(class_scope:com.netty.f06.netty2.Person)
-    private static final com.netty.f06.netty2.MyDataInfo2.Person DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.yuzhou.netty.demo.f06.netty2.Person)
+    private static final com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.netty.f06.netty2.MyDataInfo2.Person();
+      DEFAULT_INSTANCE = new com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person();
     }
 
-    public static com.netty.f06.netty2.MyDataInfo2.Person getDefaultInstance() {
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2183,14 +2183,14 @@ public final class MyDataInfo2 {
     }
 
     @Override
-    public com.netty.f06.netty2.MyDataInfo2.Person getDefaultInstanceForType() {
+    public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Person getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface DogOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.netty.f06.netty2.Dog)
+      // @@protoc_insertion_point(interface_extends:com.yuzhou.netty.demo.f06.netty2.Dog)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2217,11 +2217,11 @@ public final class MyDataInfo2 {
     int getAge();
   }
   /**
-   * Protobuf type {@code com.netty.f06.netty2.Dog}
+   * Protobuf type {@code com.yuzhou.netty.demo.f06.netty2.Dog}
    */
   public  static final class Dog extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.netty.f06.netty2.Dog)
+      // @@protoc_insertion_point(message_implements:com.yuzhou.netty.demo.f06.netty2.Dog)
       DogOrBuilder {
   private static final long serialVersionUID = 0L;
     // Use Dog.newBuilder() to construct.
@@ -2288,15 +2288,15 @@ public final class MyDataInfo2 {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Dog_descriptor;
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Dog_descriptor;
     }
 
     @Override
     protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Dog_fieldAccessorTable
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Dog_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.netty.f06.netty2.MyDataInfo2.Dog.class, com.netty.f06.netty2.MyDataInfo2.Dog.Builder.class);
+              com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.class, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.Builder.class);
     }
 
     private int bitField0_;
@@ -2403,10 +2403,10 @@ public final class MyDataInfo2 {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.netty.f06.netty2.MyDataInfo2.Dog)) {
+      if (!(obj instanceof com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog)) {
         return super.equals(obj);
       }
-      com.netty.f06.netty2.MyDataInfo2.Dog other = (com.netty.f06.netty2.MyDataInfo2.Dog) obj;
+      com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog other = (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog) obj;
 
       if (hasName() != other.hasName()) return false;
       if (hasName()) {
@@ -2442,69 +2442,69 @@ public final class MyDataInfo2 {
       return hash;
     }
 
-    public static com.netty.f06.netty2.MyDataInfo2.Dog parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Dog parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Dog parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Dog parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Dog parseFrom(byte[] data)
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Dog parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Dog parseFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Dog parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Dog parseDelimitedFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Dog parseDelimitedFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Dog parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Dog parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2517,7 +2517,7 @@ public final class MyDataInfo2 {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.netty.f06.netty2.MyDataInfo2.Dog prototype) {
+    public static Builder newBuilder(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @Override
@@ -2533,26 +2533,26 @@ public final class MyDataInfo2 {
       return builder;
     }
     /**
-     * Protobuf type {@code com.netty.f06.netty2.Dog}
+     * Protobuf type {@code com.yuzhou.netty.demo.f06.netty2.Dog}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.netty.f06.netty2.Dog)
-        com.netty.f06.netty2.MyDataInfo2.DogOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.yuzhou.netty.demo.f06.netty2.Dog)
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.DogOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Dog_descriptor;
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Dog_descriptor;
       }
 
       @Override
       protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Dog_fieldAccessorTable
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Dog_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.netty.f06.netty2.MyDataInfo2.Dog.class, com.netty.f06.netty2.MyDataInfo2.Dog.Builder.class);
+                com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.class, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.Builder.class);
       }
 
-      // Construct using com.netty.f06.netty2.MyDataInfo2.Dog.newBuilder()
+      // Construct using com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2580,17 +2580,17 @@ public final class MyDataInfo2 {
       @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Dog_descriptor;
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Dog_descriptor;
       }
 
       @Override
-      public com.netty.f06.netty2.MyDataInfo2.Dog getDefaultInstanceForType() {
-        return com.netty.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog getDefaultInstanceForType() {
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.getDefaultInstance();
       }
 
       @Override
-      public com.netty.f06.netty2.MyDataInfo2.Dog build() {
-        com.netty.f06.netty2.MyDataInfo2.Dog result = buildPartial();
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog build() {
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -2598,8 +2598,8 @@ public final class MyDataInfo2 {
       }
 
       @Override
-      public com.netty.f06.netty2.MyDataInfo2.Dog buildPartial() {
-        com.netty.f06.netty2.MyDataInfo2.Dog result = new com.netty.f06.netty2.MyDataInfo2.Dog(this);
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog buildPartial() {
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog result = new com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
@@ -2649,16 +2649,16 @@ public final class MyDataInfo2 {
       }
       @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.netty.f06.netty2.MyDataInfo2.Dog) {
-          return mergeFrom((com.netty.f06.netty2.MyDataInfo2.Dog)other);
+        if (other instanceof com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog) {
+          return mergeFrom((com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.netty.f06.netty2.MyDataInfo2.Dog other) {
-        if (other == com.netty.f06.netty2.MyDataInfo2.Dog.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog other) {
+        if (other == com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog.getDefaultInstance()) return this;
         if (other.hasName()) {
           bitField0_ |= 0x00000001;
           name_ = other.name_;
@@ -2682,11 +2682,11 @@ public final class MyDataInfo2 {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.netty.f06.netty2.MyDataInfo2.Dog parsedMessage = null;
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.netty.f06.netty2.MyDataInfo2.Dog) e.getUnfinishedMessage();
+          parsedMessage = (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2817,16 +2817,16 @@ public final class MyDataInfo2 {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.netty.f06.netty2.Dog)
+      // @@protoc_insertion_point(builder_scope:com.yuzhou.netty.demo.f06.netty2.Dog)
     }
 
-    // @@protoc_insertion_point(class_scope:com.netty.f06.netty2.Dog)
-    private static final com.netty.f06.netty2.MyDataInfo2.Dog DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.yuzhou.netty.demo.f06.netty2.Dog)
+    private static final com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.netty.f06.netty2.MyDataInfo2.Dog();
+      DEFAULT_INSTANCE = new com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog();
     }
 
-    public static com.netty.f06.netty2.MyDataInfo2.Dog getDefaultInstance() {
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2851,14 +2851,14 @@ public final class MyDataInfo2 {
     }
 
     @Override
-    public com.netty.f06.netty2.MyDataInfo2.Dog getDefaultInstanceForType() {
+    public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Dog getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface CatOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.netty.f06.netty2.Cat)
+      // @@protoc_insertion_point(interface_extends:com.yuzhou.netty.demo.f06.netty2.Cat)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2890,11 +2890,11 @@ public final class MyDataInfo2 {
         getCityBytes();
   }
   /**
-   * Protobuf type {@code com.netty.f06.netty2.Cat}
+   * Protobuf type {@code com.yuzhou.netty.demo.f06.netty2.Cat}
    */
   public  static final class Cat extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.netty.f06.netty2.Cat)
+      // @@protoc_insertion_point(message_implements:com.yuzhou.netty.demo.f06.netty2.Cat)
       CatOrBuilder {
   private static final long serialVersionUID = 0L;
     // Use Cat.newBuilder() to construct.
@@ -2963,15 +2963,15 @@ public final class MyDataInfo2 {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Cat_descriptor;
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Cat_descriptor;
     }
 
     @Override
     protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Cat_fieldAccessorTable
+      return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Cat_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.netty.f06.netty2.MyDataInfo2.Cat.class, com.netty.f06.netty2.MyDataInfo2.Cat.Builder.class);
+              com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.class, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.Builder.class);
     }
 
     private int bitField0_;
@@ -3104,10 +3104,10 @@ public final class MyDataInfo2 {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.netty.f06.netty2.MyDataInfo2.Cat)) {
+      if (!(obj instanceof com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat)) {
         return super.equals(obj);
       }
-      com.netty.f06.netty2.MyDataInfo2.Cat other = (com.netty.f06.netty2.MyDataInfo2.Cat) obj;
+      com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat other = (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat) obj;
 
       if (hasName() != other.hasName()) return false;
       if (hasName()) {
@@ -3143,69 +3143,69 @@ public final class MyDataInfo2 {
       return hash;
     }
 
-    public static com.netty.f06.netty2.MyDataInfo2.Cat parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Cat parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Cat parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Cat parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Cat parseFrom(byte[] data)
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Cat parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Cat parseFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Cat parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Cat parseDelimitedFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Cat parseDelimitedFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Cat parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.netty2.MyDataInfo2.Cat parseFrom(
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3218,7 +3218,7 @@ public final class MyDataInfo2 {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.netty.f06.netty2.MyDataInfo2.Cat prototype) {
+    public static Builder newBuilder(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @Override
@@ -3234,26 +3234,26 @@ public final class MyDataInfo2 {
       return builder;
     }
     /**
-     * Protobuf type {@code com.netty.f06.netty2.Cat}
+     * Protobuf type {@code com.yuzhou.netty.demo.f06.netty2.Cat}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.netty.f06.netty2.Cat)
-        com.netty.f06.netty2.MyDataInfo2.CatOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.yuzhou.netty.demo.f06.netty2.Cat)
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.CatOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Cat_descriptor;
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Cat_descriptor;
       }
 
       @Override
       protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Cat_fieldAccessorTable
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Cat_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.netty.f06.netty2.MyDataInfo2.Cat.class, com.netty.f06.netty2.MyDataInfo2.Cat.Builder.class);
+                com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.class, com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.Builder.class);
       }
 
-      // Construct using com.netty.f06.netty2.MyDataInfo2.Cat.newBuilder()
+      // Construct using com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -3281,17 +3281,17 @@ public final class MyDataInfo2 {
       @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.netty.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Cat_descriptor;
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.internal_static_com_netty_f06_netty2_Cat_descriptor;
       }
 
       @Override
-      public com.netty.f06.netty2.MyDataInfo2.Cat getDefaultInstanceForType() {
-        return com.netty.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat getDefaultInstanceForType() {
+        return com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.getDefaultInstance();
       }
 
       @Override
-      public com.netty.f06.netty2.MyDataInfo2.Cat build() {
-        com.netty.f06.netty2.MyDataInfo2.Cat result = buildPartial();
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat build() {
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -3299,8 +3299,8 @@ public final class MyDataInfo2 {
       }
 
       @Override
-      public com.netty.f06.netty2.MyDataInfo2.Cat buildPartial() {
-        com.netty.f06.netty2.MyDataInfo2.Cat result = new com.netty.f06.netty2.MyDataInfo2.Cat(this);
+      public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat buildPartial() {
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat result = new com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
@@ -3350,16 +3350,16 @@ public final class MyDataInfo2 {
       }
       @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.netty.f06.netty2.MyDataInfo2.Cat) {
-          return mergeFrom((com.netty.f06.netty2.MyDataInfo2.Cat)other);
+        if (other instanceof com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat) {
+          return mergeFrom((com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.netty.f06.netty2.MyDataInfo2.Cat other) {
-        if (other == com.netty.f06.netty2.MyDataInfo2.Cat.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat other) {
+        if (other == com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat.getDefaultInstance()) return this;
         if (other.hasName()) {
           bitField0_ |= 0x00000001;
           name_ = other.name_;
@@ -3385,11 +3385,11 @@ public final class MyDataInfo2 {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.netty.f06.netty2.MyDataInfo2.Cat parsedMessage = null;
+        com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.netty.f06.netty2.MyDataInfo2.Cat) e.getUnfinishedMessage();
+          parsedMessage = (com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3564,16 +3564,16 @@ public final class MyDataInfo2 {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.netty.f06.netty2.Cat)
+      // @@protoc_insertion_point(builder_scope:com.yuzhou.netty.demo.f06.netty2.Cat)
     }
 
-    // @@protoc_insertion_point(class_scope:com.netty.f06.netty2.Cat)
-    private static final com.netty.f06.netty2.MyDataInfo2.Cat DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.yuzhou.netty.demo.f06.netty2.Cat)
+    private static final com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.netty.f06.netty2.MyDataInfo2.Cat();
+      DEFAULT_INSTANCE = new com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat();
     }
 
-    public static com.netty.f06.netty2.MyDataInfo2.Cat getDefaultInstance() {
+    public static com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3598,7 +3598,7 @@ public final class MyDataInfo2 {
     }
 
     @Override
-    public com.netty.f06.netty2.MyDataInfo2.Cat getDefaultInstanceForType() {
+    public com.yuzhou.netty.demo.f06.netty2.MyDataInfo2.Cat getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3634,12 +3634,12 @@ public final class MyDataInfo2 {
   static {
     String[] descriptorData = {
       "\n/src/main/java/com/netty/f06/netty2/Per" +
-      "son.proto\022\024com.netty.f06.netty2\"\216\002\n\tMyMe" +
+      "son.proto\022\024com.yuzhou.netty.demo.f06.netty2\"\216\002\n\tMyMe" +
       "ssage\022;\n\tdata_type\030\001 \002(\0162(.com.netty.f06" +
       ".netty2.MyMessage.DataType\022.\n\006person\030\002 \001" +
-      "(\0132\034.com.netty.f06.netty2.PersonH\000\022(\n\003do" +
-      "g\030\003 \001(\0132\031.com.netty.f06.netty2.DogH\000\022(\n\003" +
-      "cat\030\004 \001(\0132\031.com.netty.f06.netty2.CatH\000\"4" +
+      "(\0132\034.com.yuzhou.netty.demo.f06.netty2.PersonH\000\022(\n\003do" +
+      "g\030\003 \001(\0132\031.com.yuzhou.netty.demo.f06.netty2.DogH\000\022(\n\003" +
+      "cat\030\004 \001(\0132\031.com.yuzhou.netty.demo.f06.netty2.CatH\000\"4" +
       "\n\010DataType\022\016\n\nPersonType\020\001\022\013\n\007DogType\020\002\022" +
       "\013\n\007CatType\020\003B\n\n\010dataBody\"4\n\006Person\022\014\n\004na" +
       "me\030\001 \001(\t\022\013\n\003age\030\002 \001(\005\022\017\n\007address\030\003 \001(\t\" " +

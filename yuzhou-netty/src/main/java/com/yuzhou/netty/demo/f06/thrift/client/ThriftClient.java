@@ -1,7 +1,7 @@
 package com.yuzhou.netty.demo.f06.thrift.client;
 
-import com.netty.f06.thrift.Person;
-import com.netty.f06.thrift.PersonService;
+import com.yuzhou.netty.demo.f06.thrift.Person;
+import com.yuzhou.netty.demo.f06.thrift.PersonService;
 import org.apache.thrift.protocol.TCompactProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TFramedTransport;

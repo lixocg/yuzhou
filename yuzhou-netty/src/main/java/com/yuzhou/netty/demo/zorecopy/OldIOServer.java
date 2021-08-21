@@ -1,12 +1,10 @@
 package com.yuzhou.netty.demo.zorecopy;
 
-import com.netty.BaseTest;
-
 import java.io.DataInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class OldIOServer extends BaseTest {
+public class OldIOServer {
     public static void main(String[] args) throws Exception{
         ServerSocket serverSocket = new ServerSocket(8899);
 
@@ -26,7 +24,7 @@ public class OldIOServer extends BaseTest {
                         break;
                     }
                 }
-                print("接受总字节数:{0}",totalCount);
+                System.out.println("接受总字节数:{0}"+totalCount);
             }catch (Exception e){
                 e.printStackTrace();
             }

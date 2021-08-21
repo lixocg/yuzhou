@@ -1,6 +1,5 @@
 package com.yuzhou.netty.demo.f07.nio;
 
-import com.netty.BaseTest;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -9,12 +8,13 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-public class NioTest12NioServer extends BaseTest {
+public class NioTest12NioServer  {
     private static Map<String, SocketChannel> clientMap = new HashMap<>();
 
     public static void main(String[] args) throws Exception {
@@ -59,7 +59,7 @@ public class NioTest12NioServer extends BaseTest {
 
                                 Charset charset = Charset.forName("utf-8");
                                 String receivedMessage = String.valueOf(charset.decode(readBuffer).array());
-                                print("{0} : {1}", client, receivedMessage);
+                                System.out.println(MessageFormat.format("{0} : {1}", client, receivedMessage));
 
                                 String senderKey = null;
                                 for (Map.Entry<String, SocketChannel> entry : clientMap.entrySet()) {

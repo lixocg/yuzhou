@@ -15,7 +15,7 @@ public final class AddressBookProtos {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface PersonOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.netty.f06.protobuf.Person)
+      // @@protoc_insertion_point(interface_extends:com.yuzhou.netty.demo.f06.protobuf.Person)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -56,35 +56,35 @@ public final class AddressBookProtos {
         getEmailBytes();
 
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
      */
-    java.util.List<com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber>
+    java.util.List<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber>
         getPhonesList();
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
      */
-    com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber getPhones(int index);
+    com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber getPhones(int index);
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
      */
     int getPhonesCount();
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
      */
-    java.util.List<? extends com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder>
+    java.util.List<? extends com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder>
         getPhonesOrBuilderList();
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
      */
-    com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder getPhonesOrBuilder(
+    com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder getPhonesOrBuilder(
         int index);
   }
   /**
-   * Protobuf type {@code com.netty.f06.protobuf.Person}
+   * Protobuf type {@code com.yuzhou.netty.demo.f06.protobuf.Person}
    */
   public  static final class Person extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.netty.f06.protobuf.Person)
+      // @@protoc_insertion_point(message_implements:com.yuzhou.netty.demo.f06.protobuf.Person)
       PersonOrBuilder {
   private static final long serialVersionUID = 0L;
     // Use Person.newBuilder() to construct.
@@ -140,11 +140,11 @@ public final class AddressBookProtos {
             }
             case 34: {
               if (!((mutable_bitField0_ & 0x00000008) != 0)) {
-                phones_ = new java.util.ArrayList<com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber>();
+                phones_ = new java.util.ArrayList<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber>();
                 mutable_bitField0_ |= 0x00000008;
               }
               phones_.add(
-                  input.readMessage(com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.PARSER, extensionRegistry));
+                  input.readMessage(com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.PARSER, extensionRegistry));
               break;
             }
             default: {
@@ -171,19 +171,19 @@ public final class AddressBookProtos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_descriptor;
+      return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_descriptor;
     }
 
     @Override
     protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_fieldAccessorTable
+      return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.netty.f06.protobuf.AddressBookProtos.Person.class, com.netty.f06.protobuf.AddressBookProtos.Person.Builder.class);
+              com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.class, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.Builder.class);
     }
 
     /**
-     * Protobuf enum {@code com.netty.f06.protobuf.Person.PhoneType}
+     * Protobuf enum {@code com.yuzhou.netty.demo.f06.protobuf.Person.PhoneType}
      */
     public enum PhoneType
         implements com.google.protobuf.ProtocolMessageEnum {
@@ -258,7 +258,7 @@ public final class AddressBookProtos {
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptor() {
-        return com.netty.f06.protobuf.AddressBookProtos.Person.getDescriptor().getEnumTypes().get(0);
+        return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.getDescriptor().getEnumTypes().get(0);
       }
 
       private static final PhoneType[] VALUES = values();
@@ -278,11 +278,11 @@ public final class AddressBookProtos {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:com.netty.f06.protobuf.Person.PhoneType)
+      // @@protoc_insertion_point(enum_scope:com.yuzhou.netty.demo.f06.protobuf.Person.PhoneType)
     }
 
     public interface PhoneNumberOrBuilder extends
-        // @@protoc_insertion_point(interface_extends:com.netty.f06.protobuf.Person.PhoneNumber)
+        // @@protoc_insertion_point(interface_extends:com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber)
         com.google.protobuf.MessageOrBuilder {
 
       /**
@@ -300,20 +300,20 @@ public final class AddressBookProtos {
           getNumberBytes();
 
       /**
-       * <code>optional .com.netty.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
        */
       boolean hasType();
       /**
-       * <code>optional .com.netty.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
        */
-      com.netty.f06.protobuf.AddressBookProtos.Person.PhoneType getType();
+      com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneType getType();
     }
     /**
-     * Protobuf type {@code com.netty.f06.protobuf.Person.PhoneNumber}
+     * Protobuf type {@code com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber}
      */
     public  static final class PhoneNumber extends
         com.google.protobuf.GeneratedMessageV3 implements
-        // @@protoc_insertion_point(message_implements:com.netty.f06.protobuf.Person.PhoneNumber)
+        // @@protoc_insertion_point(message_implements:com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber)
         PhoneNumberOrBuilder {
     private static final long serialVersionUID = 0L;
       // Use PhoneNumber.newBuilder() to construct.
@@ -358,7 +358,7 @@ public final class AddressBookProtos {
               case 16: {
                 int rawValue = input.readEnum();
                   @SuppressWarnings("deprecation")
-                com.netty.f06.protobuf.AddressBookProtos.Person.PhoneType value = com.netty.f06.protobuf.AddressBookProtos.Person.PhoneType.valueOf(rawValue);
+                com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneType value = com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneType.valueOf(rawValue);
                 if (value == null) {
                   unknownFields.mergeVarintField(2, rawValue);
                 } else {
@@ -388,15 +388,15 @@ public final class AddressBookProtos {
       }
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_PhoneNumber_descriptor;
+        return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_PhoneNumber_descriptor;
       }
 
       @Override
       protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_PhoneNumber_fieldAccessorTable
+        return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_PhoneNumber_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.class, com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder.class);
+                com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.class, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder.class);
       }
 
       private int bitField0_;
@@ -445,18 +445,18 @@ public final class AddressBookProtos {
       public static final int TYPE_FIELD_NUMBER = 2;
       private int type_;
       /**
-       * <code>optional .com.netty.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
        */
       public boolean hasType() {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>optional .com.netty.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
+       * <code>optional .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
        */
-      public com.netty.f06.protobuf.AddressBookProtos.Person.PhoneType getType() {
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneType getType() {
         @SuppressWarnings("deprecation")
-        com.netty.f06.protobuf.AddressBookProtos.Person.PhoneType result = com.netty.f06.protobuf.AddressBookProtos.Person.PhoneType.valueOf(type_);
-        return result == null ? com.netty.f06.protobuf.AddressBookProtos.Person.PhoneType.HOME : result;
+        com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneType result = com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneType.valueOf(type_);
+        return result == null ? com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneType.HOME : result;
       }
 
       private byte memoizedIsInitialized = -1;
@@ -509,10 +509,10 @@ public final class AddressBookProtos {
         if (obj == this) {
          return true;
         }
-        if (!(obj instanceof com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber)) {
+        if (!(obj instanceof com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber)) {
           return super.equals(obj);
         }
-        com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber other = (com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber) obj;
+        com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber other = (com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber) obj;
 
         if (hasNumber() != other.hasNumber()) return false;
         if (hasNumber()) {
@@ -547,69 +547,69 @@ public final class AddressBookProtos {
         return hash;
       }
 
-      public static com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
+      public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
           java.nio.ByteBuffer data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
       }
-      public static com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
+      public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
           java.nio.ByteBuffer data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
       }
-      public static com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
+      public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
           com.google.protobuf.ByteString data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
       }
-      public static com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
+      public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
           com.google.protobuf.ByteString data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
       }
-      public static com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(byte[] data)
+      public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(byte[] data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data);
       }
-      public static com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
+      public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
           byte[] data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return PARSER.parseFrom(data, extensionRegistry);
       }
-      public static com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(java.io.InputStream input)
+      public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(java.io.InputStream input)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseWithIOException(PARSER, input);
       }
-      public static com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
+      public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseWithIOException(PARSER, input, extensionRegistry);
       }
-      public static com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseDelimitedFrom(java.io.InputStream input)
+      public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseDelimitedFrom(java.io.InputStream input)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseDelimitedWithIOException(PARSER, input);
       }
-      public static com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseDelimitedFrom(
+      public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseDelimitedFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
       }
-      public static com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
+      public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
           com.google.protobuf.CodedInputStream input)
           throws java.io.IOException {
         return com.google.protobuf.GeneratedMessageV3
             .parseWithIOException(PARSER, input);
       }
-      public static com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
+      public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber parseFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
@@ -622,7 +622,7 @@ public final class AddressBookProtos {
       public static Builder newBuilder() {
         return DEFAULT_INSTANCE.toBuilder();
       }
-      public static Builder newBuilder(com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber prototype) {
+      public static Builder newBuilder(com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber prototype) {
         return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
       }
       @Override
@@ -638,26 +638,26 @@ public final class AddressBookProtos {
         return builder;
       }
       /**
-       * Protobuf type {@code com.netty.f06.protobuf.Person.PhoneNumber}
+       * Protobuf type {@code com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber}
        */
       public static final class Builder extends
           com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-          // @@protoc_insertion_point(builder_implements:com.netty.f06.protobuf.Person.PhoneNumber)
-          com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder {
+          // @@protoc_insertion_point(builder_implements:com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber)
+          com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder {
         public static final com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
-          return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_PhoneNumber_descriptor;
+          return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_PhoneNumber_descriptor;
         }
 
         @Override
         protected FieldAccessorTable
             internalGetFieldAccessorTable() {
-          return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_PhoneNumber_fieldAccessorTable
+          return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_PhoneNumber_fieldAccessorTable
               .ensureFieldAccessorsInitialized(
-                  com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.class, com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder.class);
+                  com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.class, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder.class);
         }
 
-        // Construct using com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.newBuilder()
+        // Construct using com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.newBuilder()
         private Builder() {
           maybeForceBuilderInitialization();
         }
@@ -685,17 +685,17 @@ public final class AddressBookProtos {
         @Override
         public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-          return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_PhoneNumber_descriptor;
+          return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_PhoneNumber_descriptor;
         }
 
         @Override
-        public com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber getDefaultInstanceForType() {
-          return com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.getDefaultInstance();
+        public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber getDefaultInstanceForType() {
+          return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.getDefaultInstance();
         }
 
         @Override
-        public com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber build() {
-          com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber result = buildPartial();
+        public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber build() {
+          com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber result = buildPartial();
           if (!result.isInitialized()) {
             throw newUninitializedMessageException(result);
           }
@@ -703,8 +703,8 @@ public final class AddressBookProtos {
         }
 
         @Override
-        public com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber buildPartial() {
-          com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber result = new com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber(this);
+        public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber buildPartial() {
+          com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber result = new com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber(this);
           int from_bitField0_ = bitField0_;
           int to_bitField0_ = 0;
           if (((from_bitField0_ & 0x00000001) != 0)) {
@@ -754,16 +754,16 @@ public final class AddressBookProtos {
         }
         @Override
         public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber) {
-            return mergeFrom((com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber)other);
+          if (other instanceof com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber) {
+            return mergeFrom((com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber)other);
           } else {
             super.mergeFrom(other);
             return this;
           }
         }
 
-        public Builder mergeFrom(com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber other) {
-          if (other == com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.getDefaultInstance()) return this;
+        public Builder mergeFrom(com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber other) {
+          if (other == com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.getDefaultInstance()) return this;
           if (other.hasNumber()) {
             bitField0_ |= 0x00000001;
             number_ = other.number_;
@@ -790,11 +790,11 @@ public final class AddressBookProtos {
             com.google.protobuf.CodedInputStream input,
             com.google.protobuf.ExtensionRegistryLite extensionRegistry)
             throws java.io.IOException {
-          com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber parsedMessage = null;
+          com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber parsedMessage = null;
           try {
             parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
           } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber) e.getUnfinishedMessage();
+            parsedMessage = (com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber) e.getUnfinishedMessage();
             throw e.unwrapIOException();
           } finally {
             if (parsedMessage != null) {
@@ -883,23 +883,23 @@ public final class AddressBookProtos {
 
         private int type_ = 1;
         /**
-         * <code>optional .com.netty.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
+         * <code>optional .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
          */
         public boolean hasType() {
           return ((bitField0_ & 0x00000002) != 0);
         }
         /**
-         * <code>optional .com.netty.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
+         * <code>optional .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
          */
-        public com.netty.f06.protobuf.AddressBookProtos.Person.PhoneType getType() {
+        public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneType getType() {
           @SuppressWarnings("deprecation")
-          com.netty.f06.protobuf.AddressBookProtos.Person.PhoneType result = com.netty.f06.protobuf.AddressBookProtos.Person.PhoneType.valueOf(type_);
-          return result == null ? com.netty.f06.protobuf.AddressBookProtos.Person.PhoneType.HOME : result;
+          com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneType result = com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneType.valueOf(type_);
+          return result == null ? com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneType.HOME : result;
         }
         /**
-         * <code>optional .com.netty.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
+         * <code>optional .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
          */
-        public Builder setType(com.netty.f06.protobuf.AddressBookProtos.Person.PhoneType value) {
+        public Builder setType(com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneType value) {
           if (value == null) {
             throw new NullPointerException();
           }
@@ -909,7 +909,7 @@ public final class AddressBookProtos {
           return this;
         }
         /**
-         * <code>optional .com.netty.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
+         * <code>optional .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneType type = 2 [default = HOME];</code>
          */
         public Builder clearType() {
           bitField0_ = (bitField0_ & ~0x00000002);
@@ -930,16 +930,16 @@ public final class AddressBookProtos {
         }
 
 
-        // @@protoc_insertion_point(builder_scope:com.netty.f06.protobuf.Person.PhoneNumber)
+        // @@protoc_insertion_point(builder_scope:com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber)
       }
 
-      // @@protoc_insertion_point(class_scope:com.netty.f06.protobuf.Person.PhoneNumber)
-      private static final com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber DEFAULT_INSTANCE;
+      // @@protoc_insertion_point(class_scope:com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber)
+      private static final com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber DEFAULT_INSTANCE;
       static {
-        DEFAULT_INSTANCE = new com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber();
+        DEFAULT_INSTANCE = new com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber();
       }
 
-      public static com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber getDefaultInstance() {
+      public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber getDefaultInstance() {
         return DEFAULT_INSTANCE;
       }
 
@@ -964,7 +964,7 @@ public final class AddressBookProtos {
       }
 
       @Override
-      public com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber getDefaultInstanceForType() {
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber getDefaultInstanceForType() {
         return DEFAULT_INSTANCE;
       }
 
@@ -1071,36 +1071,36 @@ public final class AddressBookProtos {
     }
 
     public static final int PHONES_FIELD_NUMBER = 4;
-    private java.util.List<com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber> phones_;
+    private java.util.List<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber> phones_;
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
      */
-    public java.util.List<com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber> getPhonesList() {
+    public java.util.List<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber> getPhonesList() {
       return phones_;
     }
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
      */
-    public java.util.List<? extends com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder>
+    public java.util.List<? extends com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder>
         getPhonesOrBuilderList() {
       return phones_;
     }
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
      */
     public int getPhonesCount() {
       return phones_.size();
     }
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
      */
-    public com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber getPhones(int index) {
+    public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber getPhones(int index) {
       return phones_.get(index);
     }
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
      */
-    public com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder getPhonesOrBuilder(
+    public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder getPhonesOrBuilder(
         int index) {
       return phones_.get(index);
     }
@@ -1178,10 +1178,10 @@ public final class AddressBookProtos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.netty.f06.protobuf.AddressBookProtos.Person)) {
+      if (!(obj instanceof com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person)) {
         return super.equals(obj);
       }
-      com.netty.f06.protobuf.AddressBookProtos.Person other = (com.netty.f06.protobuf.AddressBookProtos.Person) obj;
+      com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person other = (com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person) obj;
 
       if (hasName() != other.hasName()) return false;
       if (hasName()) {
@@ -1232,69 +1232,69 @@ public final class AddressBookProtos {
       return hash;
     }
 
-    public static com.netty.f06.protobuf.AddressBookProtos.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.Person parseFrom(byte[] data)
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.Person parseFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.Person parseDelimitedFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.Person parseDelimitedFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.Person parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1307,7 +1307,7 @@ public final class AddressBookProtos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.netty.f06.protobuf.AddressBookProtos.Person prototype) {
+    public static Builder newBuilder(com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @Override
@@ -1323,26 +1323,26 @@ public final class AddressBookProtos {
       return builder;
     }
     /**
-     * Protobuf type {@code com.netty.f06.protobuf.Person}
+     * Protobuf type {@code com.yuzhou.netty.demo.f06.protobuf.Person}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.netty.f06.protobuf.Person)
-        com.netty.f06.protobuf.AddressBookProtos.PersonOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.yuzhou.netty.demo.f06.protobuf.Person)
+        com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.PersonOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_descriptor;
+        return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_descriptor;
       }
 
       @Override
       protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_fieldAccessorTable
+        return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.netty.f06.protobuf.AddressBookProtos.Person.class, com.netty.f06.protobuf.AddressBookProtos.Person.Builder.class);
+                com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.class, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.Builder.class);
       }
 
-      // Construct using com.netty.f06.protobuf.AddressBookProtos.Person.newBuilder()
+      // Construct using com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1379,17 +1379,17 @@ public final class AddressBookProtos {
       @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_descriptor;
+        return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_Person_descriptor;
       }
 
       @Override
-      public com.netty.f06.protobuf.AddressBookProtos.Person getDefaultInstanceForType() {
-        return com.netty.f06.protobuf.AddressBookProtos.Person.getDefaultInstance();
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person getDefaultInstanceForType() {
+        return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.getDefaultInstance();
       }
 
       @Override
-      public com.netty.f06.protobuf.AddressBookProtos.Person build() {
-        com.netty.f06.protobuf.AddressBookProtos.Person result = buildPartial();
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person build() {
+        com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1397,8 +1397,8 @@ public final class AddressBookProtos {
       }
 
       @Override
-      public com.netty.f06.protobuf.AddressBookProtos.Person buildPartial() {
-        com.netty.f06.protobuf.AddressBookProtos.Person result = new com.netty.f06.protobuf.AddressBookProtos.Person(this);
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person buildPartial() {
+        com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person result = new com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
@@ -1461,16 +1461,16 @@ public final class AddressBookProtos {
       }
       @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.netty.f06.protobuf.AddressBookProtos.Person) {
-          return mergeFrom((com.netty.f06.protobuf.AddressBookProtos.Person)other);
+        if (other instanceof com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person) {
+          return mergeFrom((com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.netty.f06.protobuf.AddressBookProtos.Person other) {
-        if (other == com.netty.f06.protobuf.AddressBookProtos.Person.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person other) {
+        if (other == com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.getDefaultInstance()) return this;
         if (other.hasName()) {
           bitField0_ |= 0x00000001;
           name_ = other.name_;
@@ -1536,11 +1536,11 @@ public final class AddressBookProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.netty.f06.protobuf.AddressBookProtos.Person parsedMessage = null;
+        com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.netty.f06.protobuf.AddressBookProtos.Person) e.getUnfinishedMessage();
+          parsedMessage = (com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1735,22 +1735,22 @@ public final class AddressBookProtos {
         return this;
       }
 
-      private java.util.List<com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber> phones_ =
+      private java.util.List<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber> phones_ =
         java.util.Collections.emptyList();
       private void ensurePhonesIsMutable() {
         if (!((bitField0_ & 0x00000008) != 0)) {
-          phones_ = new java.util.ArrayList<com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber>(phones_);
+          phones_ = new java.util.ArrayList<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber>(phones_);
           bitField0_ |= 0x00000008;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber, com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder, com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder> phonesBuilder_;
+          com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder> phonesBuilder_;
 
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
-      public java.util.List<com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber> getPhonesList() {
+      public java.util.List<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber> getPhonesList() {
         if (phonesBuilder_ == null) {
           return java.util.Collections.unmodifiableList(phones_);
         } else {
@@ -1758,7 +1758,7 @@ public final class AddressBookProtos {
         }
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
       public int getPhonesCount() {
         if (phonesBuilder_ == null) {
@@ -1768,9 +1768,9 @@ public final class AddressBookProtos {
         }
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
-      public com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber getPhones(int index) {
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber getPhones(int index) {
         if (phonesBuilder_ == null) {
           return phones_.get(index);
         } else {
@@ -1778,10 +1778,10 @@ public final class AddressBookProtos {
         }
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
       public Builder setPhones(
-          int index, com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber value) {
+          int index, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber value) {
         if (phonesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1795,10 +1795,10 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
       public Builder setPhones(
-          int index, com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder builderForValue) {
+          int index, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder builderForValue) {
         if (phonesBuilder_ == null) {
           ensurePhonesIsMutable();
           phones_.set(index, builderForValue.build());
@@ -1809,9 +1809,9 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
-      public Builder addPhones(com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber value) {
+      public Builder addPhones(com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber value) {
         if (phonesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1825,10 +1825,10 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
       public Builder addPhones(
-          int index, com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber value) {
+          int index, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber value) {
         if (phonesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1842,10 +1842,10 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
       public Builder addPhones(
-          com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder builderForValue) {
+          com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder builderForValue) {
         if (phonesBuilder_ == null) {
           ensurePhonesIsMutable();
           phones_.add(builderForValue.build());
@@ -1856,10 +1856,10 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
       public Builder addPhones(
-          int index, com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder builderForValue) {
+          int index, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder builderForValue) {
         if (phonesBuilder_ == null) {
           ensurePhonesIsMutable();
           phones_.add(index, builderForValue.build());
@@ -1870,10 +1870,10 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
       public Builder addAllPhones(
-          Iterable<? extends com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber> values) {
+          Iterable<? extends com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber> values) {
         if (phonesBuilder_ == null) {
           ensurePhonesIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -1885,7 +1885,7 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
       public Builder clearPhones() {
         if (phonesBuilder_ == null) {
@@ -1898,7 +1898,7 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
       public Builder removePhones(int index) {
         if (phonesBuilder_ == null) {
@@ -1911,16 +1911,16 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
-      public com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder getPhonesBuilder(
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder getPhonesBuilder(
           int index) {
         return getPhonesFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
-      public com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder getPhonesOrBuilder(
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder getPhonesOrBuilder(
           int index) {
         if (phonesBuilder_ == null) {
           return phones_.get(index);  } else {
@@ -1928,9 +1928,9 @@ public final class AddressBookProtos {
         }
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
-      public java.util.List<? extends com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder>
+      public java.util.List<? extends com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder>
            getPhonesOrBuilderList() {
         if (phonesBuilder_ != null) {
           return phonesBuilder_.getMessageOrBuilderList();
@@ -1939,33 +1939,33 @@ public final class AddressBookProtos {
         }
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
-      public com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder addPhonesBuilder() {
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder addPhonesBuilder() {
         return getPhonesFieldBuilder().addBuilder(
-            com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.getDefaultInstance());
+            com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.getDefaultInstance());
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
-      public com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder addPhonesBuilder(
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder addPhonesBuilder(
           int index) {
         return getPhonesFieldBuilder().addBuilder(
-            index, com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.getDefaultInstance());
+            index, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.getDefaultInstance());
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person.PhoneNumber phones = 4;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person.PhoneNumber phones = 4;</code>
        */
-      public java.util.List<com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder>
+      public java.util.List<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder>
            getPhonesBuilderList() {
         return getPhonesFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber, com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder, com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder>
+          com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder>
           getPhonesFieldBuilder() {
         if (phonesBuilder_ == null) {
           phonesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber, com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder, com.netty.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder>(
+              com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumber.Builder, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PhoneNumberOrBuilder>(
                   phones_,
                   ((bitField0_ & 0x00000008) != 0),
                   getParentForChildren(),
@@ -1987,16 +1987,16 @@ public final class AddressBookProtos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.netty.f06.protobuf.Person)
+      // @@protoc_insertion_point(builder_scope:com.yuzhou.netty.demo.f06.protobuf.Person)
     }
 
-    // @@protoc_insertion_point(class_scope:com.netty.f06.protobuf.Person)
-    private static final com.netty.f06.protobuf.AddressBookProtos.Person DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.yuzhou.netty.demo.f06.protobuf.Person)
+    private static final com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.netty.f06.protobuf.AddressBookProtos.Person();
+      DEFAULT_INSTANCE = new com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person();
     }
 
-    public static com.netty.f06.protobuf.AddressBookProtos.Person getDefaultInstance() {
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2021,46 +2021,46 @@ public final class AddressBookProtos {
     }
 
     @Override
-    public com.netty.f06.protobuf.AddressBookProtos.Person getDefaultInstanceForType() {
+    public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
   public interface AddressBookOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.netty.f06.protobuf.AddressBook)
+      // @@protoc_insertion_point(interface_extends:com.yuzhou.netty.demo.f06.protobuf.AddressBook)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
      */
-    java.util.List<com.netty.f06.protobuf.AddressBookProtos.Person>
+    java.util.List<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person>
         getPeopleList();
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
      */
-    com.netty.f06.protobuf.AddressBookProtos.Person getPeople(int index);
+    com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person getPeople(int index);
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
      */
     int getPeopleCount();
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
      */
-    java.util.List<? extends com.netty.f06.protobuf.AddressBookProtos.PersonOrBuilder>
+    java.util.List<? extends com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.PersonOrBuilder>
         getPeopleOrBuilderList();
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
      */
-    com.netty.f06.protobuf.AddressBookProtos.PersonOrBuilder getPeopleOrBuilder(
+    com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.PersonOrBuilder getPeopleOrBuilder(
         int index);
   }
   /**
-   * Protobuf type {@code com.netty.f06.protobuf.AddressBook}
+   * Protobuf type {@code com.yuzhou.netty.demo.f06.protobuf.AddressBook}
    */
   public  static final class AddressBook extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.netty.f06.protobuf.AddressBook)
+      // @@protoc_insertion_point(message_implements:com.yuzhou.netty.demo.f06.protobuf.AddressBook)
       AddressBookOrBuilder {
   private static final long serialVersionUID = 0L;
     // Use AddressBook.newBuilder() to construct.
@@ -2097,11 +2097,11 @@ public final class AddressBookProtos {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                people_ = new java.util.ArrayList<com.netty.f06.protobuf.AddressBookProtos.Person>();
+                people_ = new java.util.ArrayList<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person>();
                 mutable_bitField0_ |= 0x00000001;
               }
               people_.add(
-                  input.readMessage(com.netty.f06.protobuf.AddressBookProtos.Person.PARSER, extensionRegistry));
+                  input.readMessage(com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.PARSER, extensionRegistry));
               break;
             }
             default: {
@@ -2128,48 +2128,48 @@ public final class AddressBookProtos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_AddressBook_descriptor;
+      return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_AddressBook_descriptor;
     }
 
     @Override
     protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_AddressBook_fieldAccessorTable
+      return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_AddressBook_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.netty.f06.protobuf.AddressBookProtos.AddressBook.class, com.netty.f06.protobuf.AddressBookProtos.AddressBook.Builder.class);
+              com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook.class, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook.Builder.class);
     }
 
     public static final int PEOPLE_FIELD_NUMBER = 1;
-    private java.util.List<com.netty.f06.protobuf.AddressBookProtos.Person> people_;
+    private java.util.List<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person> people_;
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
      */
-    public java.util.List<com.netty.f06.protobuf.AddressBookProtos.Person> getPeopleList() {
+    public java.util.List<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person> getPeopleList() {
       return people_;
     }
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
      */
-    public java.util.List<? extends com.netty.f06.protobuf.AddressBookProtos.PersonOrBuilder>
+    public java.util.List<? extends com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.PersonOrBuilder>
         getPeopleOrBuilderList() {
       return people_;
     }
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
      */
     public int getPeopleCount() {
       return people_.size();
     }
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
      */
-    public com.netty.f06.protobuf.AddressBookProtos.Person getPeople(int index) {
+    public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person getPeople(int index) {
       return people_.get(index);
     }
     /**
-     * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+     * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
      */
-    public com.netty.f06.protobuf.AddressBookProtos.PersonOrBuilder getPeopleOrBuilder(
+    public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.PersonOrBuilder getPeopleOrBuilder(
         int index) {
       return people_.get(index);
     }
@@ -2220,10 +2220,10 @@ public final class AddressBookProtos {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.netty.f06.protobuf.AddressBookProtos.AddressBook)) {
+      if (!(obj instanceof com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook)) {
         return super.equals(obj);
       }
-      com.netty.f06.protobuf.AddressBookProtos.AddressBook other = (com.netty.f06.protobuf.AddressBookProtos.AddressBook) obj;
+      com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook other = (com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook) obj;
 
       if (!getPeopleList()
           .equals(other.getPeopleList())) return false;
@@ -2247,69 +2247,69 @@ public final class AddressBookProtos {
       return hash;
     }
 
-    public static com.netty.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.AddressBook parseFrom(byte[] data)
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.AddressBook parseFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.AddressBook parseDelimitedFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.AddressBook parseDelimitedFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2322,7 +2322,7 @@ public final class AddressBookProtos {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.netty.f06.protobuf.AddressBookProtos.AddressBook prototype) {
+    public static Builder newBuilder(com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @Override
@@ -2338,26 +2338,26 @@ public final class AddressBookProtos {
       return builder;
     }
     /**
-     * Protobuf type {@code com.netty.f06.protobuf.AddressBook}
+     * Protobuf type {@code com.yuzhou.netty.demo.f06.protobuf.AddressBook}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.netty.f06.protobuf.AddressBook)
-        com.netty.f06.protobuf.AddressBookProtos.AddressBookOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.yuzhou.netty.demo.f06.protobuf.AddressBook)
+        com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBookOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_AddressBook_descriptor;
+        return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_AddressBook_descriptor;
       }
 
       @Override
       protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_AddressBook_fieldAccessorTable
+        return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_AddressBook_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.netty.f06.protobuf.AddressBookProtos.AddressBook.class, com.netty.f06.protobuf.AddressBookProtos.AddressBook.Builder.class);
+                com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook.class, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook.Builder.class);
       }
 
-      // Construct using com.netty.f06.protobuf.AddressBookProtos.AddressBook.newBuilder()
+      // Construct using com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2388,17 +2388,17 @@ public final class AddressBookProtos {
       @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.netty.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_AddressBook_descriptor;
+        return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.internal_static_com_netty_f06_protobuf_AddressBook_descriptor;
       }
 
       @Override
-      public com.netty.f06.protobuf.AddressBookProtos.AddressBook getDefaultInstanceForType() {
-        return com.netty.f06.protobuf.AddressBookProtos.AddressBook.getDefaultInstance();
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook getDefaultInstanceForType() {
+        return com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook.getDefaultInstance();
       }
 
       @Override
-      public com.netty.f06.protobuf.AddressBookProtos.AddressBook build() {
-        com.netty.f06.protobuf.AddressBookProtos.AddressBook result = buildPartial();
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook build() {
+        com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -2406,8 +2406,8 @@ public final class AddressBookProtos {
       }
 
       @Override
-      public com.netty.f06.protobuf.AddressBookProtos.AddressBook buildPartial() {
-        com.netty.f06.protobuf.AddressBookProtos.AddressBook result = new com.netty.f06.protobuf.AddressBookProtos.AddressBook(this);
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook buildPartial() {
+        com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook result = new com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook(this);
         int from_bitField0_ = bitField0_;
         if (peopleBuilder_ == null) {
           if (((bitField0_ & 0x00000001) != 0)) {
@@ -2456,16 +2456,16 @@ public final class AddressBookProtos {
       }
       @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.netty.f06.protobuf.AddressBookProtos.AddressBook) {
-          return mergeFrom((com.netty.f06.protobuf.AddressBookProtos.AddressBook)other);
+        if (other instanceof com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook) {
+          return mergeFrom((com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.netty.f06.protobuf.AddressBookProtos.AddressBook other) {
-        if (other == com.netty.f06.protobuf.AddressBookProtos.AddressBook.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook other) {
+        if (other == com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook.getDefaultInstance()) return this;
         if (peopleBuilder_ == null) {
           if (!other.people_.isEmpty()) {
             if (people_.isEmpty()) {
@@ -2512,11 +2512,11 @@ public final class AddressBookProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.netty.f06.protobuf.AddressBookProtos.AddressBook parsedMessage = null;
+        com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.netty.f06.protobuf.AddressBookProtos.AddressBook) e.getUnfinishedMessage();
+          parsedMessage = (com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2527,22 +2527,22 @@ public final class AddressBookProtos {
       }
       private int bitField0_;
 
-      private java.util.List<com.netty.f06.protobuf.AddressBookProtos.Person> people_ =
+      private java.util.List<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person> people_ =
         java.util.Collections.emptyList();
       private void ensurePeopleIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          people_ = new java.util.ArrayList<com.netty.f06.protobuf.AddressBookProtos.Person>(people_);
+          people_ = new java.util.ArrayList<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person>(people_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.netty.f06.protobuf.AddressBookProtos.Person, com.netty.f06.protobuf.AddressBookProtos.Person.Builder, com.netty.f06.protobuf.AddressBookProtos.PersonOrBuilder> peopleBuilder_;
+          com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.Builder, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.PersonOrBuilder> peopleBuilder_;
 
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
-      public java.util.List<com.netty.f06.protobuf.AddressBookProtos.Person> getPeopleList() {
+      public java.util.List<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person> getPeopleList() {
         if (peopleBuilder_ == null) {
           return java.util.Collections.unmodifiableList(people_);
         } else {
@@ -2550,7 +2550,7 @@ public final class AddressBookProtos {
         }
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
       public int getPeopleCount() {
         if (peopleBuilder_ == null) {
@@ -2560,9 +2560,9 @@ public final class AddressBookProtos {
         }
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
-      public com.netty.f06.protobuf.AddressBookProtos.Person getPeople(int index) {
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person getPeople(int index) {
         if (peopleBuilder_ == null) {
           return people_.get(index);
         } else {
@@ -2570,10 +2570,10 @@ public final class AddressBookProtos {
         }
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
       public Builder setPeople(
-          int index, com.netty.f06.protobuf.AddressBookProtos.Person value) {
+          int index, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person value) {
         if (peopleBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2587,10 +2587,10 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
       public Builder setPeople(
-          int index, com.netty.f06.protobuf.AddressBookProtos.Person.Builder builderForValue) {
+          int index, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.Builder builderForValue) {
         if (peopleBuilder_ == null) {
           ensurePeopleIsMutable();
           people_.set(index, builderForValue.build());
@@ -2601,9 +2601,9 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
-      public Builder addPeople(com.netty.f06.protobuf.AddressBookProtos.Person value) {
+      public Builder addPeople(com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person value) {
         if (peopleBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2617,10 +2617,10 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
       public Builder addPeople(
-          int index, com.netty.f06.protobuf.AddressBookProtos.Person value) {
+          int index, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person value) {
         if (peopleBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2634,10 +2634,10 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
       public Builder addPeople(
-          com.netty.f06.protobuf.AddressBookProtos.Person.Builder builderForValue) {
+          com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.Builder builderForValue) {
         if (peopleBuilder_ == null) {
           ensurePeopleIsMutable();
           people_.add(builderForValue.build());
@@ -2648,10 +2648,10 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
       public Builder addPeople(
-          int index, com.netty.f06.protobuf.AddressBookProtos.Person.Builder builderForValue) {
+          int index, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.Builder builderForValue) {
         if (peopleBuilder_ == null) {
           ensurePeopleIsMutable();
           people_.add(index, builderForValue.build());
@@ -2662,10 +2662,10 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
       public Builder addAllPeople(
-          Iterable<? extends com.netty.f06.protobuf.AddressBookProtos.Person> values) {
+          Iterable<? extends com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person> values) {
         if (peopleBuilder_ == null) {
           ensurePeopleIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -2677,7 +2677,7 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
       public Builder clearPeople() {
         if (peopleBuilder_ == null) {
@@ -2690,7 +2690,7 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
       public Builder removePeople(int index) {
         if (peopleBuilder_ == null) {
@@ -2703,16 +2703,16 @@ public final class AddressBookProtos {
         return this;
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
-      public com.netty.f06.protobuf.AddressBookProtos.Person.Builder getPeopleBuilder(
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.Builder getPeopleBuilder(
           int index) {
         return getPeopleFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
-      public com.netty.f06.protobuf.AddressBookProtos.PersonOrBuilder getPeopleOrBuilder(
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.PersonOrBuilder getPeopleOrBuilder(
           int index) {
         if (peopleBuilder_ == null) {
           return people_.get(index);  } else {
@@ -2720,9 +2720,9 @@ public final class AddressBookProtos {
         }
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
-      public java.util.List<? extends com.netty.f06.protobuf.AddressBookProtos.PersonOrBuilder>
+      public java.util.List<? extends com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.PersonOrBuilder>
            getPeopleOrBuilderList() {
         if (peopleBuilder_ != null) {
           return peopleBuilder_.getMessageOrBuilderList();
@@ -2731,33 +2731,33 @@ public final class AddressBookProtos {
         }
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
-      public com.netty.f06.protobuf.AddressBookProtos.Person.Builder addPeopleBuilder() {
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.Builder addPeopleBuilder() {
         return getPeopleFieldBuilder().addBuilder(
-            com.netty.f06.protobuf.AddressBookProtos.Person.getDefaultInstance());
+            com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.getDefaultInstance());
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
-      public com.netty.f06.protobuf.AddressBookProtos.Person.Builder addPeopleBuilder(
+      public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.Builder addPeopleBuilder(
           int index) {
         return getPeopleFieldBuilder().addBuilder(
-            index, com.netty.f06.protobuf.AddressBookProtos.Person.getDefaultInstance());
+            index, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.getDefaultInstance());
       }
       /**
-       * <code>repeated .com.netty.f06.protobuf.Person people = 1;</code>
+       * <code>repeated .com.yuzhou.netty.demo.f06.protobuf.Person people = 1;</code>
        */
-      public java.util.List<com.netty.f06.protobuf.AddressBookProtos.Person.Builder>
+      public java.util.List<com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.Builder>
            getPeopleBuilderList() {
         return getPeopleFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.netty.f06.protobuf.AddressBookProtos.Person, com.netty.f06.protobuf.AddressBookProtos.Person.Builder, com.netty.f06.protobuf.AddressBookProtos.PersonOrBuilder>
+          com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.Builder, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.PersonOrBuilder>
           getPeopleFieldBuilder() {
         if (peopleBuilder_ == null) {
           peopleBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.netty.f06.protobuf.AddressBookProtos.Person, com.netty.f06.protobuf.AddressBookProtos.Person.Builder, com.netty.f06.protobuf.AddressBookProtos.PersonOrBuilder>(
+              com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.Person.Builder, com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.PersonOrBuilder>(
                   people_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -2779,16 +2779,16 @@ public final class AddressBookProtos {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.netty.f06.protobuf.AddressBook)
+      // @@protoc_insertion_point(builder_scope:com.yuzhou.netty.demo.f06.protobuf.AddressBook)
     }
 
-    // @@protoc_insertion_point(class_scope:com.netty.f06.protobuf.AddressBook)
-    private static final com.netty.f06.protobuf.AddressBookProtos.AddressBook DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.yuzhou.netty.demo.f06.protobuf.AddressBook)
+    private static final com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.netty.f06.protobuf.AddressBookProtos.AddressBook();
+      DEFAULT_INSTANCE = new com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook();
     }
 
-    public static com.netty.f06.protobuf.AddressBookProtos.AddressBook getDefaultInstance() {
+    public static com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2813,7 +2813,7 @@ public final class AddressBookProtos {
     }
 
     @Override
-    public com.netty.f06.protobuf.AddressBookProtos.AddressBook getDefaultInstanceForType() {
+    public com.yuzhou.netty.demo.f06.protobuf.AddressBookProtos.AddressBook getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2844,15 +2844,15 @@ public final class AddressBookProtos {
   static {
     String[] descriptorData = {
       "\n6src/main/java/com/netty/f06/protobuf/a" +
-      "ddressbook.proto\022\026com.netty.f06.protobuf" +
+      "ddressbook.proto\022\026com.yuzhou.netty.demo.f06.protobuf" +
       "\"\367\001\n\006Person\022\014\n\004name\030\001 \002(\t\022\n\n\002id\030\002 \002(\005\022\r\n" +
       "\005email\030\003 \001(\t\022:\n\006phones\030\004 \003(\0132*.com.netty" +
       ".f06.protobuf.Person.PhoneNumber\032[\n\013Phon" +
       "eNumber\022\016\n\006number\030\001 \002(\t\022<\n\004type\030\002 \001(\0162(." +
-      "com.netty.f06.protobuf.Person.PhoneType:" +
+      "com.yuzhou.netty.demo.f06.protobuf.Person.PhoneType:" +
       "\004HOME\"+\n\tPhoneType\022\n\n\006MOBILE\020\000\022\010\n\004HOME\020\001" +
       "\022\010\n\004WORK\020\002\"=\n\013AddressBook\022.\n\006people\030\001 \003(" +
-      "\0132\036.com.netty.f06.protobuf.PersonB+\n\026com" +
+      "\0132\036.com.yuzhou.netty.demo.f06.protobuf.PersonB+\n\026com" +
       ".netty.f06.protobufB\021AddressBookProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

@@ -15,7 +15,7 @@ public final class DataInfo {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface StudentOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:com.netty.f06.protobuf.Student)
+      // @@protoc_insertion_point(interface_extends:com.yuzhou.netty.demo.f06.protobuf.Student)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -56,11 +56,11 @@ public final class DataInfo {
         getAddressBytes();
   }
   /**
-   * Protobuf type {@code com.netty.f06.protobuf.Student}
+   * Protobuf type {@code com.yuzhou.netty.demo.f06.protobuf.Student}
    */
   public  static final class Student extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:com.netty.f06.protobuf.Student)
+      // @@protoc_insertion_point(message_implements:com.yuzhou.netty.demo.f06.protobuf.Student)
       StudentOrBuilder {
   private static final long serialVersionUID = 0L;
     // Use Student.newBuilder() to construct.
@@ -134,15 +134,15 @@ public final class DataInfo {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.netty.f06.protobuf.DataInfo.internal_static_com_netty_f06_protobuf_Student_descriptor;
+      return com.yuzhou.netty.demo.f06.protobuf.DataInfo.internal_static_com_netty_f06_protobuf_Student_descriptor;
     }
 
     @Override
     protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.netty.f06.protobuf.DataInfo.internal_static_com_netty_f06_protobuf_Student_fieldAccessorTable
+      return com.yuzhou.netty.demo.f06.protobuf.DataInfo.internal_static_com_netty_f06_protobuf_Student_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.netty.f06.protobuf.DataInfo.Student.class, com.netty.f06.protobuf.DataInfo.Student.Builder.class);
+              com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student.class, com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student.Builder.class);
     }
 
     private int bitField0_;
@@ -301,10 +301,10 @@ public final class DataInfo {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.netty.f06.protobuf.DataInfo.Student)) {
+      if (!(obj instanceof com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student)) {
         return super.equals(obj);
       }
-      com.netty.f06.protobuf.DataInfo.Student other = (com.netty.f06.protobuf.DataInfo.Student) obj;
+      com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student other = (com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student) obj;
 
       if (hasName() != other.hasName()) return false;
       if (hasName()) {
@@ -349,69 +349,69 @@ public final class DataInfo {
       return hash;
     }
 
-    public static com.netty.f06.protobuf.DataInfo.Student parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.protobuf.DataInfo.Student parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.DataInfo.Student parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.protobuf.DataInfo.Student parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.DataInfo.Student parseFrom(byte[] data)
+    public static com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.netty.f06.protobuf.DataInfo.Student parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.DataInfo.Student parseFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.protobuf.DataInfo.Student parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.DataInfo.Student parseDelimitedFrom(java.io.InputStream input)
+    public static com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.netty.f06.protobuf.DataInfo.Student parseDelimitedFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.netty.f06.protobuf.DataInfo.Student parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.netty.f06.protobuf.DataInfo.Student parseFrom(
+    public static com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -424,7 +424,7 @@ public final class DataInfo {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.netty.f06.protobuf.DataInfo.Student prototype) {
+    public static Builder newBuilder(com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @Override
@@ -440,26 +440,26 @@ public final class DataInfo {
       return builder;
     }
     /**
-     * Protobuf type {@code com.netty.f06.protobuf.Student}
+     * Protobuf type {@code com.yuzhou.netty.demo.f06.protobuf.Student}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:com.netty.f06.protobuf.Student)
-        com.netty.f06.protobuf.DataInfo.StudentOrBuilder {
+        // @@protoc_insertion_point(builder_implements:com.yuzhou.netty.demo.f06.protobuf.Student)
+        com.yuzhou.netty.demo.f06.protobuf.DataInfo.StudentOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.netty.f06.protobuf.DataInfo.internal_static_com_netty_f06_protobuf_Student_descriptor;
+        return com.yuzhou.netty.demo.f06.protobuf.DataInfo.internal_static_com_netty_f06_protobuf_Student_descriptor;
       }
 
       @Override
       protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.netty.f06.protobuf.DataInfo.internal_static_com_netty_f06_protobuf_Student_fieldAccessorTable
+        return com.yuzhou.netty.demo.f06.protobuf.DataInfo.internal_static_com_netty_f06_protobuf_Student_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.netty.f06.protobuf.DataInfo.Student.class, com.netty.f06.protobuf.DataInfo.Student.Builder.class);
+                com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student.class, com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student.Builder.class);
       }
 
-      // Construct using com.netty.f06.protobuf.DataInfo.Student.newBuilder()
+      // Construct using com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -489,17 +489,17 @@ public final class DataInfo {
       @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.netty.f06.protobuf.DataInfo.internal_static_com_netty_f06_protobuf_Student_descriptor;
+        return com.yuzhou.netty.demo.f06.protobuf.DataInfo.internal_static_com_netty_f06_protobuf_Student_descriptor;
       }
 
       @Override
-      public com.netty.f06.protobuf.DataInfo.Student getDefaultInstanceForType() {
-        return com.netty.f06.protobuf.DataInfo.Student.getDefaultInstance();
+      public com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student getDefaultInstanceForType() {
+        return com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student.getDefaultInstance();
       }
 
       @Override
-      public com.netty.f06.protobuf.DataInfo.Student build() {
-        com.netty.f06.protobuf.DataInfo.Student result = buildPartial();
+      public com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student build() {
+        com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -507,8 +507,8 @@ public final class DataInfo {
       }
 
       @Override
-      public com.netty.f06.protobuf.DataInfo.Student buildPartial() {
-        com.netty.f06.protobuf.DataInfo.Student result = new com.netty.f06.protobuf.DataInfo.Student(this);
+      public com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student buildPartial() {
+        com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student result = new com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
@@ -562,16 +562,16 @@ public final class DataInfo {
       }
       @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.netty.f06.protobuf.DataInfo.Student) {
-          return mergeFrom((com.netty.f06.protobuf.DataInfo.Student)other);
+        if (other instanceof com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student) {
+          return mergeFrom((com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.netty.f06.protobuf.DataInfo.Student other) {
-        if (other == com.netty.f06.protobuf.DataInfo.Student.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student other) {
+        if (other == com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student.getDefaultInstance()) return this;
         if (other.hasName()) {
           bitField0_ |= 0x00000001;
           name_ = other.name_;
@@ -603,11 +603,11 @@ public final class DataInfo {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.netty.f06.protobuf.DataInfo.Student parsedMessage = null;
+        com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.netty.f06.protobuf.DataInfo.Student) e.getUnfinishedMessage();
+          parsedMessage = (com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -814,16 +814,16 @@ public final class DataInfo {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:com.netty.f06.protobuf.Student)
+      // @@protoc_insertion_point(builder_scope:com.yuzhou.netty.demo.f06.protobuf.Student)
     }
 
-    // @@protoc_insertion_point(class_scope:com.netty.f06.protobuf.Student)
-    private static final com.netty.f06.protobuf.DataInfo.Student DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:com.yuzhou.netty.demo.f06.protobuf.Student)
+    private static final com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.netty.f06.protobuf.DataInfo.Student();
+      DEFAULT_INSTANCE = new com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student();
     }
 
-    public static com.netty.f06.protobuf.DataInfo.Student getDefaultInstance() {
+    public static com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -848,7 +848,7 @@ public final class DataInfo {
     }
 
     @Override
-    public com.netty.f06.protobuf.DataInfo.Student getDefaultInstanceForType() {
+    public com.yuzhou.netty.demo.f06.protobuf.DataInfo.Student getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -869,9 +869,9 @@ public final class DataInfo {
   static {
     String[] descriptorData = {
       "\n2src/main/java/com/netty/f06/protobuf/S" +
-      "tudent.proto\022\026com.netty.f06.protobuf\"5\n\007" +
+      "tudent.proto\022\026com.yuzhou.netty.demo.f06.protobuf\"5\n\007" +
       "Student\022\014\n\004name\030\001 \002(\t\022\013\n\003age\030\002 \001(\005\022\017\n\007ad" +
-      "dress\030\003 \001(\tB$\n\026com.netty.f06.protobufB\010D" +
+      "dress\030\003 \001(\tB$\n\026com.yuzhou.netty.demo.f06.protobufB\010D" +
       "ataInfoH\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =

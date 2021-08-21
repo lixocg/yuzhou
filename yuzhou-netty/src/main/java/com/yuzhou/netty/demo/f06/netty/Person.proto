@@ -1,0 +1,14 @@
+syntax = "proto2";
+
+package com.netty.f06.netty;
+
+option optimize_for = SPEED;
+option java_package = "com.netty.f06.netty";
+option java_outer_classname = "MyDataInfo";
+
+message Person {
+    required string name = 1;
+    optional int32 age = 2;
+    optional string address = 3;
+}
+

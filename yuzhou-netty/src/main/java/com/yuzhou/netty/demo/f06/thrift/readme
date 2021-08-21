@@ -1,0 +1,2 @@
+thrift生成java文件：
+ thrift --gen java src/main/java/com/netty/f06/thrift/data.thrift

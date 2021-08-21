@@ -13,6 +13,7 @@
         <module>yuzhou-demo</module>
         <module>yuzhou-basic</module>
         <module>yuzhou-log</module>
+        <module>yuzhou-netty</module>
     </modules>
 
     <name>yuzhou</name>
@@ -80,6 +81,30 @@
                 <groupId>commons-collections</groupId>
                 <artifactId>commons-collections</artifactId>
                 <version>3.2.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>3.8.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java-util</artifactId>
+                <version>3.8.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>4.1.15.Final</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

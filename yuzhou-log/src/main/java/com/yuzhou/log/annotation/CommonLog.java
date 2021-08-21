@@ -11,7 +11,6 @@ import java.lang.annotation.Target;
 
 /**
  * 日志服务打印标记
- * @author dengcan
  * @author xiongcheng.lxch
  * @see com.yuzhou.log.log.LogService
  */

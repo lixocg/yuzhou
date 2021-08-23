@@ -1,7 +1,6 @@
 package com.yuzhou.datastruct.stack;
 
 
-
 import com.yuzhou.datastruct.Node;
 
 import java.io.Serializable;
@@ -9,7 +8,7 @@ import java.io.Serializable;
 /**
  * 栈的链式实现
  */
-public class LinkedStack<T> implements Stack<T> ,Serializable{
+public class LinkedStack<T> implements Stack<T>, Serializable {
 
     private static final long serialVersionUID = 1911829302658328353L;
 
@@ -17,39 +16,39 @@ public class LinkedStack<T> implements Stack<T> ,Serializable{
 
     private int size;
 
-    public LinkedStack(){
-        this.top=new Node<>();
+    public LinkedStack() {
+        this.top = new Node<>();
     }
 
-    public int size(){
+    public int size() {
         return size;
     }
 
 
     @Override
     public boolean isEmpty() {
-        return top==null || top.data==null;
+        return top == null || top.data == null;
     }
 
     @Override
     public void push(T data) {
-        if (data==null){
-            throw new StackException("data can\'t be null");
+        if (data == null) {
+            throw new StackException("data can't be null");
         }
-        if(this.top==null){
-            this.top=new Node<>(data);
-        }else if(this.top.data==null){
-            this.top.data=data;
-        }else {
-            Node<T> p=new Node<>(data,this.top);
-            top=p;//更新栈顶
+        if (this.top == null) {
+            this.top = new Node<>(data);
+        } else if (this.top.data == null) {
+            this.top.data = data;
+        } else {
+            Node<T> p = new Node<>(data, this.top);
+            top = p;//更新栈顶
         }
         size++;
     }
 
     @Override
-    public T peek()  {
-        if(isEmpty()){
+    public T peek() {
+        if (isEmpty()) {
             throw new EmptyStackException("Stack empty");
         }
 
@@ -58,25 +57,25 @@ public class LinkedStack<T> implements Stack<T> ,Serializable{
 
     @Override
     public T pop() {
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new EmptyStackException("Stack empty");
         }
 
-        T data=top.data;
-        top=top.next;
+        T data = top.data;
+        top = top.next;
         size--;
         return data;
     }
 
 
-    public static void main(String[] args){
-        LinkedStack<String> sl=new LinkedStack<>();
+    public static void main(String[] args) {
+        LinkedStack<String> sl = new LinkedStack<>();
         sl.push("A");
         sl.push("B");
         sl.push("C");
-        int length=sl.size();
+        int length = sl.size();
         for (int i = 0; i < length; i++) {
-            System.out.println("sl.pop->"+sl.pop());
+            System.out.println("sl.pop->" + sl.pop());
         }
     }
 }

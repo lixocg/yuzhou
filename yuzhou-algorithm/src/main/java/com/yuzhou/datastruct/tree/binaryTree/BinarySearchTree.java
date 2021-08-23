@@ -1,7 +1,6 @@
 package com.yuzhou.datastruct.tree.binaryTree;
 
 
-
 import com.yuzhou.datastruct.queue.LinkedQueue;
 import com.yuzhou.datastruct.stack.LinkedStack;
 import com.yuzhou.datastruct.tree.EmptyTreeException;
@@ -16,7 +15,7 @@ import java.util.Queue;
 /**
  * 二叉查找树
  */
-public class BinarySearchTree<T extends Comparable> implements Tree<T> {
+public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
 
     protected TNode<T> root;
 
@@ -30,7 +29,6 @@ public class BinarySearchTree<T extends Comparable> implements Tree<T> {
      * @param pList      先根/后根遍历次序数组
      * @param inList     中根遍历次序数组
      * @param isPreOrder 是否为先根遍历次序数组,true:先根,false:后根
-     *                   Blog : http://blog.csdn.net/javazejian [原文地址,请尊重原创]
      */
     public BinarySearchTree(T[] pList, T[] inList, boolean isPreOrder) {
         if (pList == null || inList == null) {
@@ -454,7 +452,7 @@ public class BinarySearchTree<T extends Comparable> implements Tree<T> {
     @Override
     public void insert(T data) {
         if (data == null)
-            throw new RuntimeException("data can\'Comparable be null !");
+            throw new RuntimeException("data can'Comparable be null !");
         //插入操作
         root = insert(data, root);
     }
@@ -468,7 +466,7 @@ public class BinarySearchTree<T extends Comparable> implements Tree<T> {
      */
     private TNode<T> insert(T data, TNode<T> p) {
         if (p == null) {
-            p = new TNode<>(null, null,data);
+            p = new TNode<>(null, null, data);
         }
 
         int compareResult = data.compareTo(p.data);
@@ -520,7 +518,7 @@ public class BinarySearchTree<T extends Comparable> implements Tree<T> {
     @Override
     public void remove(T data) {
         if (data == null)
-            throw new RuntimeException("data can\'Comparable be null !");
+            throw new RuntimeException("data can'Comparable be null !");
         //删除结点
         root = remove(data, root);
     }
@@ -528,6 +526,7 @@ public class BinarySearchTree<T extends Comparable> implements Tree<T> {
     /**
      * 分3种情况
      * 1.删除叶子结点(也就是没有孩子结点)
+     *
      * 2.删除拥有一个孩子结点的结点(可能是左孩子也可能是右孩子)
      * 3.删除拥有两个孩子结点的结点
      *
@@ -566,7 +565,7 @@ public class BinarySearchTree<T extends Comparable> implements Tree<T> {
      */
     public boolean removeUnrecure(T data) {
         if (data == null) {
-            throw new RuntimeException("data can\'Comparable be null !");
+            throw new RuntimeException("data can'Comparable be null !");
         }
         //从根结点开始查找
         TNode<T> current = this.root;
@@ -598,8 +597,9 @@ public class BinarySearchTree<T extends Comparable> implements Tree<T> {
         //----------到这里说明已找到要删除的结点
 
         //删除的是叶子结点
-        if (current.left == null && current.right == null) {
+        if (current.isLeaf()) {
             if (current == this.root) {
+                //删除的是根节点
                 this.root = null;
             } else if (isLeft) {
                 parent.left = null;
@@ -607,23 +607,27 @@ public class BinarySearchTree<T extends Comparable> implements Tree<T> {
                 parent.right = null;
             }
         }
-        //删除带有一个孩子结点的结点,当current的right不为null
+        //删除节点只有一颗右子树
         else if (current.left == null) {
             if (current == this.root) {
                 this.root = current.right;
-            } else if (isLeft) {//current为parent的左孩子
+            } else if (isLeft) {
+                //current为parent的左孩子
                 parent.left = current.right;
-            } else {//current为parent的右孩子
+            } else {
+                //current为parent的右孩子
                 parent.right = current.right;
             }
         }
-        //删除带有一个孩子结点的结点,当current的left不为null
+        //删除节点只有一颗左子树
         else if (current.right == null) {
             if (current == this.root) {
                 this.root = current.left;
-            } else if (isLeft) {//current为parent的左孩子
+            } else if (isLeft) {
+                //current为parent的左孩子
                 parent.left = current.left;
-            } else {//current为parent的右孩子
+            } else {
+                //current为parent的右孩子
                 parent.right = current.left;
             }
         }

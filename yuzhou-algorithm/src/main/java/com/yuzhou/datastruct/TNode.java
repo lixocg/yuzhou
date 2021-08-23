@@ -1,11 +1,16 @@
 package com.yuzhou.datastruct;
 
 
+import java.io.Serializable;
+
 /**
  * 树节点
+ *
  * @param <T>
  */
-public class TNode<T extends Comparable> {
+public class TNode<T extends Comparable<T>> implements Serializable {
+    private static final long serialVersionUID = -8321984503671685439L;
+
     public TNode<T> left;//左结点
 
     public TNode<T> right;//右结点

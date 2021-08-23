@@ -1,6 +1,5 @@
 package com.yuzhou.datastruct.tree;
 
-
 import com.yuzhou.datastruct.TNode;
 
 public interface Tree<T extends Comparable> {

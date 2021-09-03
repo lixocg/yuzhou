@@ -38,9 +38,8 @@ public class Matrix {
      * 串行计算矩阵乘法
      */
     public Matrix multiply(Matrix b) {
-        System.out.println("thread======"+Thread.currentThread());
         if (this.getCols() != b.getRows()) {
-            throw new IllegalArgumentException("rows/columns mismatch");
+            throw new IllegalArgumentException("行列不匹配");
         }
         Matrix result = new Matrix(this.getRows(), b.getCols());
         for (int i = 0; i < this.getRows(); i++) {

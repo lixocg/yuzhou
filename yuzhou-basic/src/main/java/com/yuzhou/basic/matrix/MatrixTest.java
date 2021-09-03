@@ -2,29 +2,29 @@ package com.yuzhou.basic.matrix;
 
 public class MatrixTest {
     public static void main(String[] args) {
-        int N = 4;
+        int N = 40;
         Matrix a = new Matrix(N, N);
-        a.randomMatrix(3);
+        a.randomMatrix(10);
 //        a.print();
 
         Matrix b = new Matrix(N, N);
-        b.randomMatrix(3);
+        b.randomMatrix(10);
 //        b.print();
 
-        long s0 = System.nanoTime();
+        long s0 = System.currentTimeMillis();
         Matrix c = a.multiply(b);
-        c.print();
-        double time1 = (System.nanoTime() - s0) / 1e9;
-        System.out.println("串行计算耗时:" + time1);
+//        c.print();
+        double time1 = System.currentTimeMillis() - s0;
+        System.out.println("串行计算耗时:" + time1 + " ms");
 
 
         a.parallelMultiply(b);
 
-        long s1 = System.nanoTime();
+        long s1 = System.currentTimeMillis();
         Matrix c1 = a.parallelMultiply(b);
-        c1.print();
-        double time2 = (System.nanoTime() - s1) / 1e9;
-        System.out.println("并行计算耗时:" + time2);
+//        c1.print();
+        double time2 = System.currentTimeMillis() - s1;
+        System.out.println("并行计算耗时:" + time2 + " ms");
 
         System.out.println("串行/并行时间比:" + time1 / time2);
         System.err.println("单颗CPU内核数 = " + Runtime.getRuntime().availableProcessors());

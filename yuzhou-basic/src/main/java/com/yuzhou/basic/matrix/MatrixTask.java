@@ -1,12 +1,10 @@
 package com.yuzhou.basic.matrix;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 /**
- * 超快并行执行的多核心CPU矩阵乘法在数据统计方面的应用
+ * 矩阵并行执行任务
  */
 public class MatrixTask extends RecursiveAction {
     private final Matrix a, b, c;
@@ -20,7 +18,7 @@ public class MatrixTask extends RecursiveAction {
 
     private MatrixTask(Matrix a, Matrix b, Matrix c, int start, int end) {
         if (a.getCols() != b.getRows()) {
-            throw new IllegalArgumentException("rows/columns mismatch");
+            throw new IllegalArgumentException("行列不匹配");
         }
         this.a = a;
         this.b = b;
@@ -34,7 +32,7 @@ public class MatrixTask extends RecursiveAction {
         if (end - start <= THRESHOLD) {
             // 如果任务足够小,直接计算:
             for (int i = start; i < end; i++) {
-                multiplyRowByColumn(a, b, c, start, end);
+                multiplyByRows(a, b, c, start, end);
                 return;
             }
         }
@@ -45,8 +43,7 @@ public class MatrixTask extends RecursiveAction {
 
     }
 
-    public static void multiplyRowByColumn(Matrix a, Matrix b, Matrix c, int start, int end) {
-//        System.out.println("thread---"+Thread.currentThread());
+    public static void multiplyByRows(Matrix a, Matrix b, Matrix c, int start, int end) {
         for (int i = start; i < end; i++) {
             for (int j = 0; j < b.getCols(); j++) {
                 for (int k = 0; k < a.getCols(); k++) {

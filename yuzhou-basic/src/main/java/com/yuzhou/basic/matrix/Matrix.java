@@ -57,7 +57,7 @@ public class Matrix {
      */
     public Matrix parallelMultiply(Matrix b) {
         Matrix result = new Matrix(this.getRows(), b.getCols());
-        PoolUtil.pool.invoke(new MatrixTask(this, b, result));
+        PoolUtil.invoke(new MatrixTask(this, b, result));
         return result;
     }
 

@@ -2,7 +2,7 @@ package com.yuzhou.basic.matrix;
 
 public class MatrixTest {
     public static void main(String[] args) {
-        int N = 40;
+        int N = 1600;
         Matrix a = new Matrix(N, N);
         a.randomMatrix(10);
 //        a.print();
@@ -16,10 +16,7 @@ public class MatrixTest {
 //        c.print();
         double time1 = System.currentTimeMillis() - s0;
         System.out.println("串行计算耗时:" + time1 + " ms");
-
-
         a.parallelMultiply(b);
-
         long s1 = System.currentTimeMillis();
         Matrix c1 = a.parallelMultiply(b);
 //        c1.print();
@@ -27,6 +24,6 @@ public class MatrixTest {
         System.out.println("并行计算耗时:" + time2 + " ms");
 
         System.out.println("串行/并行时间比:" + time1 / time2);
-        System.err.println("单颗CPU内核数 = " + Runtime.getRuntime().availableProcessors());
+//        System.err.println("单颗CPU内核数 = " + Runtime.getRuntime().availableProcessors());
     }
 }

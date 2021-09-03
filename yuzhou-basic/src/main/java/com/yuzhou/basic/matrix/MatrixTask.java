@@ -1,6 +1,5 @@
 package com.yuzhou.basic.matrix;
 
-import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 /**
@@ -51,35 +50,5 @@ public class MatrixTask extends RecursiveAction {
                 }
             }
         }
-    }
-
-    public static void print(Matrix mat) {
-        for (int i = 0; i < mat.getRows(); i++) {
-            for (int j = 0; j < mat.getCols(); j++) {
-                System.out.print(mat.getCellValue(i, j) + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-
-    public static void main(String[] args) {
-        long start = System.nanoTime(); /* A矩阵：4行3列 5 2 4 3 8 2 6 0 4 0 1 6 */
-        Matrix a = new Matrix(4, 3);
-        a.randomMatrix(10);
-        a.print();
-
-        Matrix b = new Matrix(3, 2);
-        b.randomMatrix(10);
-        b.print();
-
-        Matrix c = new Matrix(4, 2);
-        ForkJoinPool pool = new ForkJoinPool();
-        pool.invoke(new MatrixTask(a, b, c));
-        c.print();
-        long end = System.nanoTime();
-        double timeTaken = (end - start) / 1e9;
-        System.out.println("Recursive Matrix Multiply Time Taken in seconds：" + timeTaken);
-        System.err.println("单颗CPU内核数 = " + Runtime.getRuntime().availableProcessors());
     }
 }

@@ -2,7 +2,7 @@ package com.yuzhou.basic.matrix;
 
 public class MatrixTest {
     public static void main(String[] args) {
-        int N = 1600;
+        int N = 2000;
         Matrix a = new Matrix(N, N);
         a.randomMatrix(10);
 //        a.print();

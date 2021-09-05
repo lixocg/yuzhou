@@ -9,7 +9,7 @@ public class MatrixTask extends RecursiveAction {
     private final Matrix a, b, c;
     private int start;
     private int end;
-    private final static int THRESHOLD = 100;
+    private final static int THRESHOLD = 50;
 
     public MatrixTask(Matrix a, Matrix b, Matrix c) {
         this(a, b, c, 0, a.getRows());

@@ -19,7 +19,9 @@ public class MatrixTest {
 //        c.print();
         double time1 = System.currentTimeMillis() - s0;
         System.out.println("串行计算耗时:" + time1 + " ms");
-        a.parallelMultiply(b);
+
+
+
         long s1 = System.currentTimeMillis();
         Matrix c1 = a.parallelMultiply(b);
 //        c1.print();

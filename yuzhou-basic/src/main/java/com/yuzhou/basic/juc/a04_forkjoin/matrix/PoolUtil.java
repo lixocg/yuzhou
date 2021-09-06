@@ -6,7 +6,7 @@ import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.TimeUnit;
 
 public class PoolUtil {
-    private final static ForkJoinPool pool = new ForkJoinPool();
+    private final static ForkJoinPool pool = new ForkJoinPool(20);
 
     static {
         //预热

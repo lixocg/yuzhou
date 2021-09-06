@@ -1,4 +1,4 @@
-package com.yuzhou.basic.juc.forkjoin;
+package com.yuzhou.basic.juc.a04_forkjoin.sum;
 
 
 import java.util.concurrent.RecursiveTask;

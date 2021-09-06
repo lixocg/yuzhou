@@ -1,9 +1,12 @@
-package com.yuzhou.basic.juc.forkjoin;
+package com.yuzhou.basic.juc.a04_forkjoin.sum;
 
 import java.util.Random;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 
+/**
+ * 数值相加
+ */
 public class Main {
     public static void main(String[] args) throws Exception {
         // 创建2000个随机数组成的数组:
@@ -17,7 +20,7 @@ public class Main {
         for (int i = 0; i < array.length; i++) {
             expectedSum += array[i];
         }
-        System.out.println("Expected sum: " + expectedSum+",耗时:"+(System.currentTimeMillis()-s1)+" ms");
+        System.out.println("Expected sum: " + expectedSum + ",耗时:" + (System.currentTimeMillis() - s1) + " ms");
         // fork/join:
         ForkJoinTask<Long> task = new SumTask(array, 0, array.length);
         long startTime = System.currentTimeMillis();

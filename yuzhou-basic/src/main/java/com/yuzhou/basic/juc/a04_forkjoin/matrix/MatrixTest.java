@@ -1,5 +1,8 @@
-package com.yuzhou.basic.matrix;
+package com.yuzhou.basic.juc.a04_forkjoin.matrix;
 
+/**
+ * 矩阵乘法运算
+ */
 public class MatrixTest {
     public static void main(String[] args) {
         int N = 2000;

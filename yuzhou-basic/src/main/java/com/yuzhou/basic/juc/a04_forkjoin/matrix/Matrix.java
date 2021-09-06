@@ -1,4 +1,4 @@
-package com.yuzhou.basic.matrix;
+package com.yuzhou.basic.juc.a04_forkjoin.matrix;
 
 import java.util.Random;
 

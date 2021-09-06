@@ -5,7 +5,7 @@ package com.yuzhou.basic.juc.a02_threadnotify;
  */
 public class ProducerConsumerDemo02 {
     public static void main(String[] args) {
-        Data1 data = new Data1();
+        Data2 data = new Data2();
 
         new Thread(() -> {
             for (int i = 0; i < 10; i++) {
@@ -51,7 +51,7 @@ public class ProducerConsumerDemo02 {
     }
 }
 
-class Data1 {
+class Data2 {
     private int num;
 
     public synchronized void incr() throws Exception {

@@ -10,7 +10,7 @@ package com.yuzhou.basic.juc.a02_threadnotify;
  */
 public class ProducerConsumerDemo01 {
     public static void main(String[] args) {
-        Data data = new Data();
+        Data1 data = new Data1();
 
         new Thread(() -> {
             for (int i = 0; i < 10; i++) {
@@ -39,7 +39,7 @@ public class ProducerConsumerDemo01 {
  * 资源类
  * 消费者-生产者加锁模式：判断等待->执行业务->通知
  */
-class Data {
+class Data1 {
     private int num;
 
     public synchronized void incr() throws Exception {

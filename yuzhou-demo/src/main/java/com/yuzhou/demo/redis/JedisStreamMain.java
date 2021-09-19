@@ -64,4 +64,7 @@ public class JedisStreamMain {
         });
     }
 
+    public void testzSet(){
+    }
+
 }

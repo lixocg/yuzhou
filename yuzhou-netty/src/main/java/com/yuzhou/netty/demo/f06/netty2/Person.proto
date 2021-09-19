@@ -6,7 +6,7 @@ option optimize_for = SPEED;
 option java_package = "com.netty.f06.netty2";
 option java_outer_classname = "MyDataInfo2";
 
-message MyMessage {
+messageExt MyMessage {
     enum DataType{
         PersonType = 1;
         DogType = 2;
@@ -23,18 +23,18 @@ message MyMessage {
 }
 
 
-message Person {
+messageExt Person {
     optional string name = 1;
     optional int32 age = 2;
     optional string address = 3;
 }
 
-message Dog {
+messageExt Dog {
     optional string name = 1;
     optional int32 age = 2;
 }
 
-message Cat {
+messageExt Cat {
     optional string name = 1;
     optional string city = 2;
 }

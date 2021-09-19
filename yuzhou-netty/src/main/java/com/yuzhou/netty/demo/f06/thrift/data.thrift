@@ -13,7 +13,7 @@ struct Person{
 }
 
 exception DataException {
-    1: optional String message,
+    1: optional String messageExt,
     2: optional String callStack,
     3: optional String date
 }

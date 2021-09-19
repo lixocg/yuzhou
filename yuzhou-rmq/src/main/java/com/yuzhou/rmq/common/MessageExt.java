@@ -3,13 +3,12 @@ package com.yuzhou.rmq.common;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA
- * Description:
+ * 消费消息
  * User: lixiongcheng
  * Date: 2021-09-17
  * Time: 下午8:06
  */
-public class Message {
+public class MessageExt {
 
     private String msgId;
 

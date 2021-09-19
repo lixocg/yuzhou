@@ -1,6 +1,6 @@
 package com.yuzhou.rmq.remoting;
 
-import com.yuzhou.rmq.common.Message;
+import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.SendResult;
 
 import java.util.List;
@@ -20,8 +20,8 @@ public interface MQRemotingInstance<RC> {
 
     boolean createGroup(String topic, String groupName);
 
-    List<Message> readMsg(String groupName, String topic, int count);
+    List<MessageExt> readMsgList(String groupName,String consumer, String topic, int count);
 
-    SendResult putMsg(String topic, Map<String,String> msg);
+    PutResult putMsg(String topic, Map<String,String> msg);
 
 }

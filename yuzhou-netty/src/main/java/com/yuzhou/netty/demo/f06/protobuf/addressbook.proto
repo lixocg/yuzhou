@@ -5,7 +5,7 @@ package com.netty.f06.protobuf;
 option java_package = "com.netty.f06.protobuf";
 option java_outer_classname = "AddressBookProtos";
 
-message Person {
+messageExt Person {
   required string name = 1;
   required int32 id = 2;
   optional string email = 3;
@@ -16,7 +16,7 @@ message Person {
     WORK = 2;
   }
 
-  message PhoneNumber {
+  messageExt PhoneNumber {
     required string number = 1;
     optional PhoneType type = 2 [default = HOME];
   }
@@ -24,6 +24,6 @@ message Person {
   repeated PhoneNumber phones = 4;
 }
 
-message AddressBook {
+messageExt AddressBook {
   repeated Person people = 1;
 }

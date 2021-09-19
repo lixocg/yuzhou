@@ -1,6 +1,5 @@
 package com.yuzhou.rmq.client;
 
-import com.yuzhou.rmq.common.Message;
 import com.yuzhou.rmq.common.SendResult;
 
 import java.util.Map;

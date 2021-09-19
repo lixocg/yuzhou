@@ -1,6 +1,4 @@
-package com.yuzhou.rmq.client.impl;
-
-import com.yuzhou.rmq.client.MQConsumer;
+package com.yuzhou.rmq.client;
 
 /**
  * Created with IntelliJ IDEA
@@ -21,4 +19,10 @@ public interface MQConfigConsumer extends MQConsumer {
     boolean orderly();
 
     int pullBatchSize();
+
+    long pullInterval();
+
+    void setPullInterval(long pullInterval);
+
+    MessageListener messageListener();
 }

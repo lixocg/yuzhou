@@ -4,6 +4,7 @@ import com.yuzhou.rmq.client.MQProducer;
 import com.yuzhou.rmq.common.SendResult;
 import com.yuzhou.rmq.remoting.JedisRemotingInstance;
 import com.yuzhou.rmq.remoting.MQRemotingInstance;
+import com.yuzhou.rmq.remoting.PutResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,12 +28,15 @@ public class DefaultMQProducer implements MQProducer {
 
     @Override
     public void shutdown() {
-
     }
 
     @Override
     public SendResult send(String topic, Map<String, String> msg) {
-        return remotingInstance.putMsg(topic,msg);
+        PutResult putResult = remotingInstance.putMsg(topic, msg);
+        if(putResult != null && putResult.isSuccess()){
+            return SendResult.ok(putResult.getMsgId());
+        }
+        return SendResult.notOk();
     }
 
 
@@ -41,7 +45,7 @@ public class DefaultMQProducer implements MQProducer {
         producer.start();
 
         Map<String, String> map = new HashMap<>();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 200; i++) {
             map.put("name", "zs" + i);
             map.put("age", i + "");
             SendResult result = producer.send("mytopic", map);

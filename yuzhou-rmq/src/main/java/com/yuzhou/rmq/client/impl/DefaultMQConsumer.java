@@ -1,11 +1,12 @@
 package com.yuzhou.rmq.client.impl;
 
+import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.ConsumeStatus;
 import com.yuzhou.rmq.consumer.DefaultMQConsumerService;
-import com.yuzhou.rmq.consumer.PullMessageService;
 import com.yuzhou.rmq.remoting.JedisRemotingInstance;
 import com.yuzhou.rmq.remoting.MQRemotingInstance;
+import com.yuzhou.rmq.utils.DateUtil;
 
 /**
  * Created with IntelliJ IDEA
@@ -26,11 +27,11 @@ public class DefaultMQConsumer implements MQConfigConsumer {
 
     private MessageListener messageListener;
 
-    private PullMessageService pullMessageService;
-
     private DefaultMQConsumerService defaultMQConsumerService;
 
     private MQRemotingInstance<?> remotingInstance;
+
+    private long pullInterval;
 
     public DefaultMQConsumer(String group, String topic) {
         this.group = group;
@@ -45,18 +46,17 @@ public class DefaultMQConsumer implements MQConfigConsumer {
 
 
         //启动拉消息线程
-        pullMessageService = new PullMessageService(this, remotingInstance);
-        pullMessageService.start();
+//        pullMessageService = new PullMessageService(this, remotingInstance);
+//        pullMessageService.start();
 
         //启动消费线程
-        defaultMQConsumerService = new DefaultMQConsumerService(pullMessageService, messageListener);
+        defaultMQConsumerService = new DefaultMQConsumerService(this, remotingInstance);
         defaultMQConsumerService.start();
 
     }
 
     @Override
     public void shutdown() {
-        pullMessageService.shutdown();
         defaultMQConsumerService.shutdown();
     }
 
@@ -86,6 +86,21 @@ public class DefaultMQConsumer implements MQConfigConsumer {
     }
 
     @Override
+    public long pullInterval() {
+        return pullInterval;
+    }
+
+    @Override
+    public void setPullInterval(long pullInterval) {
+        this.pullInterval = pullInterval;
+    }
+
+    @Override
+    public MessageListener messageListener() {
+        return messageListener;
+    }
+
+    @Override
     public String topic() {
         return topic;
     }
@@ -98,10 +113,11 @@ public class DefaultMQConsumer implements MQConfigConsumer {
     public static void main(String[] args) {
 
         DefaultMQConsumer consumer = new DefaultMQConsumer("mygroup", "mytopic");
-        consumer.setPullBatchSize(2);
+        consumer.setPullBatchSize(5);
+        consumer.setPullInterval(3 * 1000);
         consumer.registerMessageListener((msgs, context) -> {
             msgs.forEach(msg -> {
-                System.out.println(String.format("msgId=%s,data=%s", msg.getMsgId(), msg.getContent()));
+                System.out.println(String.format("time=%s,msgId=%s,data=%s", DateUtil.nowStr(), msg.getMsgId(), msg.getContent()));
             });
             try {
                 Thread.sleep(2000);

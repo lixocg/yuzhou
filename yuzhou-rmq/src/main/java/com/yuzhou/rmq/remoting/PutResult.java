@@ -1,39 +1,27 @@
-package com.yuzhou.rmq.common;
+package com.yuzhou.rmq.remoting;
 
-import java.io.Serializable;
+import com.yuzhou.rmq.utils.MsgIdUtil;
 
 /**
  * Created with IntelliJ IDEA
  * Description:
  * User: lixiongcheng
- * Date: 2021-09-17
- * Time: 下午8:06
+ * Date: 2021-09-19
+ * Time: 下午11:37
  */
-public class SendResult implements Serializable {
-
+public class PutResult {
     private static final long serialVersionUID = -4015154304320910205L;
 
     private String msgId;
 
     private boolean success;
 
-    public SendResult(){}
-
-    public SendResult(String msgId) {
-        this.success = true;
+    public PutResult(String msgId) {
         this.msgId = msgId;
     }
 
-    public static SendResult ok(String msgId){
-        return new SendResult(msgId);
-    }
-
-    public static SendResult notOk(){
-        return new SendResult();
-    }
-
-    public static SendResult id(long time, long seq) {
-        return new SendResult(time + "-" + seq);
+    public static PutResult id(long time, long seq) {
+        return new PutResult(MsgIdUtil.id(time,seq));
     }
 
     public String getMsgId() {
@@ -54,8 +42,9 @@ public class SendResult implements Serializable {
 
     @Override
     public String toString() {
-        return "SendResult{" +
+        return "PutResult{" +
                 "msgId='" + msgId + '\'' +
                 '}';
     }
+
 }

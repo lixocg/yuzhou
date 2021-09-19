@@ -1,15 +1,13 @@
 package com.yuzhou.rmq.remoting;
 
-import com.yuzhou.rmq.common.Message;
-import com.yuzhou.rmq.common.SendResult;
+import com.yuzhou.rmq.common.MessageExt;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.StreamEntry;
 import redis.clients.jedis.StreamEntryID;
+import redis.clients.jedis.StreamGroupInfo;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,60 +22,95 @@ import java.util.stream.Collectors;
  */
 public class JedisRemotingInstance implements MQRemotingInstance<Jedis> {
 
-    private String consumerName() {
-        try {
-            return InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        return "UNKOWN-CONSUMER";
-    }
 
     public static final String GROUP_CREATE_SUCCESS = "ok";
 
 
-    @Override
-    public boolean createGroup(String topic, String groupName) {
+    public boolean existGroup(String stream, String group) {
         try {
-            //创建消费组从队列未读取
-            String ok = jedis.xgroupCreate(topic, groupName, StreamEntryID.LAST_ENTRY, true);
-            if(GROUP_CREATE_SUCCESS.equals(ok)){
-                return true;
+            List<StreamGroupInfo> streamGroupInfos = jedis.xinfoGroup(stream);
+            if (streamGroupInfos == null || streamGroupInfos.size() == 0) {
+                return false;
             }
-        }catch (Exception e){
-
+            return streamGroupInfos.stream().anyMatch(
+                    streamGroupInfo -> streamGroupInfo.getName().equals(group));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return false;
     }
 
+
     @Override
-    public List<Message> readMsg(String groupName, String topic, int count) {
+    public boolean createGroup(String stream, String groupName) {
+        try {
+            if (existGroup(stream, groupName)) {
+                System.out.println("消费组已存在");
+                return true;
+            }
+            //创建消费组从队列未读取
+            String ok = jedis.xgroupCreate(stream, groupName, StreamEntryID.LAST_ENTRY, true);
+            if (GROUP_CREATE_SUCCESS.equals(ok)) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public MessageExt readMsg(String stream, String msgId) {
+        StreamEntryID start = new StreamEntryID(msgId);
+        List<StreamEntry> entries = jedis.xrange(stream, start, start);
+        if (entries == null || entries.size() == 0) {
+            return null;
+        }
+        //只有一个key取列表第一个
+        StreamEntry streamEntry = entries.get(0);
+        MessageExt messageExt = new MessageExt();
+        messageExt.setContent(streamEntry.getFields());
+        messageExt.setMsgId(streamEntry.getID().toString());
+        return messageExt;
+    }
+
+    /**
+     * TODO 需要修改方法名
+     * 阻塞试读取未被其他同组其他消费者消费的数据
+     *
+     * @param groupName
+     * @param consumer
+     * @param stream
+     * @param count
+     * @return
+     */
+    @Override
+    public List<MessageExt> readMsgList(String groupName, String consumer, String stream, int count) {
 
         Map<String, StreamEntryID> streamMap = new HashMap<>();
-        streamMap.put(topic, StreamEntryID.UNRECEIVED_ENTRY);
-        Map.Entry<String, StreamEntryID> stream = streamMap.entrySet().iterator().next();
+        streamMap.put(stream, StreamEntryID.UNRECEIVED_ENTRY);
+        Map.Entry<String, StreamEntryID> streamEntryIDEntry = streamMap.entrySet().iterator().next();
 
         //只读取当前topic的stream key,没数据阻塞
         List<Map.Entry<String/*key*/, List<StreamEntry>>> entries =
                 jedis.xreadGroup(groupName,
-                        consumerName(),
-                        count, Long.MAX_VALUE, false, stream);
+                        consumer,
+                        count, Long.MAX_VALUE, true, streamEntryIDEntry);
 
         Map.Entry<String, List<StreamEntry>> streamEntryList = entries.get(0);
-        List<Message> messageList = streamEntryList.getValue().stream().map(streamEntry -> {
-            Message message = new Message();
-            message.setMsgId(streamEntry.getID().toString());
-            message.setContent(streamEntry.getFields());
-            return message;
+        List<MessageExt> messageExtList = streamEntryList.getValue().stream().map(streamEntry -> {
+            MessageExt messageExt = new MessageExt();
+            messageExt.setMsgId(streamEntry.getID().toString());
+            messageExt.setContent(streamEntry.getFields());
+            return messageExt;
         }).collect(Collectors.toList());
 
-        return messageList;
+        return messageExtList;
     }
 
     @Override
-    public SendResult putMsg(String topic, Map<String, String> msg) {
+    public PutResult putMsg(String topic, Map<String, String> msg) {
         StreamEntryID streamEntryID = jedis.xadd(topic, StreamEntryID.NEW_ENTRY, msg);
-        return SendResult.id(streamEntryID.getTime(), streamEntryID.getSequence());
+        return PutResult.id(streamEntryID.getTime(), streamEntryID.getSequence());
     }
 
     private JedisPool jedisPool;

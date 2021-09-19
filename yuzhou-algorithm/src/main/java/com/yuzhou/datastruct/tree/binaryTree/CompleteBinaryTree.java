@@ -7,7 +7,7 @@ import com.yuzhou.datastruct.TNode;
 /**
  * 利用层次遍历原理构造完全二叉树
  */
-public class CompleteBinaryTree<T extends Comparable> extends BinarySearchTree<T> {
+public class CompleteBinaryTree<T extends Comparable<T>> extends BinarySearchTree<T> {
 
 
     /**

@@ -7,7 +7,7 @@ import com.yuzhou.datastruct.tree.Tree;
 /**
  * 平衡二叉搜索树(AVL树)
  */
-public class AVLTree<T extends Comparable> implements Tree<T> {
+public class AVLTree<T extends Comparable<T>> implements Tree<T> {
 
 
     /**

@@ -186,6 +186,20 @@ public class JedisRemotingInstance implements MQRemotingInstance<Jedis> {
         return readDelayMsg(topic, 0, System.currentTimeMillis());
     }
 
+    @Override
+    public void delDelayMsgBeforeNow(String topic) {
+        remDelayMsg(topic, 0, System.currentTimeMillis());
+    }
+
+    public void remDelayMsg(String topic, long start, long end) {
+        Jedis jedis = jedisPool.getResource();
+        try {
+            jedis.zremrangeByScore(MixUtil.delayScoreTopic(topic), start, end);
+        } finally {
+            jedisPool.returnResource(jedis);
+        }
+    }
+
     /**
      * 读取延迟队列指定范围数据
      * 获取到数据需要删除数据
@@ -196,17 +210,7 @@ public class JedisRemotingInstance implements MQRemotingInstance<Jedis> {
     public List<MessageExt> readDelayMsg(String topic, long start, long end) {
         Jedis jedis = jedisPool.getResource();
         try {
-            //使用事物防止其他消费者拉取到重复的定时消息，但不能保证消费不重复
-            //开启事物
-            Transaction multi = jedis.multi();
-            //获取
-            Response<Set<String>> zrangeByScoreRes = multi.zrangeByScore(MixUtil.delayScoreTopic(topic), start, end);
-            //删除
-            multi.zremrangeByScore(MixUtil.delayScoreTopic(topic), start, end);
-            multi.exec();
-
-
-            Set<String> msgIds = zrangeByScoreRes.get();
+            Set<String> msgIds = jedis.zrangeByScore(MixUtil.delayScoreTopic(topic), start, end);
             if (msgIds == null || msgIds.size() == 0) {
                 return null;
             }

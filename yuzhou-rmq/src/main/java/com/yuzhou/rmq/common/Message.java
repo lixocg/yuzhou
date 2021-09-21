@@ -1,4 +1,4 @@
-package com.yuzhou.rmq.client;
+package com.yuzhou.rmq.common;
 
 import java.io.Serializable;
 import java.util.Map;

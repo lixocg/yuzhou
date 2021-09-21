@@ -78,10 +78,10 @@ public class DefaultMQProducer implements MQProducer {
             map.put("name", "zs" + i);
             map.put("age", i + "");
             SendResult result = null;
-            if (i > 50) {
+            if (i < 10) {
                 result = producer.send("mytopic", map);
             } else {
-                result = producer.send("mytopic", map, System.currentTimeMillis() + i * 1000);
+//                result = producer.send("mytopic", map, System.currentTimeMillis() + i * 1000);
             }
             System.out.println(result);
         }

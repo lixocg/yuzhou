@@ -2,9 +2,11 @@ package com.yuzhou.rmq.consumer;
 
 import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
+import com.yuzhou.rmq.common.MsgReservedKey;
 import com.yuzhou.rmq.common.ConsumeContext;
 import com.yuzhou.rmq.common.ConsumeStatus;
 import com.yuzhou.rmq.common.MessageExt;
+import com.yuzhou.rmq.common.MsgRetryLevel;
 import com.yuzhou.rmq.common.ServiceThread;
 import com.yuzhou.rmq.common.ThreadFactoryImpl;
 import com.yuzhou.rmq.remoting.MQRemotingInstance;
@@ -15,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -101,10 +104,31 @@ public class DefaultMQConsumerService extends ServiceThread {
                 ConsumeStatus consumeStatus = messageListener.consumeMessage(messageExts, context);
                 switch (consumeStatus) {
                     case CONSUME_SUCCESS:
+                        //普通消息ACK
 //                                jedis.xack(topic, group, streamEntryIDS);
+                        //定时消息删除，这里会出现重复消息
+                        //TODO
                         break;
                     case CONSUME_LATER:
                         //放入重试队列中
+                        messageExts.parallelStream().forEach(messageExt -> {
+                            Map<String, String> content = messageExt.getContent();
+                            int count = Integer.parseInt(content.getOrDefault(MsgReservedKey.RETRY_COUNT.getKey(), "0"));
+                            if (count == MsgRetryLevel.MAX_RETRY_COUNT) {
+                                //放入死信队列
+                                //TODO
+                                return;
+                            }
+                            MsgRetryLevel msgRetryLevel = MsgRetryLevel.getByCount(count);
+                            if (msgRetryLevel == null) {
+                                log.error("无效重试次数,msgId={},count={}", messageExt.getMsgId(), count);
+                                return;
+                            }
+                            content.put(MsgReservedKey.RETRY_COUNT.getKey(),String.valueOf(++count));
+                            mqRemotingInstance.putDelayMsg(mqConfigConsumer.topic(),
+                                    content,
+                                    System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
+                        });
                         break;
                     default:
                         throw new RuntimeException("指定返回");
@@ -120,7 +144,7 @@ public class DefaultMQConsumerService extends ServiceThread {
         super.start();
 
         //启动间隔消息拉取定时
-        if(mqConfigConsumer.pullInterval() > 0) {
+        if (mqConfigConsumer.pullInterval() > 0) {
             this.intervalPullMsgExecutor.scheduleAtFixedRate(this::pullMsgHandle,
                     3000,
                     mqConfigConsumer.pullInterval(), TimeUnit.MILLISECONDS);
@@ -131,7 +155,7 @@ public class DefaultMQConsumerService extends ServiceThread {
     }
 
     private void pullDelayMsgHandle() {
-        System.out.println(String.format("%s ----定时拉取消息中",DateUtil.nowStr()));
+        System.out.println(String.format("%s ----定时拉取消息中", DateUtil.nowStr()));
         List<MessageExt> messageExts = mqRemotingInstance.readDelayMsgBeforeNow(mqConfigConsumer.topic());
         if (messageExts == null) {
             return;

@@ -42,11 +42,6 @@ public class DefaultMQConsumer implements MQConfigConsumer {
         remotingInstance = new JedisRemotingInstance();
         remotingInstance.start();
 
-
-        //启动拉消息线程
-//        pullMessageService = new PullMessageService(this, remotingInstance);
-//        pullMessageService.start();
-
         //启动消费线程
         defaultMQConsumerService = new DefaultMQConsumerService(this, remotingInstance);
         defaultMQConsumerService.start();
@@ -112,7 +107,8 @@ public class DefaultMQConsumer implements MQConfigConsumer {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            return ConsumeStatus.CONSUME_SUCCESS;
+//            return ConsumeStatus.CONSUME_SUCCESS;
+            return ConsumeStatus.CONSUME_LATER;
         });
         consumer.start();
     }

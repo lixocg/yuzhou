@@ -19,6 +19,8 @@ public interface MQRemotingInstance<RC> {
 
     List<MessageExt> readDelayMsgBeforeNow(String topic);
 
+    void delDelayMsgBeforeNow(String topic);
+
     void start();
 
     void shutdown();

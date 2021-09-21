@@ -14,10 +14,6 @@ public interface MQConfigConsumer extends MQConsumer {
 
     void setPullBatchSize(int size);
 
-    void setOrderly(boolean isOrderly);
-
-    boolean orderly();
-
     int pullBatchSize();
 
     long pullInterval();
@@ -25,4 +21,5 @@ public interface MQConfigConsumer extends MQConsumer {
     void setPullInterval(long pullInterval);
 
     MessageListener messageListener();
+
 }

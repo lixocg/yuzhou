@@ -8,6 +8,7 @@ import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.ServiceThread;
 import com.yuzhou.rmq.common.ThreadFactoryImpl;
 import com.yuzhou.rmq.remoting.MQRemotingInstance;
+import com.yuzhou.rmq.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +35,17 @@ public class DefaultMQConsumerService extends ServiceThread {
 
     private final ExecutorService consumePool = Executors.newFixedThreadPool(10);
 
-    private final ScheduledExecutorService intervalPullMsgExecutor = Executors.newSingleThreadScheduledExecutor(new ThreadFactoryImpl("ConsumeMessageScheduledThread_"));
+    /**
+     * 间隔消息拉取定时
+     */
+    private final ScheduledExecutorService intervalPullMsgExecutor =
+            Executors.newSingleThreadScheduledExecutor(new ThreadFactoryImpl("ConsumeMessageIntervalThread_"));
+
+    /**
+     * 延迟消息拉取定时
+     */
+    private final ScheduledExecutorService delayPullMsgExecutor =
+            Executors.newSingleThreadScheduledExecutor(new ThreadFactoryImpl("ConsumeMessageDelayThread_"));
 
     private final MQConfigConsumer mqConfigConsumer;
 
@@ -50,15 +61,8 @@ public class DefaultMQConsumerService extends ServiceThread {
     public void run() {
         log.info(this.getServiceName() + " service started");
 
-        long putInterval = mqConfigConsumer.pullInterval();
-        if (putInterval > 0) {
-            this.intervalPullMsgExecutor.scheduleAtFixedRate(this::pullMsgHandle,
-                    0,
-                    mqConfigConsumer.pullInterval(), TimeUnit.MILLISECONDS);
-            return;
-        }
-
-        while (!this.isStopped()) {
+        //非间隔拉取才启动该处理器
+        while (!this.isStopped() && mqConfigConsumer.pullInterval() == 0) {
             try {
                 pullMsgHandle();
             } catch (Exception e) {
@@ -81,16 +85,20 @@ public class DefaultMQConsumerService extends ServiceThread {
     private void pullMsgHandle() {
         System.out.println("拉取消息中....");
         //拉取消息,Redis队列没有消息阻塞
-        List<MessageExt> messageExtList = mqRemotingInstance.readMsgList(
+        List<MessageExt> messageExtList = mqRemotingInstance.blockedReadMsgs(
                 mqConfigConsumer.group(),
                 consumerName(),
                 mqConfigConsumer.topic(),
                 mqConfigConsumer.pullBatchSize());
 
+        callback(messageExtList);
+    }
+
+    public void callback(final List<MessageExt> messageExts) {
         consumePool.execute(() -> {
             try {
                 ConsumeContext context = new ConsumeContext();
-                ConsumeStatus consumeStatus = messageListener.consumeMessage(messageExtList, context);
+                ConsumeStatus consumeStatus = messageListener.consumeMessage(messageExts, context);
                 switch (consumeStatus) {
                     case CONSUME_SUCCESS:
 //                                jedis.xack(topic, group, streamEntryIDS);
@@ -105,31 +113,41 @@ public class DefaultMQConsumerService extends ServiceThread {
 
             }
         });
-
     }
 
     @Override
     public void start() {
         super.start();
+
+        //启动间隔消息拉取定时
+        if(mqConfigConsumer.pullInterval() > 0) {
+            this.intervalPullMsgExecutor.scheduleAtFixedRate(this::pullMsgHandle,
+                    3000,
+                    mqConfigConsumer.pullInterval(), TimeUnit.MILLISECONDS);
+        }
+
+        //启动定时消息拉取定时
+        this.delayPullMsgExecutor.scheduleAtFixedRate(this::pullDelayMsgHandle, 3, 2, TimeUnit.SECONDS);
+    }
+
+    private void pullDelayMsgHandle() {
+        System.out.println(String.format("%s ----定时拉取消息中",DateUtil.nowStr()));
+        List<MessageExt> messageExts = mqRemotingInstance.readDelayMsgBeforeNow(mqConfigConsumer.topic());
+        if (messageExts == null) {
+            return;
+        }
+        callback(messageExts);
     }
 
     @Override
     public void shutdown() {
         super.shutdown();
         this.intervalPullMsgExecutor.shutdown();
+        this.delayPullMsgExecutor.shutdown();
     }
 
     @Override
     public String getServiceName() {
         return this.getClass().getName();
-    }
-
-    public String tryTopicName(String topic) {
-        return "%retry%_" + topic;
-    }
-
-
-    public static void main(String[] args) {
-        ScheduledExecutorService intervalPullMsgExecutor = Executors.newSingleThreadScheduledExecutor(new ThreadFactoryImpl("ConsumeMessageScheduledThread_"));
     }
 }

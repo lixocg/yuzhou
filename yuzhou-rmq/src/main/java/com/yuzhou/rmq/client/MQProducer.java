@@ -17,4 +17,6 @@ public interface MQProducer {
     void shutdown();
 
     SendResult send(String topic, Map<String,String> msg);
+
+    SendResult send(String topic, Map<String, String> msg, long delay);
 }

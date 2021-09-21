@@ -2,17 +2,18 @@ package com.yuzhou;
 
 import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.common.MessageExt;
-import com.yuzhou.rmq.common.SendResult;
+import com.yuzhou.rmq.common.ThreadFactoryImpl;
 import com.yuzhou.rmq.remoting.JedisRemotingInstance;
 import com.yuzhou.rmq.remoting.PutResult;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created with IntelliJ IDEA
@@ -35,6 +36,9 @@ public class JedisRemotingInstanceTest {
     public void before() {
         instance = new JedisRemotingInstance();
         instance.start();
+
+        System.out.println(instance.jedisPool.getResource());
+        System.out.println(instance.jedisPool.getResource());
     }
 
     @Test
@@ -56,6 +60,41 @@ public class JedisRemotingInstanceTest {
     }
 
     @Test
-    public void testReadMsg(){
+    public void testReadMsg() {
+    }
+
+    @Test
+    public void testPutMsgWithScore() {
+        instance.putMsgWithScore("scoreTestKey", "id2", System.currentTimeMillis());
+    }
+
+    @Test
+    public void testDelayMsg() {
+        String topic = "topic1";
+
+        Map<String, String> msg = new HashMap<>();
+        msg.put("name", "lisi");
+        PutResult result = instance.putDelayMsg(topic, msg, System.currentTimeMillis() - 5 * 60 * 1000);
+        System.out.println(result);
+
+        List<MessageExt> messageExts = instance.readDelayMsgBeforeNow(topic);
+        System.out.println(JSON.toJSONString(messageExts));
+    }
+
+    @Test
+    public void testReadDelayMsg(){
+         final ScheduledExecutorService delayPullMsgExecutor =
+                Executors.newSingleThreadScheduledExecutor(new ThreadFactoryImpl("ConsumeMessageDelayThread_"));
+
+        delayPullMsgExecutor.scheduleAtFixedRate(()->{
+            List<MessageExt> messageExts = instance.readDelayMsgBeforeNow("mytopic");
+            System.out.println(JSON.toJSONString(messageExts));
+        }, 3, 2, TimeUnit.SECONDS);
+
+        try {
+            Thread.sleep(Integer.MAX_VALUE);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

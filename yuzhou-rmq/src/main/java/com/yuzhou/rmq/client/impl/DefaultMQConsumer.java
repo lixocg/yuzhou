@@ -23,8 +23,6 @@ public class DefaultMQConsumer implements MQConfigConsumer {
 
     private int pullBatchSize = 1;
 
-    private boolean orderly = false;
-
     private MessageListener messageListener;
 
     private DefaultMQConsumerService defaultMQConsumerService;
@@ -71,16 +69,6 @@ public class DefaultMQConsumer implements MQConfigConsumer {
     }
 
     @Override
-    public void setOrderly(boolean isOrderConsume) {
-        this.orderly = isOrderConsume;
-    }
-
-    @Override
-    public boolean orderly() {
-        return this.orderly;
-    }
-
-    @Override
     public int pullBatchSize() {
         return this.pullBatchSize;
     }
@@ -114,7 +102,7 @@ public class DefaultMQConsumer implements MQConfigConsumer {
 
         DefaultMQConsumer consumer = new DefaultMQConsumer("mygroup", "mytopic");
         consumer.setPullBatchSize(5);
-        consumer.setPullInterval(3 * 1000);
+//        consumer.setPullInterval(3 * 1000);
         consumer.registerMessageListener((msgs, context) -> {
             msgs.forEach(msg -> {
                 System.out.println(String.format("time=%s,msgId=%s,data=%s", DateUtil.nowStr(), msg.getMsgId(), msg.getContent()));

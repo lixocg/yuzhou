@@ -14,13 +14,18 @@ import java.util.Map;
  * Time: 上午9:35
  */
 public interface MQRemotingInstance<RC> {
+
+    PutResult putDelayMsg(String topic, Map<String, String> msg, long score);
+
+    List<MessageExt> readDelayMsgBeforeNow(String topic);
+
     void start();
 
-    void shutdown(RC rc);
+    void shutdown();
 
     boolean createGroup(String topic, String groupName);
 
-    List<MessageExt> readMsgList(String groupName,String consumer, String topic, int count);
+    List<MessageExt> blockedReadMsgs(String groupName,String consumer, String topic, int count);
 
     PutResult putMsg(String topic, Map<String,String> msg);
 

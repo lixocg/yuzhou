@@ -16,4 +16,5 @@ public class DateUtil {
     public static String nowStr() {
         return FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
+
 }

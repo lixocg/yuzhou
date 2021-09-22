@@ -107,7 +107,7 @@ public class DefaultMQConsumerService extends ServiceThread {
                         //普通消息ACK
 //                                jedis.xack(topic, group, streamEntryIDS);
                         //定时消息删除，这里会出现重复消息
-                        //TODO
+                        //TODO 去获取消息那做监听
                         break;
                     case CONSUME_LATER:
                         //放入重试队列中

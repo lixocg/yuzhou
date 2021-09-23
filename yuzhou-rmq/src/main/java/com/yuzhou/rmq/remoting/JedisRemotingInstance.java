@@ -156,11 +156,6 @@ public class JedisRemotingInstance implements MQRemotingInstance {
                 .build();
     }
 
-    @Override
-    public void delDelayMsgBeforeNow(String topic) {
-        remoting.zremrangeByScore(MixUtil.delayScoreTopic(topic), 0, System.currentTimeMillis());
-    }
-
 
     /**
      * 读取延迟队列指定范围数据

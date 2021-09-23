@@ -21,7 +21,7 @@ public class DefaultMQConsumer implements MQConfigConsumer {
 
     private final String group;
 
-    private int pullBatchSize = 1;
+    private int pullBatchSize = 32;
 
     private MessageListener messageListener;
 

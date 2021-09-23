@@ -18,7 +18,6 @@ public interface MQRemotingInstance {
 
     PullResult readDelayMsgBeforeNow(String topic);
 
-    void delDelayMsgBeforeNow(String topic);
 
     void start();
 

@@ -1,7 +1,6 @@
-package com.yuzhou.rmq.remoting;
+package com.yuzhou.rmq.common;
 
 import com.yuzhou.rmq.utils.MsgIdUtil;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 /**
  * Created with IntelliJ IDEA
@@ -28,6 +27,9 @@ public class PutResult {
         this.msgId = msgId;
     }
 
+    public static PutResult id(String msgId){
+        return new PutResult(msgId);
+    }
 
     public static PutResult id(long time, long seq) {
         return new PutResult(MsgIdUtil.id(time, seq));

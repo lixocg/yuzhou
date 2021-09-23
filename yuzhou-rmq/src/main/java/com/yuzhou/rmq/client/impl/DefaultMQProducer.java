@@ -5,7 +5,7 @@ import com.yuzhou.rmq.client.MQProducer;
 import com.yuzhou.rmq.common.SendResult;
 import com.yuzhou.rmq.remoting.JedisRemotingInstance;
 import com.yuzhou.rmq.remoting.MQRemotingInstance;
-import com.yuzhou.rmq.remoting.PutResult;
+import com.yuzhou.rmq.common.PutResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class DefaultMQProducer implements MQProducer {
 
-    private MQRemotingInstance<?> remotingInstance;
+    private MQRemotingInstance remotingInstance;
 
     /**
      * 数据key保留关键字
@@ -39,7 +39,7 @@ public class DefaultMQProducer implements MQProducer {
 
     @Override
     public void start() {
-        remotingInstance = new JedisRemotingInstance();
+        remotingInstance = new JedisRemotingInstance("127.0.0.1",6379);
         remotingInstance.start();
     }
 

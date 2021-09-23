@@ -27,7 +27,7 @@ public class DefaultMQConsumer implements MQConfigConsumer {
 
     private DefaultMQConsumerService defaultMQConsumerService;
 
-    private MQRemotingInstance<?> remotingInstance;
+    private MQRemotingInstance remotingInstance;
 
     private long pullInterval;
 
@@ -39,7 +39,7 @@ public class DefaultMQConsumer implements MQConfigConsumer {
     @Override
     public void start() {
         //启动jedis通信实例
-        remotingInstance = new JedisRemotingInstance();
+        remotingInstance = new JedisRemotingInstance("127.0.0.1",6379);
         remotingInstance.start();
 
         //启动消费线程

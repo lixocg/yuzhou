@@ -1,9 +1,8 @@
 package com.yuzhou.rmq.remoting;
 
-import com.yuzhou.rmq.common.MessageExt;
-import com.yuzhou.rmq.common.SendResult;
+import com.yuzhou.rmq.common.PullResult;
+import com.yuzhou.rmq.common.PutResult;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,11 +12,11 @@ import java.util.Map;
  * Date: 2021-09-19
  * Time: 上午9:35
  */
-public interface MQRemotingInstance<RC> {
+public interface MQRemotingInstance {
 
     PutResult putDelayMsg(String topic, Map<String, String> msg, long score);
 
-    List<MessageExt> readDelayMsgBeforeNow(String topic);
+    PullResult readDelayMsgBeforeNow(String topic);
 
     void delDelayMsgBeforeNow(String topic);
 
@@ -27,7 +26,7 @@ public interface MQRemotingInstance<RC> {
 
     boolean createGroup(String topic, String groupName);
 
-    List<MessageExt> blockedReadMsgs(String groupName,String consumer, String topic, int count);
+    PullResult blockedReadMsgs(String groupName, String consumer, String topic, int count);
 
     PutResult putMsg(String topic, Map<String,String> msg);
 

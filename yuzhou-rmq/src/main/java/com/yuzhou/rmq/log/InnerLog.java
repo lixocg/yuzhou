@@ -14,8 +14,7 @@ import org.slf4j.LoggerFactory;
 import java.nio.charset.Charset;
 
 /**
- * 日志框架使用日志
- *
+ * 日志
  * @author xiongcheng.lxch
  */
 public class InnerLog {
@@ -46,11 +45,12 @@ public class InnerLog {
 
     private static Logger logger = null;
 
-    static {
-        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+   static LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
 
-        //日志文件策略
-        RollingFileAppender<ILoggingEvent> rollingFileAppender = new RollingFileAppender<>();
+    //日志文件策略
+    static RollingFileAppender<ILoggingEvent> rollingFileAppender = new RollingFileAppender<>();
+
+    static {
         rollingFileAppender.setFile(DEFAULT_FILE);
         rollingFileAppender.setContext(loggerContext);
         rollingFileAppender.setName("rmq");
@@ -88,6 +88,14 @@ public class InnerLog {
     }
 
     public static Logger getLogger() {
+        return logger;
+    }
+
+    public static Logger getLogger(Class<?> clz){
+        Logger logger = loggerContext.getLogger(clz);
+        logger.setLevel(Level.INFO);
+        logger.setAdditive(false);
+        logger.addAppender(rollingFileAppender);
         return logger;
     }
 }

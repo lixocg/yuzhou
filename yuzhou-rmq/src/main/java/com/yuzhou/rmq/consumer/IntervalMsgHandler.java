@@ -23,6 +23,8 @@ public class IntervalMsgHandler extends AbstractMsgHandler {
 
     private final String group;
 
+    private final int pullBatchSize;
+
     public IntervalMsgHandler(MQConfigConsumer configConsumer,
                               PullService pullService,
                               MessageListener messageListener) {
@@ -31,13 +33,14 @@ public class IntervalMsgHandler extends AbstractMsgHandler {
         this.pullService = pullService;
         this.topic = configConsumer.topic();
         this.group = configConsumer.group();
+        this.pullBatchSize = configConsumer.pullBatchSize();
     }
 
 
     @Override
     public void run() {
         System.out.println(String.format("%s ----间隔拉取消息中", DateUtil.nowStr()));
-        PullResult pullResult = pullService.readDelayMsgBeforeNow(group, topic);
+        PullResult pullResult = pullService.blockedReadMsgs(group, topic, consumerName(), pullBatchSize);
         if (pullResult.messageExts() == null) {
             return;
         }

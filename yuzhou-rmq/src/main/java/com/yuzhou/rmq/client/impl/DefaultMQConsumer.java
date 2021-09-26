@@ -4,9 +4,11 @@ import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.ConsumeStatus;
 import com.yuzhou.rmq.consumer.DefaultMQConsumerService;
+import com.yuzhou.rmq.log.InnerLog;
 import com.yuzhou.rmq.remoting.DefaultPullMsgService;
 import com.yuzhou.rmq.remoting.PullService;
 import com.yuzhou.rmq.utils.DateUtil;
+import org.slf4j.Logger;
 
 /**
  * Created with IntelliJ IDEA
@@ -93,8 +95,11 @@ public class DefaultMQConsumer implements MQConfigConsumer {
         return group;
     }
 
-    public static void main(String[] args) {
 
+   static Logger logger = InnerLog.getLogger(DefaultMQConsumer.class);
+
+    public static void main(String[] args) {
+        logger.info("000000");
         DefaultMQConsumer consumer = new DefaultMQConsumer("mygroup", "mytopic");
         consumer.setPullBatchSize(5);
 //        consumer.setPullInterval(3 * 1000);

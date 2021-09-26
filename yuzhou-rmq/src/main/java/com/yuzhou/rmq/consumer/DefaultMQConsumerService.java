@@ -65,7 +65,7 @@ public class DefaultMQConsumerService extends ServiceThread {
         //启动间隔消息拉取定时
         if (openIntervalPull) {
             this.intervalPullMsgExecutor.scheduleAtFixedRate(
-                    new DelayMsgHandler(mqConfigConsumer, pullService, messageListener),
+                    new IntervalMsgHandler(mqConfigConsumer, pullService, messageListener),
                     3000,
                     mqConfigConsumer.pullInterval(), TimeUnit.MILLISECONDS);
         }

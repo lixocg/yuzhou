@@ -55,12 +55,5 @@ public class CommonMsgHandler extends AbstractMsgHandler {
     }
 
 
-    private String consumerName() {
-        try {
-            return InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        return "UNKOWN-CONSUMER";
-    }
+
 }

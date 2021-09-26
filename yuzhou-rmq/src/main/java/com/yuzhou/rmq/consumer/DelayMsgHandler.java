@@ -50,30 +50,4 @@ public class DelayMsgHandler extends AbstractMsgHandler {
         }
         handle(pullResult);
     }
-
-    @Override
-    public void handle(PullResult pullResult) {
-        List<MessageExt> messageExts = pullResult.messageExts();
-        ProcessCallback processCallback = pullResult.processCallback();
-
-        ProcessCallback.Context processCallbackCxt = new ProcessCallback.Context();
-        consumePool.execute(() -> {
-            try {
-                ConsumeContext context = new ConsumeContext();
-                ConsumeStatus consumeStatus = messageListener.consumeMessage(messageExts, context);
-                switch (consumeStatus) {
-                    case CONSUME_SUCCESS:
-                        processCallback.onSuccess(processCallbackCxt);
-                        break;
-                    case CONSUME_LATER:
-                        processCallback.onFail(processCallbackCxt);
-                        break;
-                    default:
-                        throw new RuntimeException("指定返回");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 }

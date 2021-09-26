@@ -5,9 +5,10 @@ import com.yuzhou.rmq.common.ConsumeContext;
 import com.yuzhou.rmq.common.ConsumeStatus;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PullResult;
-import com.yuzhou.rmq.common.ServiceThread;
 import com.yuzhou.rmq.remoting.ProcessCallback;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,9 +31,19 @@ public abstract class AbstractMsgHandler implements MsgHandler {
     }
 
 
+    public String consumerName() {
+        try {
+            return InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return "UNKOWN-CONSUMER";
+    }
+
     @Override
     public void handle(PullResult pullResult) {
         List<MessageExt> messageExts = pullResult.messageExts();
+
         ProcessCallback processCallback = pullResult.processCallback();
         ProcessCallback.Context processCallbackCxt = new ProcessCallback.Context();
         processCallbackCxt.setTopic(pullResult.topic());

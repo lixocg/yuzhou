@@ -102,7 +102,7 @@ public class DefaultPullMsgService implements PullService {
      * @return
      */
     @Override
-    public PullResult readDelayMsgBeforeNow(String groupName,String topic) {
+    public PullResult readDelayMsgBeforeNow(String groupName, String topic) {
         long currentTimeMillis = System.currentTimeMillis();
         List<MessageExt> messageExts = readDelayMsg(topic, 0, currentTimeMillis);
 
@@ -146,7 +146,6 @@ public class DefaultPullMsgService implements PullService {
     }
 
 
-
     /**
      * 读取延迟队列指定范围数据
      * 获取到数据需要删除数据
@@ -180,7 +179,8 @@ public class DefaultPullMsgService implements PullService {
     }
 
 
-    class DefaultProcessCallback implements ProcessCallback{
+    class DefaultProcessCallback implements ProcessCallback {
+
         @Override
         public void onSuccess(Context context) {
             //ack 消息

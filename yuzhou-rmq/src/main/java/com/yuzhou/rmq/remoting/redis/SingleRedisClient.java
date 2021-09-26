@@ -4,9 +4,11 @@ import com.yuzhou.rmq.common.MessageExt;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.Response;
 import redis.clients.jedis.StreamEntry;
 import redis.clients.jedis.StreamEntryID;
 import redis.clients.jedis.StreamGroupInfo;
+import redis.clients.jedis.Transaction;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -206,6 +208,25 @@ public class SingleRedisClient implements Remoting {
             jedisPool.returnResource(jedis);
         }
     }
+
+    @Override
+    public Set<String> zrangeAndRemByScore(String key, long start, long end) {
+        Jedis jedis = jedisPool.getResource();
+        try {
+            Transaction multi = jedis.multi();
+            Response<Set<String>> zrangeByScore = multi.zrangeByScore(key, start, end);
+            Response<Long> longResponse = multi.zremrangeByScore(key, start, end);
+            multi.exec();
+            Set<String> msgIds = zrangeByScore.get();
+            if (msgIds == null || msgIds.size() == 0) {
+                return null;
+            }
+            return msgIds;
+        } finally {
+            jedisPool.returnResource(jedis);
+        }
+    }
+
 
     @Override
     public long zremrangeByScore(String key, long start, long end) {

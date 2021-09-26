@@ -60,6 +60,15 @@ public interface Remoting {
 
     Set<String> zrangeByScore(String topic, long start, long end);
 
+    /**
+     * zset获取并删除
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    Set<String> zrangeAndRemByScore(String key, long start, long end);
+
     long zremrangeByScore(String key, long start, long end);
 
     long zrem(String key, List<String> msgIds);

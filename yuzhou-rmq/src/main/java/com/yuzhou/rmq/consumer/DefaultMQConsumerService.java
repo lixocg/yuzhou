@@ -4,7 +4,7 @@ import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.ServiceThread;
 import com.yuzhou.rmq.common.ThreadFactoryImpl;
-import com.yuzhou.rmq.remoting.MQRemotingInstance;
+import com.yuzhou.rmq.remoting.PullService;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -35,14 +35,14 @@ public class DefaultMQConsumerService extends ServiceThread {
 
     private final MQConfigConsumer mqConfigConsumer;
 
-    private final MQRemotingInstance mqRemotingInstance;
+    private final PullService pullService;
 
     private final boolean openIntervalPull;
 
-    public DefaultMQConsumerService(MQConfigConsumer mqConfigConsumer, MQRemotingInstance mqRemotingInstance) {
+    public DefaultMQConsumerService(MQConfigConsumer mqConfigConsumer, PullService pullService) {
         this.mqConfigConsumer = mqConfigConsumer;
         this.messageListener = mqConfigConsumer.messageListener();
-        this.mqRemotingInstance = mqRemotingInstance;
+        this.pullService = pullService;
         this.openIntervalPull = mqConfigConsumer.pullInterval() > 0;
     }
 
@@ -50,7 +50,7 @@ public class DefaultMQConsumerService extends ServiceThread {
     public void run() {
         //启动普通消息拉取,非间隔拉取才启动该处理器
         while (!this.isStopped() && !openIntervalPull) {
-            new CommonMsgHandler(mqConfigConsumer, mqRemotingInstance, messageListener).run();
+            new CommonMsgHandler(mqConfigConsumer, pullService, messageListener).run();
         }
     }
 
@@ -65,15 +65,15 @@ public class DefaultMQConsumerService extends ServiceThread {
         //启动间隔消息拉取定时
         if (openIntervalPull) {
             this.intervalPullMsgExecutor.scheduleAtFixedRate(
-                    new DelayMsgHandler(mqConfigConsumer, mqRemotingInstance, messageListener),
+                    new DelayMsgHandler(mqConfigConsumer, pullService, messageListener),
                     3000,
                     mqConfigConsumer.pullInterval(), TimeUnit.MILLISECONDS);
         }
 
         //启动定时消息拉取定时
         this.delayPullMsgExecutor.scheduleWithFixedDelay(
-                new DelayMsgHandler(mqConfigConsumer, mqRemotingInstance, messageListener)
-                , 3, 2, TimeUnit.SECONDS);
+                new DelayMsgHandler(mqConfigConsumer, pullService, messageListener)
+                , 2, 1, TimeUnit.SECONDS);
     }
 
 

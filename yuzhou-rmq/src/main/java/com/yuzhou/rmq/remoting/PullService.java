@@ -12,11 +12,11 @@ import java.util.Map;
  * Date: 2021-09-19
  * Time: 上午9:35
  */
-public interface MQRemotingInstance {
+public interface PullService {
 
     PutResult putDelayMsg(String topic, Map<String, String> msg, long score);
 
-    PullResult readDelayMsgBeforeNow(String topic);
+    PullResult readDelayMsgBeforeNow(String groupName,String topic);
 
 
     void start();

@@ -4,8 +4,8 @@ import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.ConsumeStatus;
 import com.yuzhou.rmq.consumer.DefaultMQConsumerService;
-import com.yuzhou.rmq.remoting.JedisRemotingInstance;
-import com.yuzhou.rmq.remoting.MQRemotingInstance;
+import com.yuzhou.rmq.remoting.DefaultPullMsgService;
+import com.yuzhou.rmq.remoting.PullService;
 import com.yuzhou.rmq.utils.DateUtil;
 
 /**
@@ -27,7 +27,7 @@ public class DefaultMQConsumer implements MQConfigConsumer {
 
     private DefaultMQConsumerService defaultMQConsumerService;
 
-    private MQRemotingInstance remotingInstance;
+    private PullService remotingInstance;
 
     private long pullInterval;
 
@@ -39,7 +39,7 @@ public class DefaultMQConsumer implements MQConfigConsumer {
     @Override
     public void start() {
         //启动jedis通信实例
-        remotingInstance = new JedisRemotingInstance("127.0.0.1",6379);
+        remotingInstance = new DefaultPullMsgService("127.0.0.1",6379);
         remotingInstance.start();
 
         //启动消费线程

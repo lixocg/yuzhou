@@ -3,8 +3,8 @@ package com.yuzhou.rmq.client.impl;
 import com.yuzhou.rmq.Exception.IllegalMsgException;
 import com.yuzhou.rmq.client.MQProducer;
 import com.yuzhou.rmq.common.SendResult;
-import com.yuzhou.rmq.remoting.JedisRemotingInstance;
-import com.yuzhou.rmq.remoting.MQRemotingInstance;
+import com.yuzhou.rmq.remoting.DefaultPullMsgService;
+import com.yuzhou.rmq.remoting.PullService;
 import com.yuzhou.rmq.common.PutResult;
 
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class DefaultMQProducer implements MQProducer {
 
-    private MQRemotingInstance remotingInstance;
+    private PullService remotingInstance;
 
     /**
      * 数据key保留关键字
@@ -39,7 +39,7 @@ public class DefaultMQProducer implements MQProducer {
 
     @Override
     public void start() {
-        remotingInstance = new JedisRemotingInstance("127.0.0.1",6379);
+        remotingInstance = new DefaultPullMsgService("127.0.0.1",6379);
         remotingInstance.start();
     }
 

@@ -23,28 +23,23 @@ public class PullResult implements Serializable {
 
     private String topic;
 
-    public List<MessageExt> getMessageExts() {
+    private String group;
+
+    public List<MessageExt> messageExts() {
         return messageExts;
     }
 
-    public void setMessageExts(List<MessageExt> messageExts) {
-        this.messageExts = messageExts;
-    }
 
-    public ProcessCallback getProcessCallback() {
+    public ProcessCallback processCallback() {
         return processCallback;
     }
 
-    public void setProcessCallback(ProcessCallback processCallback) {
-        this.processCallback = processCallback;
-    }
-
-    public String getTopic() {
+    public String topic() {
         return topic;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public String group(){
+        return group;
     }
 
     public static Builder builder(){
@@ -68,6 +63,11 @@ public class PullResult implements Serializable {
 
         public Builder topic(String topic){
             this.pullResult.topic = topic;
+            return this;
+        }
+
+        public Builder group(String group){
+            this.pullResult.group = group;
             return this;
         }
 

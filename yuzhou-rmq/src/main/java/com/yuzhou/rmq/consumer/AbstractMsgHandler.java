@@ -32,9 +32,12 @@ public abstract class AbstractMsgHandler implements MsgHandler {
 
     @Override
     public void handle(PullResult pullResult) {
-        List<MessageExt> messageExts = pullResult.getMessageExts();
-        ProcessCallback processCallback = pullResult.getProcessCallback();
+        List<MessageExt> messageExts = pullResult.messageExts();
+        ProcessCallback processCallback = pullResult.processCallback();
         ProcessCallback.Context processCallbackCxt = new ProcessCallback.Context();
+        processCallbackCxt.setTopic(pullResult.topic());
+        processCallbackCxt.setMessageExts(pullResult.messageExts());
+        processCallbackCxt.setGroup(pullResult.group());
         consumePool.execute(() -> {
             try {
                 ConsumeContext context = new ConsumeContext();

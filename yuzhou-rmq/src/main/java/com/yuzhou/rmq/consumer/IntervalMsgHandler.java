@@ -3,7 +3,7 @@ package com.yuzhou.rmq.consumer;
 import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.PullResult;
-import com.yuzhou.rmq.remoting.MQRemotingInstance;
+import com.yuzhou.rmq.remoting.PullService;
 import com.yuzhou.rmq.utils.DateUtil;
 
 /**
@@ -17,22 +17,28 @@ public class IntervalMsgHandler extends AbstractMsgHandler {
 
     private MQConfigConsumer configConsumer;
 
-    private MQRemotingInstance mqRemotingInstance;
+    private PullService pullService;
+
+    private final String topic;
+
+    private final String group;
 
     public IntervalMsgHandler(MQConfigConsumer configConsumer,
-                              MQRemotingInstance mqRemotingInstance,
+                              PullService pullService,
                               MessageListener messageListener) {
         super(messageListener);
         this.configConsumer = configConsumer;
-        this.mqRemotingInstance = mqRemotingInstance;
+        this.pullService = pullService;
+        this.topic = configConsumer.topic();
+        this.group = configConsumer.group();
     }
 
 
     @Override
     public void run() {
         System.out.println(String.format("%s ----间隔拉取消息中", DateUtil.nowStr()));
-        PullResult pullResult = mqRemotingInstance.readDelayMsgBeforeNow(configConsumer.topic());
-        if (pullResult.getMessageExts() == null) {
+        PullResult pullResult = pullService.readDelayMsgBeforeNow(group, topic);
+        if (pullResult.messageExts() == null) {
             return;
         }
         handle(pullResult);

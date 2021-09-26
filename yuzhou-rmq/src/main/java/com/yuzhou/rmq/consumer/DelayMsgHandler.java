@@ -4,15 +4,14 @@ import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.ConsumeContext;
 import com.yuzhou.rmq.common.ConsumeStatus;
-import com.yuzhou.rmq.common.CountDownLatch2;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PullResult;
-import com.yuzhou.rmq.remoting.MQRemotingInstance;
+import com.yuzhou.rmq.remoting.PullService;
 import com.yuzhou.rmq.remoting.ProcessCallback;
 import com.yuzhou.rmq.utils.DateUtil;
+import com.yuzhou.rmq.utils.MixUtil;
 
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * Created with IntelliJ IDEA
@@ -21,44 +20,43 @@ import java.util.concurrent.CountDownLatch;
  * Date: 2021-09-24
  * Time: 上午12:03
  */
-public class DelayMsgHandler extends AbstractMsgHandler{
+public class DelayMsgHandler extends AbstractMsgHandler {
 
     private MQConfigConsumer configConsumer;
 
-    private MQRemotingInstance mqRemotingInstance;
+    private PullService pullService;
+
+    private final String topic;
+
+    private final String group;
 
     public DelayMsgHandler(MQConfigConsumer configConsumer,
-                           MQRemotingInstance mqRemotingInstance,
-                           MessageListener messageListener){
+                           PullService pullService,
+                           MessageListener messageListener) {
         super(messageListener);
         this.configConsumer = configConsumer;
-        this.mqRemotingInstance = mqRemotingInstance;
+        this.pullService = pullService;
+        this.topic = configConsumer.topic();
+        this.group = configConsumer.group();
     }
 
-    CountDownLatch2 latch = new CountDownLatch2(1);
 
     @Override
     public void run() {
-        System.out.println(String.format("%s ----定时拉取消息中", DateUtil.nowStr()));
-        PullResult pullResult = mqRemotingInstance.readDelayMsgBeforeNow(configConsumer.topic());
-        if (pullResult.getMessageExts() == null) {
+        System.out.println(String.format("%s ----定时拉取消息中,topic=%s", DateUtil.nowStr(), MixUtil.delayScoreTopic(topic)));
+        PullResult pullResult = pullService.readDelayMsgBeforeNow(group, configConsumer.topic());
+        if (pullResult.messageExts() == null) {
             return;
         }
         handle(pullResult);
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
     public void handle(PullResult pullResult) {
-        List<MessageExt> messageExts = pullResult.getMessageExts();
-        ProcessCallback processCallback = pullResult.getProcessCallback();
+        List<MessageExt> messageExts = pullResult.messageExts();
+        ProcessCallback processCallback = pullResult.processCallback();
 
         ProcessCallback.Context processCallbackCxt = new ProcessCallback.Context();
-        processCallbackCxt.latch = latch;
         consumePool.execute(() -> {
             try {
                 ConsumeContext context = new ConsumeContext();
@@ -73,7 +71,6 @@ public class DelayMsgHandler extends AbstractMsgHandler{
                     default:
                         throw new RuntimeException("指定返回");
                 }
-                latch.countDown();
             } catch (Exception e) {
                 e.printStackTrace();
             }

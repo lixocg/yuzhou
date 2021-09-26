@@ -1,7 +1,7 @@
 package com.yuzhou;
 
 import com.yuzhou.rmq.common.ThreadFactoryImpl;
-import com.yuzhou.rmq.remoting.JedisRemotingInstance;
+import com.yuzhou.rmq.remoting.DefaultPullMsgService;
 import com.yuzhou.rmq.common.PutResult;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,9 +18,9 @@ import java.util.concurrent.ScheduledExecutorService;
  * Date: 2021-09-19
  * Time: 下午11:31
  */
-public class JedisRemotingInstanceTest {
+public class DefaultPullMsgServiceTest {
 
-    JedisRemotingInstance instance;
+    DefaultPullMsgService instance;
 
     String topic = "testTopic1";
 
@@ -30,7 +30,7 @@ public class JedisRemotingInstanceTest {
 
     @Before
     public void before() {
-        instance = new JedisRemotingInstance("127.0.0.1",6379);
+        instance = new DefaultPullMsgService("127.0.0.1",6379);
         instance.start();
 
     }

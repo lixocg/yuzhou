@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * Date: 2021-09-19
  * Time: 下午2:46
  */
-public class JedisRemotingInstance implements MQRemotingInstance {
+public class DefaultPullMsgService implements PullService {
 
     Logger log = LoggerFactory.getLogger(DefaultMQConsumerService.class);
 
@@ -38,7 +38,7 @@ public class JedisRemotingInstance implements MQRemotingInstance {
 
     private int ip;
 
-    public JedisRemotingInstance(String host, int ip) {
+    public DefaultPullMsgService(String host, int ip) {
         this.host = host;
         this.ip = ip;
     }
@@ -65,20 +65,7 @@ public class JedisRemotingInstance implements MQRemotingInstance {
         return PullResult.builder()
                 .messageExts(messageExts)
                 .topic(topic)
-                .processCallback(new ProcessCallback() {
-                    @Override
-                    public void onSuccess(Context context) {
-                        //ack 消息
-                        List<String> msgIds = messageExts.stream().map(MessageExt::getMsgId).collect(Collectors.toList());
-                        remoting.xack(topic, groupName, msgIds);
-                    }
-
-                    @Override
-                    public void onFail(Context context) {
-                        //投入重试队列
-                        JedisRemotingInstance.this.onFail(messageExts, topic);
-                    }
-                })
+                .processCallback(new DefaultProcessCallback())
                 .build();
     }
 
@@ -115,26 +102,14 @@ public class JedisRemotingInstance implements MQRemotingInstance {
      * @return
      */
     @Override
-    public PullResult readDelayMsgBeforeNow(String topic) {
+    public PullResult readDelayMsgBeforeNow(String groupName,String topic) {
         long currentTimeMillis = System.currentTimeMillis();
         List<MessageExt> messageExts = readDelayMsg(topic, 0, currentTimeMillis);
 
         return PullResult.builder()
                 .messageExts(messageExts)
                 .topic(topic)
-                .processCallback(new ProcessCallback() {
-                    @Override
-                    public void onSuccess(Context context) {
-                        //删除消息
-                        remoting.zremrangeByScore(MixUtil.delayScoreTopic(topic), 0, currentTimeMillis);
-                    }
-
-                    @Override
-                    public void onFail(Context context) {
-                        JedisRemotingInstance.this.onFail(messageExts, topic);
-                        context.latch.countDown();
-                    }
-                })
+                .processCallback(new DefaultProcessCallback())
                 .build();
     }
 
@@ -161,10 +136,6 @@ public class JedisRemotingInstance implements MQRemotingInstance {
                     content.put(MsgReservedKey.RETRY_COUNT.getKey(), String.valueOf(++count));
                     putDelayMsg(topic, content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
                 } else {
-                    //删除重试队列中旧的数据
-//                    long xdel = remoting.xdel(topic, Collections.singletonList(messageExt.getMsgId()));
-                    long zrem = remoting.zrem(MixUtil.delayScoreTopic(topic), Collections.singletonList(messageExt.getMsgId()));
-                    System.out.println("del:" + zrem+"---"+messageExt.getMsgId());
                     content.put(MsgReservedKey.RETRY_COUNT.getKey(), String.valueOf(++count));
                     putDelayMsg(topic, content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
                 }
@@ -175,6 +146,7 @@ public class JedisRemotingInstance implements MQRemotingInstance {
     }
 
 
+
     /**
      * 读取延迟队列指定范围数据
      * 获取到数据需要删除数据
@@ -183,7 +155,7 @@ public class JedisRemotingInstance implements MQRemotingInstance {
      * @return
      */
     public List<MessageExt> readDelayMsg(String topic, long start, long end) {
-        Set<String> msgIds = remoting.zrangeByScore(MixUtil.delayScoreTopic(topic), start, end);
+        Set<String> msgIds = remoting.zrangeAndRemByScore(MixUtil.delayScoreTopic(topic), start, end);
 
         if (msgIds == null) {
             return null;
@@ -207,4 +179,18 @@ public class JedisRemotingInstance implements MQRemotingInstance {
         remoting.shutdown();
     }
 
+
+    class DefaultProcessCallback implements ProcessCallback{
+        @Override
+        public void onSuccess(Context context) {
+            //ack 消息
+            List<String> msgIds = context.getMessageExts().stream().map(MessageExt::getMsgId).collect(Collectors.toList());
+            remoting.xack(context.getTopic(), context.getGroup(), msgIds);
+        }
+
+        @Override
+        public void onFail(Context context) {
+            DefaultPullMsgService.this.onFail(context.getMessageExts(), context.getTopic());
+        }
+    }
 }

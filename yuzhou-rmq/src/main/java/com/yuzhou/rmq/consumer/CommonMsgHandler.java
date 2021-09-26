@@ -3,7 +3,6 @@ package com.yuzhou.rmq.consumer;
 import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.PullResult;
-import com.yuzhou.rmq.common.ServiceThread;
 import com.yuzhou.rmq.remoting.MQRemotingInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,8 @@ import java.net.UnknownHostException;
  * Date: 2021-09-24
  * Time: 上午12:03
  */
-public class CommonMsgHandler  extends AbstractMsgHandler{
+public class CommonMsgHandler extends AbstractMsgHandler {
+
     Logger log = LoggerFactory.getLogger(DefaultMQConsumerService.class);
 
     private MQConfigConsumer mqConfigConsumer;
@@ -26,8 +26,8 @@ public class CommonMsgHandler  extends AbstractMsgHandler{
     private MQRemotingInstance mqRemotingInstance;
 
     public CommonMsgHandler(MQConfigConsumer configConsumer,
-                           MQRemotingInstance mqRemotingInstance,
-                           MessageListener messageListener){
+                            MQRemotingInstance mqRemotingInstance,
+                            MessageListener messageListener) {
         super(messageListener);
         this.mqConfigConsumer = configConsumer;
         this.mqRemotingInstance = mqRemotingInstance;
@@ -39,28 +39,21 @@ public class CommonMsgHandler  extends AbstractMsgHandler{
 
     @Override
     public void run() {
-        while (!this.isStopped()) {
-            try {
-                System.out.println("拉取消息中....");
-                //拉取消息,Redis队列没有消息阻塞
-                PullResult pullResult = mqRemotingInstance.blockedReadMsgs(
-                        mqConfigConsumer.group(),
-                        consumerName(),
-                        mqConfigConsumer.topic(),
-                        mqConfigConsumer.pullBatchSize());
+        try {
+            System.out.println("拉取普通消息中....");
+            //拉取消息,Redis队列没有消息阻塞
+            PullResult pullResult = mqRemotingInstance.blockedReadMsgs(
+                    mqConfigConsumer.group(),
+                    consumerName(),
+                    mqConfigConsumer.topic(),
+                    mqConfigConsumer.pullBatchSize());
 
-                handle(pullResult);
-            } catch (Exception e) {
-                log.error("Pull Message Service Run Method exception", e);
-            }
+            handle(pullResult);
+        } catch (Exception e) {
+            log.error("Pull Message Service Run Method exception", e);
         }
-
     }
 
-    @Override
-    public String getServiceName() {
-        return null;
-    }
 
     private String consumerName() {
         try {

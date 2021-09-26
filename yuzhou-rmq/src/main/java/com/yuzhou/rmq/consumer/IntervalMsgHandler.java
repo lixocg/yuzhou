@@ -13,7 +13,7 @@ import com.yuzhou.rmq.utils.DateUtil;
  * Date: 2021-09-24
  * Time: 上午12:03
  */
-public class IntervalMsgHandler extends AbstractMsgHandler{
+public class IntervalMsgHandler extends AbstractMsgHandler {
 
     private MQConfigConsumer configConsumer;
 
@@ -21,22 +21,12 @@ public class IntervalMsgHandler extends AbstractMsgHandler{
 
     public IntervalMsgHandler(MQConfigConsumer configConsumer,
                               MQRemotingInstance mqRemotingInstance,
-                              MessageListener messageListener){
+                              MessageListener messageListener) {
         super(messageListener);
         this.configConsumer = configConsumer;
         this.mqRemotingInstance = mqRemotingInstance;
     }
 
-    public IntervalMsgHandler(MessageListener messageListener) {
-        super(messageListener);
-    }
-
-
-
-    @Override
-    public String getServiceName() {
-        return this.getClass().getName();
-    }
 
     @Override
     public void run() {

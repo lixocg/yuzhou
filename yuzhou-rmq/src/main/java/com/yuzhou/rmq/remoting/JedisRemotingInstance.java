@@ -14,8 +14,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -65,31 +67,16 @@ public class JedisRemotingInstance implements MQRemotingInstance {
                 .topic(topic)
                 .processCallback(new ProcessCallback() {
                     @Override
-                    public void onSuccess() {
+                    public void onSuccess(Context context) {
                         //ack 消息
                         List<String> msgIds = messageExts.stream().map(MessageExt::getMsgId).collect(Collectors.toList());
                         remoting.xack(topic, groupName, msgIds);
                     }
 
                     @Override
-                    public void onFail() {
+                    public void onFail(Context context) {
                         //投入重试队列
-                        messageExts.parallelStream().forEach(messageExt -> {
-                            Map<String, String> content = messageExt.getContent();
-                            int count = Integer.parseInt(content.getOrDefault(MsgReservedKey.RETRY_COUNT.getKey(), "0"));
-                            if (count == MsgRetryLevel.MAX_RETRY_COUNT) {
-                                //放入死信队列
-                                //TODO
-                                return;
-                            }
-                            MsgRetryLevel msgRetryLevel = MsgRetryLevel.getByCount(count);
-                            if (msgRetryLevel == null) {
-                                log.error("无效重试次数,msgId={},count={}", messageExt.getMsgId(), count);
-                                return;
-                            }
-                            content.put(MsgReservedKey.RETRY_COUNT.getKey(), String.valueOf(++count));
-                            putDelayMsg(topic, content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
-                        });
+                        JedisRemotingInstance.this.onFail(messageExts, topic);
                     }
                 })
                 .build();
@@ -112,19 +99,13 @@ public class JedisRemotingInstance implements MQRemotingInstance {
     @Override
     public PutResult putDelayMsg(String topic, Map<String, String> msg, long timestamp) {
         //1.往延迟topic stream队列中存入元数据,%DELAY%_topic
-        PutResult putResult = putMsg(MixUtil.delayTopic(topic), msg);
-
-        if (!putResult.isSuccess()) {
-            return PutResult.err("放入延迟队列失败");
-        }
-
-        String msgId = remoting.xadd(topic, msg);
+        String msgId = remoting.xadd(MixUtil.delayTopic(topic), msg);
         if (StringUtils.isBlank(msgId)) {
             return PutResult.err("投入stream失败");
         }
-        //2.往zset队列中存入,%DELAYSCORE%_topic
-        remoting.zadd(MixUtil.delayScoreTopic(topic), msgId, TypeUtil.l2d(timestamp));
-        return putResult;
+        //2.往zset队列中存入,%DELAYSCORE%_topic  TODO 这两个操作需要事物保证
+        long zadd = remoting.zadd(MixUtil.delayScoreTopic(topic), msgId, TypeUtil.l2d(timestamp));
+        return PutResult.id(msgId);
     }
 
     /**
@@ -143,17 +124,54 @@ public class JedisRemotingInstance implements MQRemotingInstance {
                 .topic(topic)
                 .processCallback(new ProcessCallback() {
                     @Override
-                    public void onSuccess() {
+                    public void onSuccess(Context context) {
                         //删除消息
-                        remoting.zremrangeByScore(topic, 0, currentTimeMillis);
+                        remoting.zremrangeByScore(MixUtil.delayScoreTopic(topic), 0, currentTimeMillis);
                     }
 
                     @Override
-                    public void onFail() {
-
+                    public void onFail(Context context) {
+                        JedisRemotingInstance.this.onFail(messageExts, topic);
+                        context.latch.countDown();
                     }
                 })
                 .build();
+    }
+
+    private void onFail(List<MessageExt> messageExts, String topic) {
+        try {
+            //投入重试队列
+            messageExts.parallelStream().forEach(messageExt -> {
+                Map<String, String> content = messageExt.getContent();
+                int count = Integer.parseInt(content.getOrDefault(MsgReservedKey.RETRY_COUNT.getKey(), "0"));
+                if (count == MsgRetryLevel.MAX_RETRY_COUNT) {
+                    //放入死信队列
+                    //TODO
+                    long zrem = remoting.zrem(MixUtil.delayScoreTopic(topic), Collections.singletonList(messageExt.getMsgId()));
+                    System.out.println("del----:" + zrem);
+                    return;
+                }
+                MsgRetryLevel msgRetryLevel = MsgRetryLevel.getByCount(count);
+                if (msgRetryLevel == null) {
+                    log.error("无效重试次数,msgId={},count={}", messageExt.getMsgId(), count);
+                    return;
+                }
+                if (count == 0) {
+                    //第一次放重试队列和权重zset
+                    content.put(MsgReservedKey.RETRY_COUNT.getKey(), String.valueOf(++count));
+                    putDelayMsg(topic, content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
+                } else {
+                    //删除重试队列中旧的数据
+//                    long xdel = remoting.xdel(topic, Collections.singletonList(messageExt.getMsgId()));
+                    long zrem = remoting.zrem(MixUtil.delayScoreTopic(topic), Collections.singletonList(messageExt.getMsgId()));
+                    System.out.println("del:" + zrem+"---"+messageExt.getMsgId());
+                    content.put(MsgReservedKey.RETRY_COUNT.getKey(), String.valueOf(++count));
+                    putDelayMsg(topic, content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -173,6 +191,7 @@ public class JedisRemotingInstance implements MQRemotingInstance {
         //并行到重试队列中获取并返回
         return msgIds.parallelStream()
                 .map(msgId -> remoting.xRead(MixUtil.delayTopic(topic), msgId))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
@@ -180,6 +199,7 @@ public class JedisRemotingInstance implements MQRemotingInstance {
     @Override
     public void start() {
         remoting = new SingleRedisClient(host, ip);
+        remoting.start();
     }
 
     @Override

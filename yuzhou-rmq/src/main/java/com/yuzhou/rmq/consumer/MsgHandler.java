@@ -9,6 +9,6 @@ import com.yuzhou.rmq.common.PullResult;
  * Date: 2021-09-24
  * Time: 上午12:03
  */
-public interface MsgHandler {
+public interface MsgHandler extends Runnable{
     void handle(PullResult pullResult);
 }

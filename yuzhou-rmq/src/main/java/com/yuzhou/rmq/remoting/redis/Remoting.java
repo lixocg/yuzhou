@@ -52,11 +52,15 @@ public interface Remoting {
      */
     String xadd(String stream, Map<String, String> msg);
 
-    long xack(String key, String group, List<String> msgIds);
+    long xack(String stream, String group, List<String> msgIds);
 
-    void zadd(String key, String msgId, double score);
+    long xdel(String stream, List<String> msgIds);
+
+    long zadd(String key, String msgId, double score);
 
     Set<String> zrangeByScore(String topic, long start, long end);
 
     long zremrangeByScore(String key, long start, long end);
+
+    long zrem(String key, List<String> msgIds);
 }

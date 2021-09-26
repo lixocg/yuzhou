@@ -19,12 +19,13 @@ import java.util.concurrent.Executors;
  * Date: 2021-09-24
  * Time: 上午12:12
  */
-public abstract class AbstractMsgHandler extends ServiceThread implements MsgHandler {
-    private final ExecutorService consumePool = Executors.newFixedThreadPool(10);
+public abstract class AbstractMsgHandler implements MsgHandler {
 
-    private MessageListener messageListener;
+    protected final ExecutorService consumePool = Executors.newFixedThreadPool(10);
 
-    public AbstractMsgHandler(MessageListener messageListener){
+    public MessageListener messageListener;
+
+    public AbstractMsgHandler(MessageListener messageListener) {
         this.messageListener = messageListener;
     }
 
@@ -33,22 +34,23 @@ public abstract class AbstractMsgHandler extends ServiceThread implements MsgHan
     public void handle(PullResult pullResult) {
         List<MessageExt> messageExts = pullResult.getMessageExts();
         ProcessCallback processCallback = pullResult.getProcessCallback();
+        ProcessCallback.Context processCallbackCxt = new ProcessCallback.Context();
         consumePool.execute(() -> {
             try {
                 ConsumeContext context = new ConsumeContext();
                 ConsumeStatus consumeStatus = messageListener.consumeMessage(messageExts, context);
                 switch (consumeStatus) {
                     case CONSUME_SUCCESS:
-                        processCallback.onSuccess();
+                        processCallback.onSuccess(processCallbackCxt);
                         break;
                     case CONSUME_LATER:
-                        processCallback.onFail();
+                        processCallback.onFail(processCallbackCxt);
                         break;
                     default:
                         throw new RuntimeException("指定返回");
                 }
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         });
     }

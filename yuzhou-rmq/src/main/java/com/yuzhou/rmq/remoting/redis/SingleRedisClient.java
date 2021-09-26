@@ -8,6 +8,8 @@ import redis.clients.jedis.StreamEntry;
 import redis.clients.jedis.StreamEntryID;
 import redis.clients.jedis.StreamGroupInfo;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -152,12 +154,23 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
-    public long xack(String key,String group,List<String> msgIds){
+    public long xack(String stream, String group, List<String> msgIds) {
         Jedis jedis = jedisPool.getResource();
-        try{
+        try {
             StreamEntryID[] streamEntryIDS = msgIds.stream().map(StreamEntryID::new).toArray(StreamEntryID[]::new);
-            return jedis.xack(key,group,streamEntryIDS);
-        }finally {
+            return jedis.xack(stream, group, streamEntryIDS);
+        } finally {
+            jedisPool.returnResource(jedis);
+        }
+    }
+
+    @Override
+    public long xdel(String stream, List<String> msgIds){
+        Jedis jedis = jedisPool.getResource();
+        try {
+            StreamEntryID[] streamEntryIDS = msgIds.stream().map(StreamEntryID::new).toArray(StreamEntryID[]::new);
+            return jedis.xdel(stream, streamEntryIDS);
+        } finally {
             jedisPool.returnResource(jedis);
         }
     }
@@ -170,11 +183,11 @@ public class SingleRedisClient implements Remoting {
      * @param score
      */
     @Override
-    public void zadd(String key, String msgId, double score) {
+    public long zadd(String key, String msgId, double score) {
         Jedis jedis = jedisPool.getResource();
         try {
             Long zadd = jedis.zadd(key, score, msgId);
-            System.out.println(zadd);
+            return zadd == null ? 0 : zadd;
         } finally {
             jedisPool.returnResource(jedis);
         }
@@ -200,9 +213,26 @@ public class SingleRedisClient implements Remoting {
         try {
             Long res = jedis.zremrangeByScore(key, start, end);
             return res == null ? 0 : res;
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             jedisPool.returnResource(jedis);
         }
+        return 0;
+    }
+
+    @Override
+    public long zrem(String key, List<String> msgIds) {
+        Jedis jedis = jedisPool.getResource();
+        try {
+            Long res = jedis.zrem(key, msgIds.toArray(new String[msgIds.size()]));
+            return res == null ? 0 : res;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            jedisPool.returnResource(jedis);
+        }
+        return 0;
     }
 
 }

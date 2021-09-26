@@ -1,5 +1,7 @@
 package com.yuzhou.rmq.remoting;
 
+import com.yuzhou.rmq.common.CountDownLatch2;
+
 /**
  * Created with IntelliJ IDEA
  * Description:
@@ -8,7 +10,11 @@ package com.yuzhou.rmq.remoting;
  * Time: 下午9:58
  */
 public interface ProcessCallback {
-    void onSuccess();
+    void onSuccess(Context context);
 
-    void onFail();
+    void onFail(Context context);
+
+    class Context{
+       public CountDownLatch2 latch;
+    }
 }

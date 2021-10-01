@@ -1,6 +1,6 @@
-package com.yuzhou.rmq.remoting;
+package com.yuzhou.rmq.factory;
 
-import com.yuzhou.rmq.common.CountDownLatch2;
+import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.MessageExt;
 
 import java.util.List;
@@ -20,9 +20,14 @@ public interface ProcessCallback {
         private String topic;
         private String group;
         private List<MessageExt> messageExts;
+        private MessageListener messageListener;
 
         public String getTopic() {
             return topic;
+        }
+
+        public MessageListener getMessageListener() {
+            return messageListener;
         }
 
         public void setTopic(String topic) {
@@ -43,6 +48,10 @@ public interface ProcessCallback {
 
         public void setMessageExts(List<MessageExt> messageExts) {
             this.messageExts = messageExts;
+        }
+
+        public void setMessageListener(MessageListener messageListener) {
+            this.messageListener = messageListener;
         }
     }
 }

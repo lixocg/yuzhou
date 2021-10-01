@@ -5,13 +5,17 @@ import com.yuzhou.rmq.common.ConsumeContext;
 import com.yuzhou.rmq.common.ConsumeStatus;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PullResult;
-import com.yuzhou.rmq.remoting.ProcessCallback;
+import com.yuzhou.rmq.common.ThreadFactoryImpl;
+import com.yuzhou.rmq.factory.ProcessCallback;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created with IntelliJ IDEA
@@ -22,12 +26,23 @@ import java.util.concurrent.Executors;
  */
 public abstract class AbstractMsgHandler implements MsgHandler {
 
-    protected final ExecutorService consumePool = Executors.newFixedThreadPool(10);
+    private final BlockingQueue<Runnable> defaultConsumeMsgPoolQueue;
+
+    private final ExecutorService defaultConsumeMsgExecutor;
 
     public MessageListener messageListener;
 
     public AbstractMsgHandler(MessageListener messageListener) {
         this.messageListener = messageListener;
+        this.defaultConsumeMsgPoolQueue = new LinkedBlockingQueue<>(10000);
+        this.defaultConsumeMsgExecutor = new ThreadPoolExecutor(
+                Runtime.getRuntime().availableProcessors(),
+                Runtime.getRuntime().availableProcessors(),
+                1000 * 60,
+                TimeUnit.MILLISECONDS,
+                this.defaultConsumeMsgPoolQueue,
+                new ThreadFactoryImpl("default-consumeMsg-executor")
+                );
     }
 
 
@@ -44,15 +59,20 @@ public abstract class AbstractMsgHandler implements MsgHandler {
     public void handle(PullResult pullResult) {
         List<MessageExt> messageExts = pullResult.messageExts();
 
+        if(messageExts == null || messageExts.size() == 0){
+            return;
+        }
+
         ProcessCallback processCallback = pullResult.processCallback();
         ProcessCallback.Context processCallbackCxt = new ProcessCallback.Context();
         processCallbackCxt.setTopic(pullResult.topic());
         processCallbackCxt.setMessageExts(pullResult.messageExts());
         processCallbackCxt.setGroup(pullResult.group());
-        consumePool.execute(() -> {
+        processCallbackCxt.setMessageListener(this.messageListener);
+        this.defaultConsumeMsgExecutor.execute(() -> {
             try {
                 ConsumeContext context = new ConsumeContext();
-                ConsumeStatus consumeStatus = messageListener.consumeMessage(messageExts, context);
+                ConsumeStatus consumeStatus = messageListener.onMessage(messageExts, context);
                 switch (consumeStatus) {
                     case CONSUME_SUCCESS:
                         processCallback.onSuccess(processCallbackCxt);

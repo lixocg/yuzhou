@@ -1,6 +1,9 @@
 package com.yuzhou.rmq.remoting.redis;
 
 import com.yuzhou.rmq.common.MessageExt;
+import com.yuzhou.rmq.common.StreamIDEntry;
+import com.yuzhou.rmq.common.TopicGroup;
+import com.yuzhou.rmq.remoting.Remoting;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -10,9 +13,6 @@ import redis.clients.jedis.StreamEntryID;
 import redis.clients.jedis.StreamGroupInfo;
 import redis.clients.jedis.Transaction;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  */
 public class SingleRedisClient implements Remoting {
 
-    public static final String GROUP_CREATE_SUCCESS = "ok";
+    public static final String SUCCESS = "ok";
 
     public JedisPool jedisPool;
 
@@ -62,9 +62,9 @@ public class SingleRedisClient implements Remoting {
                 System.out.println("消费组已存在");
                 return true;
             }
-            //创建消费组从队列未读取
+            //创建消费组从队列未读取，$标识从最大消息id消费，即消费新加入的消息,$标识最大ID
             String ok = jedis.xgroupCreate(stream, groupName, StreamEntryID.LAST_ENTRY, true);
-            if (GROUP_CREATE_SUCCESS.equals(ok)) {
+            if (SUCCESS.equals(ok)) {
                 return true;
             }
         } catch (Exception e) {
@@ -97,7 +97,7 @@ public class SingleRedisClient implements Remoting {
         try {
             StreamEntryID start = new StreamEntryID(startId);
             StreamEntryID end = new StreamEntryID(endIs);
-            List<StreamEntry> entries = jedis.xrange(stream, start, start);
+            List<StreamEntry> entries = jedis.xrange(stream, start, end);
             if (entries == null || entries.size() == 0) {
                 return null;
             }
@@ -121,9 +121,9 @@ public class SingleRedisClient implements Remoting {
     public List<MessageExt> xreadGroup(String groupName, String consumer, String stream, int count) {
         Jedis jedis = jedisPool.getResource();
         try {
-            Map<String, StreamEntryID> streamMap = new HashMap<>();
-            streamMap.put(stream, StreamEntryID.UNRECEIVED_ENTRY);
-            Map.Entry<String, StreamEntryID> streamEntryIDEntry = streamMap.entrySet().iterator().next();
+            //>读取未被ack的消息
+            StreamIDEntry<String,StreamEntryID> streamEntryIDEntry =
+                    new StreamIDEntry<>(stream,StreamEntryID.UNRECEIVED_ENTRY);
 
             //只读取当前topic的stream key,没数据阻塞
             List<Map.Entry<String/*key*/, List<StreamEntry>>> entries =
@@ -135,7 +135,8 @@ public class SingleRedisClient implements Remoting {
             return streamEntryList.getValue().stream().map(streamEntry -> {
                 MessageExt messageExt = new MessageExt();
                 messageExt.setMsgId(streamEntry.getID().toString());
-                messageExt.setContent(streamEntry.getFields());
+                Map<String, String> content = streamEntry.getFields();
+                messageExt.setContent(content);
                 return messageExt;
             }).collect(Collectors.toList());
 
@@ -256,4 +257,48 @@ public class SingleRedisClient implements Remoting {
         return 0;
     }
 
+    @Override
+    public TopicGroup hmget(String key) {
+        Jedis jedis = jedisPool.getResource();
+        try {
+//            jedis.hmget()
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            jedisPool.returnResource(jedis);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean hmset(String key, Map<String, String> data){
+        Jedis jedis = jedisPool.getResource();
+        try {
+            String hmset = jedis.hmset(key, data);
+            if(SUCCESS.equals(hmset)){
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            jedisPool.returnResource(jedis);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean hmset(byte[] key,Map<byte[],byte[]> data){
+        Jedis jedis = jedisPool.getResource();
+        try {
+            String hmset = jedis.hmset(key, data);
+            if(SUCCESS.equals(hmset)){
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            jedisPool.returnResource(jedis);
+        }
+        return false;
+    }
 }

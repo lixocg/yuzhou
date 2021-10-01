@@ -1,7 +1,7 @@
 package com.yuzhou;
 
 import com.yuzhou.rmq.common.ThreadFactoryImpl;
-import com.yuzhou.rmq.remoting.DefaultPullMsgService;
+import com.yuzhou.rmq.factory.MQClientInstance;
 import com.yuzhou.rmq.common.PutResult;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,9 +18,9 @@ import java.util.concurrent.ScheduledExecutorService;
  * Date: 2021-09-19
  * Time: 下午11:31
  */
-public class DefaultPullMsgServiceTest {
+public class MQClientInstanceTest {
 
-    DefaultPullMsgService instance;
+    MQClientInstance instance;
 
     String topic = "testTopic1";
 
@@ -30,7 +30,7 @@ public class DefaultPullMsgServiceTest {
 
     @Before
     public void before() {
-        instance = new DefaultPullMsgService("127.0.0.1",6379);
+        instance = new MQClientInstance("127.0.0.1",6379);
         instance.start();
 
     }

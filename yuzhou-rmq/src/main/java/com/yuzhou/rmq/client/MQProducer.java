@@ -1,5 +1,6 @@
 package com.yuzhou.rmq.client;
 
+import com.yuzhou.rmq.common.Message;
 import com.yuzhou.rmq.common.SendResult;
 
 import java.util.Map;
@@ -19,4 +20,10 @@ public interface MQProducer {
     SendResult send(String topic, Map<String,String> msg);
 
     SendResult send(String topic, Map<String, String> msg, long delay);
+
+    SendResult send(String topic, String tag, Map<String, String> msg);
+
+    SendResult send(String topic, String tag, Map<String, String> msg, long delay);
+
+    SendResult send(Message message);
 }

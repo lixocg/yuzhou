@@ -1,7 +1,6 @@
 package com.yuzhou.rmq.common;
 
-import com.alibaba.fastjson.JSON;
-import com.yuzhou.rmq.remoting.ProcessCallback;
+import com.yuzhou.rmq.factory.ProcessCallback;
 
 import java.io.Serializable;
 import java.util.List;

@@ -2,16 +2,10 @@ package com.yuzhou.rmq.consumer;
 
 import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
-import com.yuzhou.rmq.common.ConsumeContext;
-import com.yuzhou.rmq.common.ConsumeStatus;
-import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PullResult;
-import com.yuzhou.rmq.remoting.PullService;
-import com.yuzhou.rmq.remoting.ProcessCallback;
+import com.yuzhou.rmq.factory.MQClientInstance;
 import com.yuzhou.rmq.utils.DateUtil;
 import com.yuzhou.rmq.utils.MixUtil;
-
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA
@@ -24,18 +18,18 @@ public class DelayMsgHandler extends AbstractMsgHandler {
 
     private MQConfigConsumer configConsumer;
 
-    private PullService pullService;
+    private MQClientInstance mqClientInstance;
 
     private final String topic;
 
     private final String group;
 
     public DelayMsgHandler(MQConfigConsumer configConsumer,
-                           PullService pullService,
+                           MQClientInstance mqClientInstance,
                            MessageListener messageListener) {
         super(messageListener);
         this.configConsumer = configConsumer;
-        this.pullService = pullService;
+        this.mqClientInstance = mqClientInstance;
         this.topic = configConsumer.topic();
         this.group = configConsumer.group();
     }
@@ -44,7 +38,7 @@ public class DelayMsgHandler extends AbstractMsgHandler {
     @Override
     public void run() {
         System.out.println(String.format("%s ----定时拉取消息中,topic=%s", DateUtil.nowStr(), MixUtil.delayScoreTopic(topic)));
-        PullResult pullResult = pullService.readDelayMsgBeforeNow(group, configConsumer.topic());
+        PullResult pullResult = mqClientInstance.readDelayMsgBeforeNow(group, configConsumer.topic());
         if (pullResult.messageExts() == null) {
             return;
         }

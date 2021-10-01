@@ -1,12 +1,13 @@
-package com.yuzhou.rmq.remoting;
+package com.yuzhou.rmq.factory;
 
+import com.yuzhou.rmq.client.ClientConfig;
+import com.yuzhou.rmq.common.ConsumeContext;
 import com.yuzhou.rmq.common.MessageExt;
-import com.yuzhou.rmq.common.MsgReservedKey;
 import com.yuzhou.rmq.common.MsgRetryLevel;
 import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.common.PutResult;
 import com.yuzhou.rmq.consumer.DefaultMQConsumerService;
-import com.yuzhou.rmq.remoting.redis.Remoting;
+import com.yuzhou.rmq.remoting.Remoting;
 import com.yuzhou.rmq.remoting.redis.SingleRedisClient;
 import com.yuzhou.rmq.utils.MixUtil;
 import com.yuzhou.rmq.utils.TypeUtil;
@@ -14,7 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -22,13 +22,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Created with IntelliJ IDEA
- * Description:
+ * 消息拉取服务
  * User: lixiongcheng
  * Date: 2021-09-19
  * Time: 下午2:46
  */
-public class DefaultPullMsgService implements PullService {
+public class MQClientInstance {
 
     Logger log = LoggerFactory.getLogger(DefaultMQConsumerService.class);
 
@@ -38,12 +37,11 @@ public class DefaultPullMsgService implements PullService {
 
     private int ip;
 
-    public DefaultPullMsgService(String host, int ip) {
+    public MQClientInstance(String host, int ip) {
         this.host = host;
         this.ip = ip;
     }
 
-    @Override
     public boolean createGroup(String stream, String groupName) {
         return remoting.xgroupCreate(stream, groupName);
     }
@@ -58,10 +56,8 @@ public class DefaultPullMsgService implements PullService {
      * @param count
      * @return
      */
-    @Override
     public PullResult blockedReadMsgs(String groupName, String consumer, String topic, int count) {
         List<MessageExt> messageExts = remoting.xreadGroup(groupName, consumer, topic, count);
-
         return PullResult.builder()
                 .messageExts(messageExts)
                 .topic(topic)
@@ -69,7 +65,6 @@ public class DefaultPullMsgService implements PullService {
                 .build();
     }
 
-    @Override
     public PutResult putMsg(String topic, Map<String, String> msg) {
         return PutResult.id(remoting.xadd(topic, msg));
     }
@@ -83,7 +78,6 @@ public class DefaultPullMsgService implements PullService {
      * @param timestamp 延迟时间，单位毫秒
      * @return
      */
-    @Override
     public PutResult putDelayMsg(String topic, Map<String, String> msg, long timestamp) {
         //1.往延迟topic stream队列中存入元数据,%DELAY%_topic
         String msgId = remoting.xadd(MixUtil.delayTopic(topic), msg);
@@ -101,7 +95,6 @@ public class DefaultPullMsgService implements PullService {
      *
      * @return
      */
-    @Override
     public PullResult readDelayMsgBeforeNow(String groupName, String topic) {
         long currentTimeMillis = System.currentTimeMillis();
         List<MessageExt> messageExts = readDelayMsg(topic, 0, currentTimeMillis);
@@ -113,17 +106,16 @@ public class DefaultPullMsgService implements PullService {
                 .build();
     }
 
-    private void onFail(List<MessageExt> messageExts, String topic) {
+    private void onFail(ProcessCallback.Context context) {
         try {
             //投入重试队列
-            messageExts.parallelStream().forEach(messageExt -> {
+            context.getMessageExts().parallelStream().forEach(messageExt -> {
                 Map<String, String> content = messageExt.getContent();
-                int count = Integer.parseInt(content.getOrDefault(MsgReservedKey.RETRY_COUNT.getKey(), "0"));
+                int count = Integer.parseInt(content.getOrDefault(ClientConfig.ReservedKey.RETRY_COUNT_KEY.val, "0"));
                 if (count == MsgRetryLevel.MAX_RETRY_COUNT) {
-                    //放入死信队列
-                    //TODO
-                    long zrem = remoting.zrem(MixUtil.delayScoreTopic(topic), Collections.singletonList(messageExt.getMsgId()));
-                    System.out.println("del----:" + zrem);
+                    //经过最大重试任然失败，给业务方处理
+                    ConsumeContext consumeCxt = new ConsumeContext();
+                    context.getMessageListener().onMaxRetryFailMessage(context.getMessageExts(), consumeCxt);
                     return;
                 }
                 MsgRetryLevel msgRetryLevel = MsgRetryLevel.getByCount(count);
@@ -132,12 +124,11 @@ public class DefaultPullMsgService implements PullService {
                     return;
                 }
                 if (count == 0) {
-                    //第一次放重试队列和权重zset
-                    content.put(MsgReservedKey.RETRY_COUNT.getKey(), String.valueOf(++count));
-                    putDelayMsg(topic, content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
+                    content.put(ClientConfig.ReservedKey.RETRY_COUNT_KEY.val, String.valueOf(++count));
+                    putDelayMsg(context.getTopic(), content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
                 } else {
-                    content.put(MsgReservedKey.RETRY_COUNT.getKey(), String.valueOf(++count));
-                    putDelayMsg(topic, content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
+                    content.put(ClientConfig.ReservedKey.RETRY_COUNT_KEY.val, String.valueOf(++count));
+                    putDelayMsg(context.getTopic(), content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
                 }
             });
         } catch (Exception e) {
@@ -167,18 +158,19 @@ public class DefaultPullMsgService implements PullService {
     }
 
 
-    @Override
     public void start() {
         remoting = new SingleRedisClient(host, ip);
         remoting.start();
     }
 
-    @Override
     public void shutdown() {
         remoting.shutdown();
     }
 
 
+    /**
+     * 拉取到的消息由业务消费后的状态回调
+     */
     class DefaultProcessCallback implements ProcessCallback {
 
         @Override
@@ -190,7 +182,7 @@ public class DefaultPullMsgService implements PullService {
 
         @Override
         public void onFail(Context context) {
-            DefaultPullMsgService.this.onFail(context.getMessageExts(), context.getTopic());
+            MQClientInstance.this.onFail(context);
         }
     }
 }

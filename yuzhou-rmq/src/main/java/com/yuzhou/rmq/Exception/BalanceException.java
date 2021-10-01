@@ -7,14 +7,14 @@ package com.yuzhou.rmq.exception;
  * Date: 2021-09-21
  * Time: 下午11:15
  */
-public class IllegalMsgException extends RuntimeException{
+public class BalanceException extends RuntimeException{
     private String errMsg;
 
-    public IllegalMsgException(){
+    public BalanceException(){
         super();
     }
 
-    public IllegalMsgException(String errMsg){
+    public BalanceException(String errMsg){
         super(errMsg);
     }
 }

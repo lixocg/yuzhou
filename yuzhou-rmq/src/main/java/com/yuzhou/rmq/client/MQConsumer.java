@@ -13,4 +13,6 @@ public interface MQConsumer {
     void shutdown();
 
     void registerMessageListener(MessageListener messageListener);
+
+
 }

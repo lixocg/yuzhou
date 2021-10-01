@@ -13,6 +13,10 @@ public class Message implements Serializable {
 
     private static final long serialVersionUID = 6653799783946834606L;
 
+    private String topic;
+
+    private String tag;
+
     /**
      * 消息内容
      */
@@ -27,6 +31,14 @@ public class Message implements Serializable {
         return content;
     }
 
+    public String getTopic() {
+        return topic;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
     public void setContent(Map<String, String> content) {
         this.content = content;
     }
@@ -37,5 +49,13 @@ public class Message implements Serializable {
 
     public void setDelayTime(long delayTime) {
         this.delayTime = delayTime;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

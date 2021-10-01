@@ -3,12 +3,9 @@ package com.yuzhou.rmq.consumer;
 import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.PullResult;
-import com.yuzhou.rmq.remoting.PullService;
+import com.yuzhou.rmq.factory.MQClientInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 /**
  * Created with IntelliJ IDEA
@@ -23,14 +20,14 @@ public class CommonMsgHandler extends AbstractMsgHandler {
 
     private MQConfigConsumer mqConfigConsumer;
 
-    private PullService pullService;
+    private MQClientInstance mqClientInstance;
 
     public CommonMsgHandler(MQConfigConsumer configConsumer,
-                            PullService pullService,
+                            MQClientInstance mqClientInstance,
                             MessageListener messageListener) {
         super(messageListener);
         this.mqConfigConsumer = configConsumer;
-        this.pullService = pullService;
+        this.mqClientInstance = mqClientInstance;
     }
 
     public CommonMsgHandler(MessageListener messageListener) {
@@ -41,8 +38,8 @@ public class CommonMsgHandler extends AbstractMsgHandler {
     public void run() {
         try {
             System.out.println("拉取普通消息中....");
-            //拉取消息,Redis队列没有消息阻塞
-            PullResult pullResult = pullService.blockedReadMsgs(
+            //拉取消息,Redis队列没有消息时阻塞
+            PullResult pullResult = mqClientInstance.blockedReadMsgs(
                     mqConfigConsumer.group(),
                     consumerName(),
                     mqConfigConsumer.topic(),

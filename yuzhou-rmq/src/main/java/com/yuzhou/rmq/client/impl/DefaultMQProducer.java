@@ -1,67 +1,129 @@
 package com.yuzhou.rmq.client.impl;
 
-import com.yuzhou.rmq.Exception.IllegalMsgException;
+import com.yuzhou.rmq.client.ClientConfig;
 import com.yuzhou.rmq.client.MQProducer;
-import com.yuzhou.rmq.common.SendResult;
-import com.yuzhou.rmq.remoting.DefaultPullMsgService;
-import com.yuzhou.rmq.remoting.PullService;
+import com.yuzhou.rmq.common.Message;
 import com.yuzhou.rmq.common.PutResult;
+import com.yuzhou.rmq.common.SendResult;
+import com.yuzhou.rmq.exception.IllegalMsgException;
+import com.yuzhou.rmq.factory.MQClientInstance;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA
- * Description:
+ * 消息生产者
  * User: lixiongcheng
  * Date: 2021-09-18
  * Time: 下午9:46
  */
-public class DefaultMQProducer implements MQProducer {
+public class DefaultMQProducer extends ClientConfig implements MQProducer {
 
-    private PullService remotingInstance;
+    private MQClientInstance mqClientInstance;
 
-    /**
-     * 数据key保留关键字
-     */
-    public static final String DELAY_RESERVED_KEY = "_delay";
+    private void checkMsg(Message message) {
+        if (message == null) {
+            throw new IllegalMsgException("消息为空");
+        }
 
+        if (StringUtils.isBlank(message.getTopic())) {
+            throw new IllegalMsgException("消息topic为空");
+        }
+
+        checkMsg(message.getContent());
+    }
 
     private void checkMsg(Map<String, String> msg) {
         if (msg == null || msg.size() == 0) {
             throw new IllegalMsgException("消息为空");
         }
 
-        if (msg.containsKey(DELAY_RESERVED_KEY)) {
-            throw new IllegalMsgException(String.format("%s为保留字，请更换", DELAY_RESERVED_KEY));
+        for (ReservedKey reservedKey : ReservedKey.values()) {
+            if (msg.containsKey(reservedKey.val)) {
+                throw new IllegalMsgException(String.format("%s为保留字，请更换", reservedKey.val));
+            }
         }
     }
 
     @Override
     public void start() {
-        remotingInstance = new DefaultPullMsgService("127.0.0.1",6379);
-        remotingInstance.start();
+        mqClientInstance = new MQClientInstance("127.0.0.1", 6379);
+        mqClientInstance.start();
     }
 
     @Override
     public void shutdown() {
+        mqClientInstance.shutdown();
     }
 
     @Override
     public SendResult send(String topic, Map<String, String> msg) {
-        checkMsg(msg);
-        PutResult putResult = remotingInstance.putMsg(topic, msg);
-        if (putResult != null && putResult.isSuccess()) {
-            return SendResult.ok(putResult.getMsgId());
-        }
-        return SendResult.notOk();
+        Message message = new Message();
+        message.setContent(msg);
+        message.setTopic(topic);
+        return send(message);
     }
 
     @Override
     public SendResult send(String topic, Map<String, String> msg, long delay) {
-        checkMsg(msg);
-        msg.put("delay", String.valueOf(delay));
-        PutResult putResult = remotingInstance.putDelayMsg(topic, msg, delay);
+        if (delay <= 0) {
+            throw new IllegalMsgException("延迟时间不能小于等于0");
+        }
+        Message message = new Message();
+        message.setContent(msg);
+        message.setTopic(topic);
+        message.setDelayTime(delay);
+        return send(message);
+    }
+
+    @Override
+    public SendResult send(String topic, String tag, Map<String, String> msg) {
+        if (StringUtils.isBlank(tag)) {
+            throw new IllegalMsgException("tag不能为空");
+        }
+        Message message = new Message();
+        message.setContent(msg);
+        message.setTopic(topic);
+        message.setTag(tag);
+        return send(message);
+    }
+
+
+    @Override
+    public SendResult send(String topic, String tag, Map<String, String> msg, long delay) {
+        if (StringUtils.isBlank(tag)) {
+            throw new IllegalMsgException("tag不能为空");
+        }
+        if (delay <= 0) {
+            throw new IllegalMsgException("延迟时间不能小于等于0");
+        }
+        Message message = new Message();
+        message.setContent(msg);
+        message.setTopic(topic);
+        message.setDelayTime(delay);
+        message.setTag(tag);
+        return send(message);
+    }
+
+
+    @Override
+    public SendResult send(Message message) {
+        checkMsg(message);
+        PutResult putResult;
+        if (StringUtils.isNotBlank(message.getTag())) {
+            //tag标记
+            message.getContent().put(ReservedKey.TAG_KEY.val, message.getTag());
+        }
+
+        if (message.getDelayTime() > 0) {
+            //发送延迟消息
+            message.getContent().put(ReservedKey.DELAY_KEY.val, String.valueOf(message.getDelayTime()));
+            putResult = mqClientInstance.putDelayMsg(message.getTopic(), message.getContent(), message.getDelayTime());
+        } else {
+            //发送普通消息
+            putResult = mqClientInstance.putMsg(message.getTopic(), message.getContent());
+        }
         if (putResult != null && putResult.isSuccess()) {
             return SendResult.ok(putResult.getMsgId());
         }

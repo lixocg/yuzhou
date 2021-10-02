@@ -1,13 +1,16 @@
 package com.yuzhou.rmq.remoting.redis;
 
+import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.StreamIDEntry;
 import com.yuzhou.rmq.common.TopicGroup;
+import com.yuzhou.rmq.factory.stat.ConsumerInfo;
 import com.yuzhou.rmq.remoting.Remoting;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.Response;
+import redis.clients.jedis.StreamConsumersInfo;
 import redis.clients.jedis.StreamEntry;
 import redis.clients.jedis.StreamEntryID;
 import redis.clients.jedis.StreamGroupInfo;
@@ -85,11 +88,10 @@ public class SingleRedisClient implements Remoting {
             return streamGroupInfos.stream().anyMatch(
                     streamGroupInfo -> streamGroupInfo.getName().equals(group));
         } catch (Exception e) {
-            e.printStackTrace();
+            return false;
         } finally {
             jedisPool.returnResource(jedis);
         }
-        return false;
     }
 
     public MessageExt xrange(String stream, String startId, String endIs) {
@@ -178,6 +180,18 @@ public class SingleRedisClient implements Remoting {
         }
     }
 
+    @Override
+    public List<ConsumerInfo> xinfoConsumers(String stream, String group){
+        Jedis jedis = jedisPool.getResource();
+        try {
+            List<StreamConsumersInfo> streamConsumersInfos = jedis.xinfoConsumers(stream, group);
+            System.out.println("=====>"+ JSON.toJSONString(streamConsumersInfos));
+            return null;
+        } finally {
+            jedisPool.returnResource(jedis);
+        }
+    }
+
     /**
      * O(log(N)
      *
@@ -258,10 +272,10 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
-    public TopicGroup hmget(String key) {
+    public List<String> hmget(String key,List<String> fields) {
         Jedis jedis = jedisPool.getResource();
         try {
-//            jedis.hmget()
+            return jedis.hmget(key, fields.toArray(new String[fields.size()]));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

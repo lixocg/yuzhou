@@ -9,7 +9,9 @@ import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.consumer.DefaultMQConsumerService;
 import com.yuzhou.rmq.factory.MQClientInstance;
 import com.yuzhou.rmq.log.InnerLog;
+import com.yuzhou.rmq.rc.ManageCenter;
 import com.yuzhou.rmq.utils.DateUtil;
+import com.yuzhou.rmq.utils.MixUtil;
 import org.slf4j.Logger;
 
 import java.util.List;
@@ -17,8 +19,7 @@ import java.util.List;
 import static com.yuzhou.rmq.utils.MixUtil.wrap;
 
 /**
- * Created with IntelliJ IDEA
- * Description:
+ * 默认消费实现
  * User: lixiongcheng
  * Date: 2021-09-17
  * Time: 下午8:12
@@ -53,6 +54,10 @@ public class DefaultMQConsumer implements MQConfigConsumer {
         //启动消费线程
         defaultMQConsumerService = new DefaultMQConsumerService(this, mqClientInstance);
         defaultMQConsumerService.start();
+
+        ManageCenter manageCenter = new ManageCenter(this, mqClientInstance);
+        manageCenter.registerConsumer(this);
+        manageCenter.start();
 
     }
 
@@ -101,6 +106,11 @@ public class DefaultMQConsumer implements MQConfigConsumer {
         return group;
     }
 
+    @Override
+    public String name() {
+        return MixUtil.getConsumerName();
+    }
+
 
     static Logger logger = InnerLog.getLogger(DefaultMQConsumer.class);
 
@@ -120,13 +130,13 @@ public class DefaultMQConsumer implements MQConfigConsumer {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-//            return ConsumeStatus.CONSUME_SUCCESS;
-                return ConsumeStatus.CONSUME_LATER;
+                return ConsumeStatus.CONSUME_SUCCESS;
+//                return ConsumeStatus.CONSUME_LATER;
             }
 
             @Override
             public void onMaxRetryFailMessage(List<MessageExt> msgs, ConsumeContext consumeContext) {
-                System.out.println("最大重试失败:"+ JSON.toJSONString(msgs));
+                System.out.println("最大重试失败:" + JSON.toJSONString(msgs));
             }
         });
         consumer.start();

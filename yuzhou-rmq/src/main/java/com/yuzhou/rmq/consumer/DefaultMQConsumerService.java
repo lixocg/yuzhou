@@ -61,8 +61,15 @@ public class DefaultMQConsumerService extends ServiceThread {
         this.messageListener = mqConfigConsumer.messageListener();
         this.pullBatchSize = mqConfigConsumer.pullBatchSize();
 
-        this.consumerName = MixUtil.getConsumerName();
+        this.consumerName = mqConfigConsumer.name();
+
+        this.createGroupIfNecessary();
     }
+
+    private void createGroupIfNecessary() {
+        mqClientInstance.createGroup(this.topic,this.group);
+    }
+
 
     @Override
     public void run() {
@@ -101,7 +108,7 @@ public class DefaultMQConsumerService extends ServiceThread {
         DelayMsgHandler delayMsgHandler = new DelayMsgHandler(this.messageListener);
         this.delayPullMsgExecutor.scheduleWithFixedDelay(
                 () -> {
-                    System.out.println(String.format("%s ----定时拉取消息中,topic=%s", DateUtil.nowStr(), MixUtil.delayScoreTopic(topic)));
+//                    System.out.println(String.format("%s ----定时拉取消息中,topic=%s", DateUtil.nowStr(), MixUtil.delayScoreTopic(topic)));
                     PullResult pullResult = mqClientInstance.readDelayMsgBeforeNow(group, topic);
                     delayMsgHandler.handle(pullResult);
                 }

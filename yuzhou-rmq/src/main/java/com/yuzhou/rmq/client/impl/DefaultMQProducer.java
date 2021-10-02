@@ -135,7 +135,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         DefaultMQProducer producer = new DefaultMQProducer();
         producer.start();
 
@@ -144,8 +144,9 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
             map.put("name", "zs" + i);
             map.put("age", i + "");
             SendResult result = null;
-            if (i < 10) {
+            if (i < 1000) {
                 result = producer.send("mytopic", map);
+                Thread.sleep(1000);
             } else {
 //                result = producer.send("mytopic", map, System.currentTimeMillis() + i * 1000);
             }

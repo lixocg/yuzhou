@@ -1,7 +1,8 @@
 package com.yuzhou.rmq.remoting;
 
 import com.yuzhou.rmq.common.MessageExt;
-import com.yuzhou.rmq.common.TopicGroup;
+import com.yuzhou.rmq.factory.stat.ConsumerInfo;
+import redis.clients.jedis.StreamConsumersInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -63,6 +64,14 @@ public interface Remoting {
 
     long xdel(String stream, List<String> msgIds);
 
+    /**
+     * 指定stream的某个消费组下的消费者列表
+     * @param stream
+     * @param group
+     * @return
+     */
+    List<ConsumerInfo> xinfoConsumers(String stream, String group);
+
     long zadd(String key, String msgId, double score);
 
     Set<String> zrangeByScore(String topic, long start, long end);
@@ -80,7 +89,7 @@ public interface Remoting {
 
     long zrem(String key, List<String> msgIds);
 
-    TopicGroup hmget(String key);
+    List<String> hmget(String key,List<String> fields);
 
     boolean hmset(String key, Map<String, String> data);
 

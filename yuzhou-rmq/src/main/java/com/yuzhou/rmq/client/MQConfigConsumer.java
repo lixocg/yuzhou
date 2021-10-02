@@ -12,6 +12,8 @@ public interface MQConfigConsumer extends MQConsumer {
 
     String group();
 
+    String name();
+
     void setPullBatchSize(int size);
 
     int pullBatchSize();

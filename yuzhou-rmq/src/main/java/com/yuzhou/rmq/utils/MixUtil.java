@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -14,6 +15,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created with IntelliJ IDEA
@@ -33,6 +35,8 @@ public class MixUtil {
     private static final String DELAY_SCORE_PREFIX = "%DELAYSCORE%" + DELIMITER;
 
     private static final String MQ_PREFIX = "%RMQ%" + DELIMITER;
+
+    public static final String MANAGE_CENTER_KEY = MixUtil.wrap("manageCenter");
 
     public static String wrap(String name) {
         return MQ_PREFIX + name;
@@ -86,21 +90,23 @@ public class MixUtil {
         return result;
     }
 
-    public static Map<String, String> toMap(TopicGroup topicGroup) {
+    public static <T> Map<String, String> toMap(T t) {
         try {
-            if (topicGroup == null) {
+            if (t == null) {
                 return null;
             }
-
             Map<String, String> map = new HashMap<>();
-
-
-            Class<? extends TopicGroup> topicGroupClass = topicGroup.getClass();
-            for (Field field : topicGroupClass.getDeclaredFields()) {
+            for (Field field : t.getClass().getDeclaredFields()) {
                 field.setAccessible(true);
+                int mod = field.getModifiers();
+                if (Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
+                    continue;
+                }
                 String fieldName = field.getName();
-                Object val = field.get(topicGroup);
-                map.put(fieldName, JSON.toJSONString(val));
+                Object val = field.get(t);
+                if (Objects.nonNull(val)) {
+                    map.put(fieldName, JSON.toJSONString(val));
+                }
             }
             return map;
         } catch (Exception e) {

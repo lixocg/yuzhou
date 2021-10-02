@@ -1,5 +1,7 @@
 package com.yuzhou.rmq.client;
 
+import com.yuzhou.rmq.connection.Connection;
+
 /**
  * Created with IntelliJ IDEA
  * Description:
@@ -23,5 +25,4 @@ public interface MQConfigConsumer extends MQConsumer {
     void setPullInterval(long pullInterval);
 
     MessageListener messageListener();
-
 }

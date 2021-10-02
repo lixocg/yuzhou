@@ -6,6 +6,8 @@ import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.ConsumeContext;
 import com.yuzhou.rmq.common.ConsumeStatus;
 import com.yuzhou.rmq.common.MessageExt;
+import com.yuzhou.rmq.connection.Connection;
+import com.yuzhou.rmq.connection.SingleRedisConn;
 import com.yuzhou.rmq.consumer.DefaultMQConsumerService;
 import com.yuzhou.rmq.factory.MQClientInstance;
 import com.yuzhou.rmq.log.InnerLog;
@@ -40,6 +42,8 @@ public class DefaultMQConsumer implements MQConfigConsumer {
 
     private long pullInterval;
 
+    private Connection conn;
+
     public DefaultMQConsumer(String group, String topic) {
         this.group = wrap(group);
         this.topic = wrap(topic);
@@ -48,7 +52,7 @@ public class DefaultMQConsumer implements MQConfigConsumer {
     @Override
     public void start() {
         //启动jedis通信实例
-        mqClientInstance = new MQClientInstance("127.0.0.1", 6379);
+        mqClientInstance = new MQClientInstance(conn);
         mqClientInstance.start();
 
         //启动消费线程
@@ -97,6 +101,11 @@ public class DefaultMQConsumer implements MQConfigConsumer {
     }
 
     @Override
+    public void setConnection(Connection conn) {
+        this.conn = conn;
+    }
+
+    @Override
     public String topic() {
         return topic;
     }
@@ -117,6 +126,7 @@ public class DefaultMQConsumer implements MQConfigConsumer {
     public static void main(String[] args) {
         logger.info("000000");
         DefaultMQConsumer consumer = new DefaultMQConsumer("mygroup", "mytopic");
+        consumer.setConnection(new SingleRedisConn());
         consumer.setPullBatchSize(5);
 //        consumer.setPullInterval(3 * 1000);
         consumer.registerMessageListener(new MessageListener() {

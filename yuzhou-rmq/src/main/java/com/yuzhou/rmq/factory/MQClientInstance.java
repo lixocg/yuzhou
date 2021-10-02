@@ -7,6 +7,7 @@ import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.MsgRetryLevel;
 import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.common.PutResult;
+import com.yuzhou.rmq.connection.Connection;
 import com.yuzhou.rmq.consumer.DefaultMQConsumerService;
 import com.yuzhou.rmq.factory.stat.ConsumerInfo;
 import com.yuzhou.rmq.rc.ConsumerGroup;
@@ -43,9 +44,24 @@ public class MQClientInstance {
 
     private int ip;
 
+    private Connection conn;
+
     public MQClientInstance(String host, int ip) {
         this.host = host;
         this.ip = ip;
+    }
+
+    public MQClientInstance(Connection conn){
+        this.conn = conn;
+    }
+
+    public void start() {
+        remoting = new SingleRedisClient(conn);
+        remoting.start();
+    }
+
+    public void shutdown() {
+        remoting.shutdown();
     }
 
     public boolean createGroup(String stream, String groupName) {
@@ -165,15 +181,6 @@ public class MQClientInstance {
                 .collect(Collectors.toList());
     }
 
-
-    public void start() {
-        remoting = new SingleRedisClient(host, ip);
-        remoting.start();
-    }
-
-    public void shutdown() {
-        remoting.shutdown();
-    }
 
 
     public ConsumerGroup loadConsumeGroup(String groupName){

@@ -5,7 +5,10 @@ import com.yuzhou.rmq.client.MQProducer;
 import com.yuzhou.rmq.common.Message;
 import com.yuzhou.rmq.common.PutResult;
 import com.yuzhou.rmq.common.SendResult;
+import com.yuzhou.rmq.connection.Connection;
+import com.yuzhou.rmq.connection.SingleRedisConn;
 import com.yuzhou.rmq.exception.IllegalMsgException;
+import com.yuzhou.rmq.exception.RmqException;
 import com.yuzhou.rmq.factory.MQClientInstance;
 import com.yuzhou.rmq.utils.MixUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -23,39 +26,25 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
 
     private MQClientInstance mqClientInstance;
 
-    private void checkMsg(Message message) {
-        if (message == null) {
-            throw new IllegalMsgException("消息为空");
-        }
-
-        if (StringUtils.isBlank(message.getTopic())) {
-            throw new IllegalMsgException("消息topic为空");
-        }
-
-        checkMsg(message.getContent());
-    }
-
-    private void checkMsg(Map<String, String> msg) {
-        if (msg == null || msg.size() == 0) {
-            throw new IllegalMsgException("消息为空");
-        }
-
-        for (ReservedKey reservedKey : ReservedKey.values()) {
-            if (msg.containsKey(reservedKey.val)) {
-                throw new IllegalMsgException(String.format("%s为保留字，请更换", reservedKey.val));
-            }
-        }
-    }
+   private Connection conn;
 
     @Override
     public void start() {
-        mqClientInstance = new MQClientInstance("127.0.0.1", 6379);
+        if (conn == null) {
+            throw new RmqException("缺少conn信息");
+        }
+        mqClientInstance = new MQClientInstance(conn);
         mqClientInstance.start();
     }
 
     @Override
     public void shutdown() {
         mqClientInstance.shutdown();
+    }
+
+    @Override
+    public void setConnection(Connection conn) {
+        this.conn = conn;
     }
 
     @Override
@@ -137,6 +126,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
 
     public static void main(String[] args) throws InterruptedException {
         DefaultMQProducer producer = new DefaultMQProducer();
+        producer.setConnection(new SingleRedisConn());
         producer.start();
 
         for (int i = 0; i < 100; i = i + 10) {

@@ -12,10 +12,8 @@ import java.util.Map;
  * Date: 2021-09-17
  * Time: 下午8:03
  */
-public interface MQProducer {
-     void start();
+public interface MQProducer extends MQAdmin{
 
-    void shutdown();
 
     SendResult send(String topic, Map<String,String> msg);
 

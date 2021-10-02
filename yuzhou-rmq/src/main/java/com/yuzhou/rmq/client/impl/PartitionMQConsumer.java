@@ -2,6 +2,7 @@ package com.yuzhou.rmq.client.impl;
 
 import com.yuzhou.rmq.client.MQConsumer;
 import com.yuzhou.rmq.client.MessageListener;
+import com.yuzhou.rmq.connection.Connection;
 
 /**
  * Created with IntelliJ IDEA
@@ -19,6 +20,11 @@ public class PartitionMQConsumer implements MQConsumer {
 
     @Override
     public void shutdown() {
+
+    }
+
+    @Override
+    public void setConnection(Connection conn) {
 
     }
 

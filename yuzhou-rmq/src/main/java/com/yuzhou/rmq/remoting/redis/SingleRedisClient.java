@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.StreamIDEntry;
 import com.yuzhou.rmq.common.TopicGroup;
+import com.yuzhou.rmq.connection.Connection;
 import com.yuzhou.rmq.factory.stat.ConsumerInfo;
 import com.yuzhou.rmq.remoting.Remoting;
 import redis.clients.jedis.Jedis;
@@ -38,9 +39,15 @@ public class SingleRedisClient implements Remoting {
 
     private int port;
 
+    private Connection conn;
+
     public SingleRedisClient(String host, int port) {
         this.host = host;
         this.port = port;
+    }
+
+    public SingleRedisClient(Connection connection){
+        this.conn = connection;
     }
 
     @Override
@@ -49,7 +56,7 @@ public class SingleRedisClient implements Remoting {
         jedisPoolConfig.setMaxTotal(1000);
         jedisPoolConfig.setMaxIdle(2000);
         jedisPoolConfig.setTestOnBorrow(true);
-        jedisPool = new JedisPool(jedisPoolConfig, host, port, 3000);
+        jedisPool = new JedisPool(jedisPoolConfig, conn.host(), conn.ip(), 3000);
     }
 
     @Override

@@ -7,10 +7,7 @@ package com.yuzhou.rmq.client;
  * Date: 2021-09-17
  * Time: 下午8:07
  */
-public interface MQConsumer {
-    void start();
-
-    void shutdown();
+public interface MQConsumer extends MQAdmin{
 
     void registerMessageListener(MessageListener messageListener);
 

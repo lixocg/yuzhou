@@ -26,7 +26,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
 
     private MQClientInstance mqClientInstance;
 
-   private Connection conn;
+    private Connection conn;
 
     @Override
     public void start() {
@@ -136,11 +136,11 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
             SendResult result = null;
             if (i < 1000) {
                 result = producer.send("mytopic", map);
+                System.out.println(result + "-------" + map.get("name"));
                 Thread.sleep(1000);
             } else {
 //                result = producer.send("mytopic", map, System.currentTimeMillis() + i * 1000);
             }
-            System.out.println(result);
         }
     }
 }

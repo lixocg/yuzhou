@@ -74,6 +74,7 @@ public class DefaultMQConsumerService extends ServiceThread {
     @Override
     public void run() {
         CommonMsgHandler commonMsgHandler = new CommonMsgHandler(this.messageListener);
+        commonMsgHandler.start();
         //启动普通消息拉取,非间隔拉取才启动该处理器
         while (!this.isStopped() && !openIntervalPull) {
             System.out.println("拉取普通消息中....");
@@ -94,6 +95,7 @@ public class DefaultMQConsumerService extends ServiceThread {
         //启动间隔消息拉取定时
         if (openIntervalPull) {
             final IntervalMsgHandler intervalMsgHandler = new IntervalMsgHandler(mqConfigConsumer.messageListener());
+            intervalMsgHandler.start();
             this.intervalPullMsgExecutor.scheduleAtFixedRate(
                     () -> {
                         System.out.println(String.format("%s ----间隔拉取消息中", DateUtil.nowStr()));
@@ -106,6 +108,7 @@ public class DefaultMQConsumerService extends ServiceThread {
 
         //启动定时消息拉取定时
         DelayMsgHandler delayMsgHandler = new DelayMsgHandler(this.messageListener);
+        delayMsgHandler.start();
         this.delayPullMsgExecutor.scheduleWithFixedDelay(
                 () -> {
 //                    System.out.println(String.format("%s ----定时拉取消息中,topic=%s", DateUtil.nowStr(), MixUtil.delayScoreTopic(topic)));

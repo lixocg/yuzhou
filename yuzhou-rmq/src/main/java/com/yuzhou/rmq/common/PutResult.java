@@ -1,6 +1,6 @@
 package com.yuzhou.rmq.common;
 
-import com.yuzhou.rmq.utils.MsgIdUtil;
+import com.yuzhou.rmq.utils.MixUtil;
 
 /**
  * Created with IntelliJ IDEA
@@ -32,7 +32,7 @@ public class PutResult {
     }
 
     public static PutResult id(long time, long seq) {
-        return new PutResult(MsgIdUtil.id(time, seq));
+        return new PutResult(MixUtil.id(time, seq));
     }
 
     public static PutResult err(String errorMsg) {

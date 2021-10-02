@@ -1,12 +1,15 @@
 package com.yuzhou.rmq.rc;
 
+import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.common.ThreadFactoryImpl;
 import com.yuzhou.rmq.factory.MQClientInstance;
+import com.yuzhou.rmq.factory.stat.ConsumerInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -38,7 +41,7 @@ public class ManageCenter {
     }
 
     public void start() {
-        consumerStatExecutor.scheduleAtFixedRate(this::stat, 3, 5, TimeUnit.SECONDS);
+        consumerStatExecutor.scheduleAtFixedRate(this::stat, 3, 30, TimeUnit.SECONDS);
     }
 
     private void stat() {
@@ -49,7 +52,8 @@ public class ManageCenter {
         }
         String groupName = consumerGroup.getGroupName();
 
-        mqClientInstance.consumers(mqConfigConsumer.topic(), groupName);
+        List<ConsumerInfo> consumers = mqClientInstance.infoOfconsumers(mqConfigConsumer.topic(), groupName);
+        System.out.println(JSON.toJSONString(consumers));
     }
 
     public ManageCenter(MQConfigConsumer configConsumer, MQClientInstance mqClientInstance) {

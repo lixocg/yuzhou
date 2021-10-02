@@ -136,7 +136,7 @@ public class DefaultMQConsumer implements MQConfigConsumer {
                     System.out.println(String.format("time=%s,msgId=%s,data=%s", DateUtil.nowStr(), msg.getMsgId(), msg.getContent()));
                 });
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(20);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

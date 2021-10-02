@@ -23,8 +23,14 @@ public class ConsumerInstance implements Serializable {
 
     private boolean active;
 
+    private String lastDeliverdId;
+
     public String getName() {
         return name;
+    }
+
+    public String getLastDeliverdId() {
+        return lastDeliverdId;
     }
 
     public void setName(String name) {
@@ -45,6 +51,10 @@ public class ConsumerInstance implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public void setLastDeliverdId(String lastDeliverdId) {
+        this.lastDeliverdId = lastDeliverdId;
     }
 
     @Override

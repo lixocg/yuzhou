@@ -2,11 +2,12 @@ package com.yuzhou.rmq.remoting.redis;
 
 import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.common.MessageExt;
+import com.yuzhou.rmq.common.PendingEntry;
 import com.yuzhou.rmq.common.StreamIDEntry;
-import com.yuzhou.rmq.common.TopicGroup;
 import com.yuzhou.rmq.connection.Connection;
 import com.yuzhou.rmq.factory.stat.ConsumerInfo;
 import com.yuzhou.rmq.remoting.Remoting;
+import com.yuzhou.rmq.utils.MixUtil;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -15,8 +16,11 @@ import redis.clients.jedis.StreamConsumersInfo;
 import redis.clients.jedis.StreamEntry;
 import redis.clients.jedis.StreamEntryID;
 import redis.clients.jedis.StreamGroupInfo;
+import redis.clients.jedis.StreamInfo;
+import redis.clients.jedis.StreamPendingEntry;
 import redis.clients.jedis.Transaction;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -46,7 +50,7 @@ public class SingleRedisClient implements Remoting {
         this.port = port;
     }
 
-    public SingleRedisClient(Connection connection){
+    public SingleRedisClient(Connection connection) {
         this.conn = connection;
     }
 
@@ -131,14 +135,14 @@ public class SingleRedisClient implements Remoting {
         Jedis jedis = jedisPool.getResource();
         try {
             //>读取未被ack的消息
-            StreamIDEntry<String,StreamEntryID> streamEntryIDEntry =
-                    new StreamIDEntry<>(stream,StreamEntryID.UNRECEIVED_ENTRY);
+            StreamIDEntry<String, StreamEntryID> streamEntryIDEntry =
+                    new StreamIDEntry<>(stream, StreamEntryID.UNRECEIVED_ENTRY);
 
             //只读取当前topic的stream key,没数据阻塞
             List<Map.Entry<String/*key*/, List<StreamEntry>>> entries =
                     jedis.xreadGroup(groupName,
                             consumer,
-                            count, Long.MAX_VALUE, true, streamEntryIDEntry);
+                            count, Long.MAX_VALUE, false, streamEntryIDEntry);
 
             Map.Entry<String, List<StreamEntry>> streamEntryList = entries.get(0);
             return streamEntryList.getValue().stream().map(streamEntry -> {
@@ -177,7 +181,7 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
-    public long xdel(String stream, List<String> msgIds){
+    public long xdel(String stream, List<String> msgIds) {
         Jedis jedis = jedisPool.getResource();
         try {
             StreamEntryID[] streamEntryIDS = msgIds.stream().map(StreamEntryID::new).toArray(StreamEntryID[]::new);
@@ -188,16 +192,53 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
-    public List<ConsumerInfo> xinfoConsumers(String stream, String group){
+    public List<PendingEntry> xpending(String stream, String group, String consumer, int count) {
         Jedis jedis = jedisPool.getResource();
         try {
-            List<StreamConsumersInfo> streamConsumersInfos = jedis.xinfoConsumers(stream, group);
-            System.out.println("=====>"+ JSON.toJSONString(streamConsumersInfos));
-            return null;
+            List<StreamPendingEntry> pendingEntries =
+                    jedis.xpending(stream, group, new StreamEntryID("-"), new StreamEntryID("+"), count, consumer);
+            if (pendingEntries == null || pendingEntries.size() == 0) {
+                return Collections.emptyList();
+            }
+            return pendingEntries.stream().map(pe -> {
+                PendingEntry pendingEntry = new PendingEntry();
+                pendingEntry.setMsgId(MixUtil.id(pe.getID().getTime(), pe.getID().getSequence()));
+                pendingEntry.setConsumerName(consumer);
+                pendingEntry.setDeliveredTimes(pe.getDeliveredTimes());
+                pendingEntry.setIdleTime(pe.getIdleTime());
+                return pendingEntry;
+            }).collect(Collectors.toList());
         } finally {
             jedisPool.returnResource(jedis);
         }
     }
+
+    @Override
+    public List<ConsumerInfo> xinfoConsumers(String stream, String group) {
+        Jedis jedis = jedisPool.getResource();
+        try {
+            List<StreamConsumersInfo> streamConsumersInfos = jedis.xinfoConsumers(stream, group);
+            if (streamConsumersInfos == null || streamConsumersInfos.size() == 0) {
+                return null;
+            }
+
+//            System.out.println("======================");
+//            List<StreamGroupInfo> streamGroupInfos = jedis.xinfoGroup(stream);
+//            System.out.println("xinfogroup...." + JSON.toJSONString(streamGroupInfos));
+//            StreamInfo streamInfo = jedis.xinfoStream(stream);
+//            System.out.println("xinfostream...." + JSON.toJSONString(streamInfo));
+            return streamConsumersInfos.stream().map(sci -> {
+                ConsumerInfo consumerInfo = new ConsumerInfo();
+                consumerInfo.setIdle(sci.getIdle());
+                consumerInfo.setName(sci.getName());
+                consumerInfo.setPending(sci.getPending());
+                return consumerInfo;
+            }).collect(Collectors.toList());
+        } finally {
+            jedisPool.returnResource(jedis);
+        }
+    }
+
 
     /**
      * O(log(N)
@@ -279,7 +320,7 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
-    public List<String> hmget(String key,List<String> fields) {
+    public List<String> hmget(String key, List<String> fields) {
         Jedis jedis = jedisPool.getResource();
         try {
             return jedis.hmget(key, fields.toArray(new String[fields.size()]));
@@ -292,11 +333,11 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
-    public boolean hmset(String key, Map<String, String> data){
+    public boolean hmset(String key, Map<String, String> data) {
         Jedis jedis = jedisPool.getResource();
         try {
             String hmset = jedis.hmset(key, data);
-            if(SUCCESS.equals(hmset)){
+            if (SUCCESS.equals(hmset)) {
                 return true;
             }
         } catch (Exception e) {
@@ -308,11 +349,11 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
-    public boolean hmset(byte[] key,Map<byte[],byte[]> data){
+    public boolean hmset(byte[] key, Map<byte[], byte[]> data) {
         Jedis jedis = jedisPool.getResource();
         try {
             String hmset = jedis.hmset(key, data);
-            if(SUCCESS.equals(hmset)){
+            if (SUCCESS.equals(hmset)) {
                 return true;
             }
         } catch (Exception e) {

@@ -18,7 +18,6 @@ import com.yuzhou.rmq.utils.TypeUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import redis.clients.jedis.StreamConsumersInfo;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -51,7 +50,7 @@ public class MQClientInstance {
         this.ip = ip;
     }
 
-    public MQClientInstance(Connection conn){
+    public MQClientInstance(Connection conn) {
         this.conn = conn;
     }
 
@@ -139,6 +138,7 @@ public class MQClientInstance {
                 if (count == MsgRetryLevel.MAX_RETRY_COUNT) {
                     //经过最大重试任然失败，给业务方处理
                     ConsumeContext consumeCxt = new ConsumeContext();
+                    remoting.xack(context.getTopic(), context.getGroup(), Collections.singletonList(messageExt.getMsgId()));
                     context.getMessageListener().onMaxRetryFailMessage(context.getMessageExts(), consumeCxt);
                     return;
                 }
@@ -154,6 +154,8 @@ public class MQClientInstance {
                     content.put(ClientConfig.ReservedKey.RETRY_COUNT_KEY.val, String.valueOf(++count));
                     putDelayMsg(context.getTopic(), content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
                 }
+                //放入重试队列后，原队列消息ack
+                remoting.xack(context.getTopic(), context.getGroup(), Collections.singletonList(messageExt.getMsgId()));
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -182,28 +184,25 @@ public class MQClientInstance {
     }
 
 
-
-    public ConsumerGroup loadConsumeGroup(String groupName){
+    public ConsumerGroup loadConsumeGroup(String groupName) {
         List<String> groupList = remoting.hmget(MixUtil.MANAGE_CENTER_KEY, Collections.singletonList(groupName));
 
-        if(groupList == null || groupList.size() == 0){
+        if (groupList == null || groupList.size() == 0) {
             return null;
         }
 
         String groupStr = groupList.get(0);
-        return JSON.parseObject(groupStr,ConsumerGroup.class);
+        return JSON.parseObject(groupStr, ConsumerGroup.class);
     }
 
-    public void registerConsumer(ConsumerGroup consumerGroup){
+    public void registerConsumer(ConsumerGroup consumerGroup) {
         Map<String, String> data = new HashMap<>();
-        data.put(consumerGroup.getGroupName(),JSON.toJSONString(consumerGroup));
-        remoting.hmset(MixUtil.MANAGE_CENTER_KEY,data);
+        data.put(consumerGroup.getGroupName(), JSON.toJSONString(consumerGroup));
+        remoting.hmset(MixUtil.MANAGE_CENTER_KEY, data);
     }
 
-    public List<ConsumerInfo> consumers(String topic, String group){
-         remoting.xinfoConsumers(topic, group);
-         return null;
-
+    public List<ConsumerInfo> infoOfconsumers(String topic, String group) {
+        return remoting.xinfoConsumers(topic, group);
     }
 
 

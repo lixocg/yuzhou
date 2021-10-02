@@ -1,8 +1,8 @@
 package com.yuzhou.rmq.remoting;
 
 import com.yuzhou.rmq.common.MessageExt;
+import com.yuzhou.rmq.common.PendingEntry;
 import com.yuzhou.rmq.factory.stat.ConsumerInfo;
-import redis.clients.jedis.StreamConsumersInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -63,6 +63,16 @@ public interface Remoting {
     long xack(String stream, String group, List<String> msgIds);
 
     long xdel(String stream, List<String> msgIds);
+
+    /**
+     * 消费者未ack列表
+     * @param stream
+     * @param group
+     * @param consumer
+     * @param count
+     * @return
+     */
+    List<PendingEntry> xpending(String stream, String group, String consumer, int count);
 
     /**
      * 指定stream的某个消费组下的消费者列表

@@ -5,13 +5,14 @@ import com.yuzhou.rmq.common.ConsumeContext;
 import com.yuzhou.rmq.common.ConsumeStatus;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PullResult;
+import com.yuzhou.rmq.common.ServiceThread;
 import com.yuzhou.rmq.common.ThreadFactoryImpl;
 import com.yuzhou.rmq.factory.ProcessCallback;
 
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  * Date: 2021-09-24
  * Time: 上午12:12
  */
-public abstract class AbstractMsgHandler implements MsgHandler {
+public abstract class AbstractMsgHandler extends ServiceThread implements MsgHandler {
 
     private final BlockingQueue<Runnable> defaultConsumeMsgPoolQueue;
 
@@ -30,10 +31,13 @@ public abstract class AbstractMsgHandler implements MsgHandler {
 
     public final MessageListener messageListener;
 
+    private final static int MAX_CONSUMER_TASK_SIZE = 10000;
+
+    private final BlockingQueue<PullResult> waitingProcessMsgQueue = new ArrayBlockingQueue<>(100);
 
     public AbstractMsgHandler(MessageListener messageListener) {
         this.messageListener = messageListener;
-        this.defaultConsumeMsgPoolQueue = new LinkedBlockingQueue<>(10000);
+        this.defaultConsumeMsgPoolQueue = new ArrayBlockingQueue<>(MAX_CONSUMER_TASK_SIZE);
         this.defaultConsumeMsgExecutor = new ThreadPoolExecutor(
                 Runtime.getRuntime().availableProcessors(),
                 Runtime.getRuntime().availableProcessors(),
@@ -43,6 +47,42 @@ public abstract class AbstractMsgHandler implements MsgHandler {
                 new ThreadFactoryImpl("defaultConsumeMsgExecutor"));
     }
 
+    @Override
+    public String getServiceName() {
+        return this.getClass().getName();
+    }
+
+    @Override
+    public void run() {
+        while (!this.isStopped()){
+            try {
+                PullResult pullResult = waitingProcessMsgQueue.take();
+                List<MessageExt> messageExts = pullResult.messageExts();
+
+                ProcessCallback processCallback = pullResult.processCallback();
+                ProcessCallback.Context processCallbackCxt = new ProcessCallback.Context();
+                processCallbackCxt.setTopic(pullResult.topic());
+                processCallbackCxt.setMessageExts(messageExts);
+                processCallbackCxt.setGroup(pullResult.group());
+                processCallbackCxt.setMessageListener(this.messageListener);
+                this.defaultConsumeMsgExecutor.execute(() -> {
+                    try {
+                        ConsumeContext context = new ConsumeContext();
+                        ConsumeStatus consumeStatus = messageListener.onMessage(messageExts, context);
+                        if (consumeStatus == ConsumeStatus.CONSUME_LATER) {
+                            processCallback.onFail(processCallbackCxt);
+                        } else {
+                            processCallback.onSuccess(processCallbackCxt);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public void handle(PullResult pullResult) {
@@ -52,29 +92,10 @@ public abstract class AbstractMsgHandler implements MsgHandler {
             return;
         }
 
-        ProcessCallback processCallback = pullResult.processCallback();
-        ProcessCallback.Context processCallbackCxt = new ProcessCallback.Context();
-        processCallbackCxt.setTopic(pullResult.topic());
-        processCallbackCxt.setMessageExts(pullResult.messageExts());
-        processCallbackCxt.setGroup(pullResult.group());
-        processCallbackCxt.setMessageListener(this.messageListener);
-        this.defaultConsumeMsgExecutor.execute(() -> {
-            try {
-                ConsumeContext context = new ConsumeContext();
-                ConsumeStatus consumeStatus = messageListener.onMessage(messageExts, context);
-                switch (consumeStatus) {
-                    case CONSUME_SUCCESS:
-                        processCallback.onSuccess(processCallbackCxt);
-                        break;
-                    case CONSUME_LATER:
-                        processCallback.onFail(processCallbackCxt);
-                        break;
-                    default:
-                        throw new RuntimeException("指定返回");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        try {
+            waitingProcessMsgQueue.put(pullResult);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

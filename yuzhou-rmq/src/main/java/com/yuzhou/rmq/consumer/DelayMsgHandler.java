@@ -6,6 +6,8 @@ import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.factory.MQClientInstance;
 import com.yuzhou.rmq.utils.DateUtil;
 import com.yuzhou.rmq.utils.MixUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created with IntelliJ IDEA
@@ -16,32 +18,19 @@ import com.yuzhou.rmq.utils.MixUtil;
  */
 public class DelayMsgHandler extends AbstractMsgHandler {
 
-    private MQConfigConsumer configConsumer;
+    Logger logger = LoggerFactory.getLogger(DelayMsgHandler.class);
 
-    private MQClientInstance mqClientInstance;
-
-    private final String topic;
-
-    private final String group;
-
-    public DelayMsgHandler(MQConfigConsumer configConsumer,
-                           MQClientInstance mqClientInstance,
-                           MessageListener messageListener) {
+    public DelayMsgHandler(MessageListener messageListener) {
         super(messageListener);
-        this.configConsumer = configConsumer;
-        this.mqClientInstance = mqClientInstance;
-        this.topic = configConsumer.topic();
-        this.group = configConsumer.group();
     }
 
 
     @Override
-    public void run() {
-        System.out.println(String.format("%s ----定时拉取消息中,topic=%s", DateUtil.nowStr(), MixUtil.delayScoreTopic(topic)));
-        PullResult pullResult = mqClientInstance.readDelayMsgBeforeNow(group, configConsumer.topic());
-        if (pullResult.messageExts() == null) {
-            return;
+    public void handle(PullResult pullResult) {
+        try {
+            super.handle(pullResult);
+        } catch (Exception e) {
+            logger.error("Pull Message Service Run Method exception", e);
         }
-        handle(pullResult);
     }
 }

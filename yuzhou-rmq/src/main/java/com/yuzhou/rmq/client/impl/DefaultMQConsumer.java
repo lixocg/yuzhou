@@ -14,6 +14,8 @@ import org.slf4j.Logger;
 
 import java.util.List;
 
+import static com.yuzhou.rmq.utils.MixUtil.wrap;
+
 /**
  * Created with IntelliJ IDEA
  * Description:
@@ -38,8 +40,8 @@ public class DefaultMQConsumer implements MQConfigConsumer {
     private long pullInterval;
 
     public DefaultMQConsumer(String group, String topic) {
-        this.group = group;
-        this.topic = topic;
+        this.group = wrap(group);
+        this.topic = wrap(topic);
     }
 
     @Override

@@ -1,10 +1,9 @@
 package com.yuzhou.rmq.consumer;
 
-import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.PullResult;
-import com.yuzhou.rmq.factory.MQClientInstance;
-import com.yuzhou.rmq.utils.DateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created with IntelliJ IDEA
@@ -15,35 +14,20 @@ import com.yuzhou.rmq.utils.DateUtil;
  */
 public class IntervalMsgHandler extends AbstractMsgHandler {
 
-    private final MQConfigConsumer configConsumer;
+    Logger logger = LoggerFactory.getLogger(IntervalMsgHandler.class);
 
-    private final MQClientInstance mqClientInstance;
-
-    private final String topic;
-
-    private final String group;
-
-    private final int pullBatchSize;
-
-    public IntervalMsgHandler(MQConfigConsumer configConsumer,
-                              MQClientInstance mqClientInstance,
-                              MessageListener messageListener) {
+    public IntervalMsgHandler(
+            MessageListener messageListener) {
         super(messageListener);
-        this.configConsumer = configConsumer;
-        this.mqClientInstance = mqClientInstance;
-        this.topic = configConsumer.topic();
-        this.group = configConsumer.group();
-        this.pullBatchSize = configConsumer.pullBatchSize();
     }
 
 
     @Override
-    public void run() {
-        System.out.println(String.format("%s ----间隔拉取消息中", DateUtil.nowStr()));
-        PullResult pullResult = mqClientInstance.blockedReadMsgs(group, topic, consumerName(), pullBatchSize);
-        if (pullResult.messageExts() == null) {
-            return;
+    public void handle(PullResult pullResult) {
+        try {
+            super.handle(pullResult);
+        } catch (Exception e) {
+            logger.error("Pull Message Service Run Method exception", e);
         }
-        handle(pullResult);
     }
 }

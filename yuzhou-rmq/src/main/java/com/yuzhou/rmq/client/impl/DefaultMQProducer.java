@@ -7,6 +7,7 @@ import com.yuzhou.rmq.common.PutResult;
 import com.yuzhou.rmq.common.SendResult;
 import com.yuzhou.rmq.exception.IllegalMsgException;
 import com.yuzhou.rmq.factory.MQClientInstance;
+import com.yuzhou.rmq.utils.MixUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -111,6 +112,9 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
     public SendResult send(Message message) {
         checkMsg(message);
         PutResult putResult;
+
+        //topic名包装一下
+        message.setTopic(MixUtil.wrap(message.getTopic()));
         if (StringUtils.isNotBlank(message.getTag())) {
             //tag标记
             message.getContent().put(ReservedKey.TAG_KEY.val, message.getTag());

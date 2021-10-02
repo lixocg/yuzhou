@@ -8,8 +8,6 @@ import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.common.ThreadFactoryImpl;
 import com.yuzhou.rmq.factory.ProcessCallback;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -30,7 +28,8 @@ public abstract class AbstractMsgHandler implements MsgHandler {
 
     private final ExecutorService defaultConsumeMsgExecutor;
 
-    public MessageListener messageListener;
+    public final MessageListener messageListener;
+
 
     public AbstractMsgHandler(MessageListener messageListener) {
         this.messageListener = messageListener;
@@ -41,25 +40,15 @@ public abstract class AbstractMsgHandler implements MsgHandler {
                 1000 * 60,
                 TimeUnit.MILLISECONDS,
                 this.defaultConsumeMsgPoolQueue,
-                new ThreadFactoryImpl("default-consumeMsg-executor")
-                );
+                new ThreadFactoryImpl("defaultConsumeMsgExecutor"));
     }
 
-
-    public String consumerName() {
-        try {
-            return InetAddress.getLocalHost().getHostName();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        return "UNKOWN-CONSUMER";
-    }
 
     @Override
     public void handle(PullResult pullResult) {
         List<MessageExt> messageExts = pullResult.messageExts();
 
-        if(messageExts == null || messageExts.size() == 0){
+        if (messageExts == null || messageExts.size() == 0) {
             return;
         }
 

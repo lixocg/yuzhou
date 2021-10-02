@@ -15,6 +15,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created with IntelliJ IDEA
@@ -34,6 +35,8 @@ public abstract class AbstractMsgHandler extends ServiceThread implements MsgHan
     private final static int MAX_CONSUMER_TASK_SIZE = 10000;
 
     private final BlockingQueue<PullResult> waitingProcessMsgQueue = new ArrayBlockingQueue<>(100);
+
+    AtomicInteger counter = new AtomicInteger(0);
 
     public AbstractMsgHandler(MessageListener messageListener) {
         this.messageListener = messageListener;
@@ -74,6 +77,7 @@ public abstract class AbstractMsgHandler extends ServiceThread implements MsgHan
                         } else {
                             processCallback.onSuccess(processCallbackCxt);
                         }
+                        System.out.println("-----"+counter.incrementAndGet());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

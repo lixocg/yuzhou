@@ -130,7 +130,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
         producer.setConnection(new SingleRedisConn());
         producer.start();
 
-        IntStream.range(1, 1000).parallel().forEach(i -> {
+        IntStream.range(1, 100000).parallel().forEach(i -> {
             Map<String, String> map = new HashMap<>();
             map.put("name", "zs" + i);
             map.put("age", i + "");

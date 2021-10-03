@@ -31,15 +31,15 @@ public abstract class AbstractMsgHandler implements MsgHandler {
 
     private final BlockingQueue<Runnable> defaultConsumeMsgPoolQueue;
 
-    private final ExecutorService defaultConsumeMsgExecutor;
+    public final ExecutorService defaultConsumeMsgExecutor;
 
     public final MessageListener messageListener;
 
-    private final static int MAX_CONSUMER_TASK_SIZE = 1000;
+    private final static int MAX_CONSUMER_TASK_SIZE = 100;
 
-    public AtomicBoolean waiting = new AtomicBoolean(false);
+    public final AtomicBoolean waiting = new AtomicBoolean(false);
 
-    DefaultMQConsumerService mqConsumerService;
+    public final  DefaultMQConsumerService mqConsumerService;
 
     public AbstractMsgHandler(DefaultMQConsumerService mqConsumerService, MessageListener messageListener) {
         this.mqConsumerService = mqConsumerService;

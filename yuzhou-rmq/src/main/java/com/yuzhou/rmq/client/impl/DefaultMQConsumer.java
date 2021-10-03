@@ -139,7 +139,7 @@ public class DefaultMQConsumer implements MQConfigConsumer {
                             DateUtil.nowStr(), msg.getMsgId(), msg.getContent(),count.incrementAndGet()));
                 });
                 try {
-                    Thread.sleep(20);
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

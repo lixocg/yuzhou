@@ -8,6 +8,7 @@ import com.yuzhou.rmq.common.ThreadFactoryImpl;
 import com.yuzhou.rmq.factory.MQClientInstance;
 import com.yuzhou.rmq.utils.DateUtil;
 import com.yuzhou.rmq.utils.MixUtil;
+import com.yuzhou.rmq.utils.ThreadUtils;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -74,6 +75,14 @@ public class DefaultMQConsumerService extends ServiceThread {
     @Override
     public void run() {
         CommonMsgHandler commonMsgHandler = new CommonMsgHandler(this, this.messageListener);
+
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("优雅关闭中.....");
+                ThreadUtils.shutdownGracefully(commonMsgHandler.defaultConsumeMsgExecutor, 30, TimeUnit.SECONDS);
+            }
+        }));
         //启动普通消息拉取,非间隔拉取才启动该处理器
         while (!this.isStopped() && !openIntervalPull) {
             if (commonMsgHandler.waiting.get()) {
@@ -117,6 +126,8 @@ public class DefaultMQConsumerService extends ServiceThread {
                     delayMsgHandler.handle(pullResult);
                 }
                 , 2, 1, TimeUnit.SECONDS);
+
+
     }
 
 

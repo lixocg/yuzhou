@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 /**
  * 消息生产者
@@ -129,18 +130,14 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
         producer.setConnection(new SingleRedisConn());
         producer.start();
 
-        for (int i = 0; i < 100; i = i + 10) {
+        IntStream.range(1, 1000).parallel().forEach(i -> {
             Map<String, String> map = new HashMap<>();
             map.put("name", "zs" + i);
             map.put("age", i + "");
             SendResult result = null;
-            if (i < 1000) {
-                result = producer.send("mytopic", map);
-                System.out.println(result + "-------" + map.get("name"));
-                Thread.sleep(1000);
-            } else {
-//                result = producer.send("mytopic", map, System.currentTimeMillis() + i * 1000);
-            }
-        }
+            result = producer.send("mytopic", map);
+            System.out.println(result + "-------" + map.get("name"));
+        });
+
     }
 }

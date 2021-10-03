@@ -20,8 +20,8 @@ public class DelayMsgHandler extends AbstractMsgHandler {
 
     Logger logger = LoggerFactory.getLogger(DelayMsgHandler.class);
 
-    public DelayMsgHandler(MessageListener messageListener) {
-        super(messageListener);
+    public DelayMsgHandler(DefaultMQConsumerService mqConsumerService,MessageListener messageListener) {
+        super(mqConsumerService,messageListener);
     }
 
 

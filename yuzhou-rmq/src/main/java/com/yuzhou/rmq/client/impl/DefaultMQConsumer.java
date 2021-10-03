@@ -17,6 +17,7 @@ import com.yuzhou.rmq.utils.MixUtil;
 import org.slf4j.Logger;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.yuzhou.rmq.utils.MixUtil.wrap;
 
@@ -123,6 +124,7 @@ public class DefaultMQConsumer implements MQConfigConsumer {
 
     static Logger logger = InnerLog.getLogger(DefaultMQConsumer.class);
 
+     static  AtomicInteger count  = new AtomicInteger(1);
     public static void main(String[] args) {
         logger.info("000000");
         DefaultMQConsumer consumer = new DefaultMQConsumer("mygroup", "mytopic");
@@ -133,7 +135,8 @@ public class DefaultMQConsumer implements MQConfigConsumer {
             @Override
             public ConsumeStatus onMessage(List<MessageExt> msgs, ConsumeContext context) {
                 msgs.forEach(msg -> {
-                    System.out.println(String.format("time=%s,msgId=%s,data=%s", DateUtil.nowStr(), msg.getMsgId(), msg.getContent()));
+                    System.out.println(String.format("time=%s,msgId=%s,data=%s,msgCount=%d",
+                            DateUtil.nowStr(), msg.getMsgId(), msg.getContent(),count.incrementAndGet()));
                 });
                 try {
                     Thread.sleep(20);

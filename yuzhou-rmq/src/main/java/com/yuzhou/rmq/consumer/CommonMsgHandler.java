@@ -17,9 +17,9 @@ public class CommonMsgHandler extends AbstractMsgHandler {
     Logger log = LoggerFactory.getLogger(DefaultMQConsumerService.class);
 
 
-    public CommonMsgHandler(
+    public CommonMsgHandler(DefaultMQConsumerService mqConsumerService,
             MessageListener messageListener) {
-        super(messageListener);
+        super(mqConsumerService,messageListener);
     }
 
 

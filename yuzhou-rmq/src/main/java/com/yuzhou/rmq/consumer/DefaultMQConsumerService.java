@@ -67,18 +67,21 @@ public class DefaultMQConsumerService extends ServiceThread {
     }
 
     private void createGroupIfNecessary() {
-        mqClientInstance.createGroup(this.topic,this.group);
+        mqClientInstance.createGroup(this.topic, this.group);
     }
 
 
     @Override
     public void run() {
-        CommonMsgHandler commonMsgHandler = new CommonMsgHandler(this.messageListener);
-        commonMsgHandler.start();
+        CommonMsgHandler commonMsgHandler = new CommonMsgHandler(this, this.messageListener);
         //启动普通消息拉取,非间隔拉取才启动该处理器
         while (!this.isStopped() && !openIntervalPull) {
-            System.out.println("拉取普通消息中....");
+            if (commonMsgHandler.waiting.get()) {
+                System.out.println("waiting.....");
+                waitForRunning(Long.MAX_VALUE);
+            }
             //拉取消息,Redis队列没有消息时阻塞
+            System.out.println("拉取普通消息中....");
             PullResult pullResult = mqClientInstance.blockedReadMsgs(group, consumerName, topic, pullBatchSize);
             commonMsgHandler.handle(pullResult);
         }
@@ -94,8 +97,7 @@ public class DefaultMQConsumerService extends ServiceThread {
 
         //启动间隔消息拉取定时
         if (openIntervalPull) {
-            final IntervalMsgHandler intervalMsgHandler = new IntervalMsgHandler(mqConfigConsumer.messageListener());
-            intervalMsgHandler.start();
+            final IntervalMsgHandler intervalMsgHandler = new IntervalMsgHandler(this, mqConfigConsumer.messageListener());
             this.intervalPullMsgExecutor.scheduleAtFixedRate(
                     () -> {
                         System.out.println(String.format("%s ----间隔拉取消息中", DateUtil.nowStr()));
@@ -107,8 +109,7 @@ public class DefaultMQConsumerService extends ServiceThread {
         }
 
         //启动定时消息拉取定时
-        DelayMsgHandler delayMsgHandler = new DelayMsgHandler(this.messageListener);
-        delayMsgHandler.start();
+        DelayMsgHandler delayMsgHandler = new DelayMsgHandler(this, this.messageListener);
         this.delayPullMsgExecutor.scheduleWithFixedDelay(
                 () -> {
 //                    System.out.println(String.format("%s ----定时拉取消息中,topic=%s", DateUtil.nowStr(), MixUtil.delayScoreTopic(topic)));

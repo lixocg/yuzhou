@@ -16,9 +16,9 @@ public class IntervalMsgHandler extends AbstractMsgHandler {
 
     Logger logger = LoggerFactory.getLogger(IntervalMsgHandler.class);
 
-    public IntervalMsgHandler(
+    public IntervalMsgHandler(DefaultMQConsumerService mqConsumerService,
             MessageListener messageListener) {
-        super(messageListener);
+        super(mqConsumerService,messageListener);
     }
 
 

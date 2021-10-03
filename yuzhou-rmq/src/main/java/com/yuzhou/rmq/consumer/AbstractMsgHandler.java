@@ -1,8 +1,10 @@
 package com.yuzhou.rmq.consumer;
 
+import com.sun.jmx.snmp.tasks.ThreadService;
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.ConsumeContext;
 import com.yuzhou.rmq.common.ConsumeStatus;
+import com.yuzhou.rmq.common.CountDownLatch2;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.common.ServiceThread;
@@ -15,6 +17,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -24,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Date: 2021-09-24
  * Time: 上午12:12
  */
-public abstract class AbstractMsgHandler extends ServiceThread implements MsgHandler {
+public abstract class AbstractMsgHandler implements MsgHandler {
 
     private final BlockingQueue<Runnable> defaultConsumeMsgPoolQueue;
 
@@ -32,13 +35,14 @@ public abstract class AbstractMsgHandler extends ServiceThread implements MsgHan
 
     public final MessageListener messageListener;
 
-    private final static int MAX_CONSUMER_TASK_SIZE = 10000;
+    private final static int MAX_CONSUMER_TASK_SIZE = 1000;
 
-    private final BlockingQueue<PullResult> waitingProcessMsgQueue = new ArrayBlockingQueue<>(100);
+    public AtomicBoolean waiting = new AtomicBoolean(false);
 
-    AtomicInteger counter = new AtomicInteger(0);
+    DefaultMQConsumerService mqConsumerService;
 
-    public AbstractMsgHandler(MessageListener messageListener) {
+    public AbstractMsgHandler(DefaultMQConsumerService mqConsumerService, MessageListener messageListener) {
+        this.mqConsumerService = mqConsumerService;
         this.messageListener = messageListener;
         this.defaultConsumeMsgPoolQueue = new ArrayBlockingQueue<>(MAX_CONSUMER_TASK_SIZE);
         this.defaultConsumeMsgExecutor = new ThreadPoolExecutor(
@@ -47,46 +51,9 @@ public abstract class AbstractMsgHandler extends ServiceThread implements MsgHan
                 1000 * 60,
                 TimeUnit.MILLISECONDS,
                 this.defaultConsumeMsgPoolQueue,
-                new ThreadFactoryImpl("defaultConsumeMsgExecutor"));
+                new ThreadFactoryImpl("defaultConsumeMsgExecutor_"));
     }
 
-    @Override
-    public String getServiceName() {
-        return this.getClass().getName();
-    }
-
-    @Override
-    public void run() {
-        while (!this.isStopped()){
-            try {
-                PullResult pullResult = waitingProcessMsgQueue.take();
-                List<MessageExt> messageExts = pullResult.messageExts();
-
-                ProcessCallback processCallback = pullResult.processCallback();
-                ProcessCallback.Context processCallbackCxt = new ProcessCallback.Context();
-                processCallbackCxt.setTopic(pullResult.topic());
-                processCallbackCxt.setMessageExts(messageExts);
-                processCallbackCxt.setGroup(pullResult.group());
-                processCallbackCxt.setMessageListener(this.messageListener);
-                this.defaultConsumeMsgExecutor.execute(() -> {
-                    try {
-                        ConsumeContext context = new ConsumeContext();
-                        ConsumeStatus consumeStatus = messageListener.onMessage(messageExts, context);
-                        if (consumeStatus == ConsumeStatus.CONSUME_LATER) {
-                            processCallback.onFail(processCallbackCxt);
-                        } else {
-                            processCallback.onSuccess(processCallbackCxt);
-                        }
-                        System.out.println("-----"+counter.incrementAndGet());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Override
     public void handle(PullResult pullResult) {
@@ -96,10 +63,33 @@ public abstract class AbstractMsgHandler extends ServiceThread implements MsgHan
             return;
         }
 
-        try {
-            waitingProcessMsgQueue.put(pullResult);
-        }catch (Exception e){
-            e.printStackTrace();
+        System.out.println("size======" + this.defaultConsumeMsgPoolQueue.size());
+        if (defaultConsumeMsgPoolQueue.size() == MAX_CONSUMER_TASK_SIZE-1) {
+            waiting.compareAndSet(false, true);
         }
+
+        ProcessCallback processCallback = pullResult.processCallback();
+        ProcessCallback.Context processCallbackCxt = new ProcessCallback.Context();
+        processCallbackCxt.setTopic(pullResult.topic());
+        processCallbackCxt.setMessageExts(pullResult.messageExts());
+        processCallbackCxt.setGroup(pullResult.group());
+        processCallbackCxt.setMessageListener(this.messageListener);
+        this.defaultConsumeMsgExecutor.execute(() -> {
+            try {
+                ConsumeContext context = new ConsumeContext();
+                ConsumeStatus consumeStatus = messageListener.onMessage(messageExts, context);
+                if (consumeStatus == ConsumeStatus.CONSUME_LATER) {
+                    processCallback.onFail(processCallbackCxt);
+                } else {
+                    processCallback.onSuccess(processCallbackCxt);
+                }
+                if (defaultConsumeMsgPoolQueue.isEmpty() && waiting.get()) {
+                    waiting.compareAndSet(false, true);
+                    this.mqConsumerService.wakeup();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

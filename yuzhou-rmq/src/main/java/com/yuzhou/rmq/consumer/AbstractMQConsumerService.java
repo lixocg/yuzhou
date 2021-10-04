@@ -3,21 +3,14 @@ package com.yuzhou.rmq.consumer;
 import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.PullResult;
-import com.yuzhou.rmq.common.ServiceThread;
-import com.yuzhou.rmq.common.ThreadFactoryImpl;
+import com.yuzhou.rmq.concurrent.ServiceThread;
 import com.yuzhou.rmq.consumer.handler.DefaultMsgHandler;
 import com.yuzhou.rmq.consumer.handler.MsgHandler;
 import com.yuzhou.rmq.factory.MQClientInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 /**
- * Created with IntelliJ IDEA
- * Description:
  * User: lixiongcheng
  * Date: 2021-09-19
  * Time: 上午1:04
@@ -98,11 +91,17 @@ public abstract class AbstractMQConsumerService extends ServiceThread implements
 
     @Override
     public int poolSize() {
-        return 0;
+        if (mqConfigConsumer.consumePoolCoreSize() == 0) {
+            return Runtime.getRuntime().availableProcessors();
+        }
+        return mqConfigConsumer.consumePoolCoreSize();
     }
 
     @Override
     public int maxPoolSize() {
-        return 0;
+        if (mqConfigConsumer.consumePoolMaxCoreSize() == 0) {
+            return Runtime.getRuntime().availableProcessors();
+        }
+        return mqConfigConsumer.consumePoolMaxCoreSize();
     }
 }

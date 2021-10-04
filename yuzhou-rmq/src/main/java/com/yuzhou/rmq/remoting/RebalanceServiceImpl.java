@@ -1,6 +1,6 @@
 //package com.yuzhou.rmq.remoting;
 //
-//import com.yuzhou.rmq.common.ThreadFactoryImpl;
+//import com.yuzhou.rmq.concurrent.ThreadFactoryImpl;
 //import com.yuzhou.rmq.common.TopicGroup;
 //import com.yuzhou.rmq.exception.BalanceException;
 //import com.yuzhou.rmq.utils.MixUtil;

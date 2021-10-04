@@ -1,4 +1,4 @@
-package com.yuzhou.rmq.utils;
+package com.yuzhou.rmq.concurrent;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +13,25 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public final class ThreadUtils {
+
     private static final Logger log = LoggerFactory.getLogger(ThreadUtils.class);
 
-    public static ExecutorService newThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime,
-                                                        TimeUnit unit, BlockingQueue<Runnable> workQueue, String processName, boolean isDaemon) {
+    public static ExecutorService newThreadPoolExecutor(int corePoolSize,
+                                                        int maximumPoolSize,
+                                                        long keepAliveTime,
+                                                        TimeUnit unit,
+                                                        BlockingQueue<Runnable> workQueue,
+                                                        String processName) {
+        return newThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, processName, false);
+    }
+
+    public static ExecutorService newThreadPoolExecutor(int corePoolSize,
+                                                        int maximumPoolSize,
+                                                        long keepAliveTime,
+                                                        TimeUnit unit,
+                                                        BlockingQueue<Runnable> workQueue,
+                                                        String processName,
+                                                        boolean isDaemon) {
         return new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, newThreadFactory(processName, isDaemon));
     }
 
@@ -24,17 +39,21 @@ public final class ThreadUtils {
         return Executors.newSingleThreadExecutor(newThreadFactory(processName, isDaemon));
     }
 
+    public static ScheduledExecutorService newSingleThreadScheduledExecutor(String processName) {
+        return newSingleThreadScheduledExecutor(processName, false);
+    }
+
     public static ScheduledExecutorService newSingleThreadScheduledExecutor(String processName, boolean isDaemon) {
         return Executors.newSingleThreadScheduledExecutor(newThreadFactory(processName, isDaemon));
     }
 
     public static ScheduledExecutorService newFixedThreadScheduledPool(int nThreads, String processName,
-        boolean isDaemon) {
+                                                                       boolean isDaemon) {
         return Executors.newScheduledThreadPool(nThreads, newThreadFactory(processName, isDaemon));
     }
 
     public static ThreadFactory newThreadFactory(String processName, boolean isDaemon) {
-        return newGenericThreadFactory("Remoting-" + processName, isDaemon);
+        return newGenericThreadFactory("rmq-" + processName, isDaemon);
     }
 
     public static ThreadFactory newGenericThreadFactory(String processName) {
@@ -59,7 +78,7 @@ public final class ThreadUtils {
     }
 
     public static ThreadFactory newGenericThreadFactory(final String processName, final int threads,
-        final boolean isDaemon) {
+                                                        final boolean isDaemon) {
         return new ThreadFactory() {
             private AtomicInteger threadIndex = new AtomicInteger(0);
 
@@ -75,9 +94,9 @@ public final class ThreadUtils {
     /**
      * Create a new thread
      *
-     * @param name The name of the thread
+     * @param name     The name of the thread
      * @param runnable The work for the thread to do
-     * @param daemon Should the thread block JVM stop?
+     * @param daemon   Should the thread block JVM stop?
      * @return The unstarted thread
      */
     public static Thread newThread(String name, Runnable runnable, boolean daemon) {
@@ -104,7 +123,7 @@ public final class ThreadUtils {
      * Shutdown passed thread using isAlive and join.
      *
      * @param millis Pass 0 if we're to wait forever.
-     * @param t Thread to stop
+     * @param t      Thread to stop
      */
     public static void shutdownGracefully(final Thread t, final long millis) {
         if (t == null)
@@ -124,7 +143,7 @@ public final class ThreadUtils {
      * {@link ExecutorService}.
      *
      * @param executor executor
-     * @param timeout timeout
+     * @param timeout  timeout
      * @param timeUnit timeUnit
      */
     public static void shutdownGracefully(ExecutorService executor, long timeout, TimeUnit timeUnit) {
@@ -147,11 +166,7 @@ public final class ThreadUtils {
         }
     }
 
-    /**
-     * A constructor to stop this class being constructed.
-     */
     private ThreadUtils() {
         // Unused
-
     }
 }

@@ -9,7 +9,7 @@ import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.common.PutResult;
 import com.yuzhou.rmq.connection.Connection;
 import com.yuzhou.rmq.consumer.DefaultMQConsumerService;
-import com.yuzhou.rmq.factory.stat.ConsumerInfo;
+import com.yuzhou.rmq.stat.ConsumerInfo;
 import com.yuzhou.rmq.rc.ConsumerGroup;
 import com.yuzhou.rmq.remoting.Remoting;
 import com.yuzhou.rmq.remoting.redis.SingleRedisClient;
@@ -131,7 +131,6 @@ public class MQClientInstance {
 
     private void onFail(ProcessCallback.Context context) {
         try {
-            //投入重试队列
             context.getMessageExts().parallelStream().forEach(messageExt -> {
                 Map<String, String> content = messageExt.getContent();
                 int count = Integer.parseInt(content.getOrDefault(ClientConfig.ReservedKey.RETRY_COUNT_KEY.val, "0"));
@@ -139,7 +138,7 @@ public class MQClientInstance {
                     //经过最大重试任然失败，给业务方处理
                     ConsumeContext consumeCxt = new ConsumeContext();
                     remoting.xack(context.getTopic(), context.getGroup(), Collections.singletonList(messageExt.getMsgId()));
-                    context.getMessageListener().onMaxRetryFailMessage(context.getMessageExts(), consumeCxt);
+                    context.getMessageListener().onMaxRetryFailMessage(Collections.singletonList(messageExt), consumeCxt);
                     return;
                 }
                 MsgRetryLevel msgRetryLevel = MsgRetryLevel.getByCount(count);

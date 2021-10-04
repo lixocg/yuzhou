@@ -1,15 +1,12 @@
 package com.yuzhou;
 
-import com.yuzhou.rmq.common.ThreadFactoryImpl;
-import com.yuzhou.rmq.factory.MQClientInstance;
 import com.yuzhou.rmq.common.PutResult;
+import com.yuzhou.rmq.factory.MQClientInstance;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Created with IntelliJ IDEA
@@ -74,8 +71,6 @@ public class MQClientInstanceTest {
 
     @Test
     public void testReadDelayMsg(){
-         final ScheduledExecutorService delayPullMsgExecutor =
-                Executors.newSingleThreadScheduledExecutor(new ThreadFactoryImpl("ConsumeMessageDelayThread_"));
 
     }
 }

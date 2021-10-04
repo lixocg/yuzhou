@@ -5,10 +5,9 @@ import com.yuzhou.rmq.common.ConsumeContext;
 import com.yuzhou.rmq.common.ConsumeStatus;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PullResult;
-import com.yuzhou.rmq.common.ThreadFactoryImpl;
+import com.yuzhou.rmq.concurrent.ThreadUtils;
 import com.yuzhou.rmq.consumer.MQConsumerService;
 import com.yuzhou.rmq.factory.ProcessCallback;
-import com.yuzhou.rmq.utils.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,13 +15,11 @@ import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Created with IntelliJ IDEA
- * Description:
+ * 抽象消息处理器，优雅关闭：保证消息不丢，线程繁忙检测：保障消息不被拒绝处理
  * User: lixiongcheng
  * Date: 2021-09-24
  * Time: 上午12:12
@@ -42,7 +39,7 @@ public abstract class AbstractMsgHandler implements MsgHandler {
     /**
      * 处理器处理任务状态，繁忙/空闲
      */
-    public final AtomicBoolean status = new AtomicBoolean(false);
+    public final AtomicBoolean isBusy = new AtomicBoolean(false);
 
     public final MQConsumerService mqConsumerService;
 
@@ -50,13 +47,13 @@ public abstract class AbstractMsgHandler implements MsgHandler {
         this.mqConsumerService = mqConsumerService;
         this.messageListener = messageListener;
         this.consumeMsgPoolQueue = new ArrayBlockingQueue<>(CONSUMER_QUEUE_SIZE);
-        this.consumeMsgExecutor = new ThreadPoolExecutor(
-                Runtime.getRuntime().availableProcessors(),
-                Runtime.getRuntime().availableProcessors(),
+        this.consumeMsgExecutor = ThreadUtils.newThreadPoolExecutor(
+                mqConsumerService.poolSize(),
+                mqConsumerService.maxPoolSize(),
                 1000 * 60,
                 TimeUnit.MILLISECONDS,
                 this.consumeMsgPoolQueue,
-                new ThreadFactoryImpl("defaultConsumeMsgExecutor_"));
+                "defaultConsumeMsgExecutor_");
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             logger.info("shutdown hook execute........");
@@ -70,17 +67,17 @@ public abstract class AbstractMsgHandler implements MsgHandler {
 
     @Override
     public boolean isBusy() {
-        return this.status.get();
+        return this.isBusy.get();
     }
 
     @Override
-    public boolean setBusy() {
-        return status.compareAndSet(false, true);
+    public boolean markBusy() {
+        return isBusy.compareAndSet(false, true);
     }
 
     @Override
-    public boolean setIdle() {
-        return status.compareAndSet(true, false);
+    public boolean markIdle() {
+        return isBusy.compareAndSet(true, false);
     }
 
 
@@ -98,7 +95,7 @@ public abstract class AbstractMsgHandler implements MsgHandler {
         }
 
         if (consumeMsgPoolQueue.size() == CONSUMER_QUEUE_SIZE - 1) {
-            setBusy();
+            markBusy();
         }
 
         ProcessCallback processCallback = pullResult.processCallback();
@@ -116,7 +113,7 @@ public abstract class AbstractMsgHandler implements MsgHandler {
                 } else {
                     processCallback.onSuccess(processCallbackCxt);
                 }
-                while (isBusy() && consumeMsgPoolQueue.isEmpty() && setIdle()) {
+                while (isBusy() && consumeMsgPoolQueue.isEmpty() && markIdle()) {
                     logger.warn("任务处理完成，唤醒.....");
                     this.mqConsumerService.wakeup();
                 }

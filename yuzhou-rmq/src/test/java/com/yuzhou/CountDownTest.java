@@ -1,6 +1,6 @@
 package com.yuzhou;
 
-import com.yuzhou.rmq.common.CountDownLatch2;
+import com.yuzhou.rmq.concurrent.CountDownLatch2;
 import org.junit.Test;
 
 /**

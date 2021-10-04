@@ -1,12 +1,11 @@
 package com.yuzhou.rmq.consumer;
 
 import com.yuzhou.rmq.client.MQConfigConsumer;
-import com.yuzhou.rmq.common.ThreadFactoryImpl;
+import com.yuzhou.rmq.concurrent.ThreadUtils;
 import com.yuzhou.rmq.factory.MQClientInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -24,13 +23,13 @@ public class DefaultMQConsumerService extends AbstractMQConsumerService {
      * 间隔消息拉取定时
      */
     private final ScheduledExecutorService intervalPullMsgExecutor =
-            Executors.newSingleThreadScheduledExecutor(new ThreadFactoryImpl("ConsumeMessageIntervalThread_"));
+            ThreadUtils.newSingleThreadScheduledExecutor("ConsumeMessageIntervalThread");
 
     /**
      * 延迟消息拉取定时
      */
     private final ScheduledExecutorService delayPullMsgExecutor =
-            Executors.newSingleThreadScheduledExecutor(new ThreadFactoryImpl("ConsumeMessageDelayThread_"));
+            ThreadUtils.newSingleThreadScheduledExecutor("ConsumeMessageDelayThread");
 
 
 

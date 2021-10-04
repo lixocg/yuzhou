@@ -1,16 +1,18 @@
 package com.yuzhou.rmq.client;
 
-import com.yuzhou.rmq.connection.Connection;
-
 /**
- * Created with IntelliJ IDEA
- * Description:
+ * 消费者配置
  * User: lixiongcheng
  * Date: 2021-09-19
  * Time: 下午2:05
  */
 public interface MQConfigConsumer extends MQConsumer {
-     String topic();
+
+    void setCosumePoolCoreSize(int cosumePoolCoreSize);
+
+    void setCosumePoolMaxCoreSize(int cosumePoolMaxCoreSize);
+
+    String topic();
 
     String group();
 
@@ -25,4 +27,8 @@ public interface MQConfigConsumer extends MQConsumer {
     void setPullInterval(long pullInterval);
 
     MessageListener messageListener();
+
+    int consumePoolCoreSize();
+
+    int consumePoolMaxCoreSize();
 }

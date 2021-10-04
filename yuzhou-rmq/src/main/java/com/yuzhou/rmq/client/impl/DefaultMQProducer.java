@@ -15,6 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 /**
@@ -130,13 +131,15 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
         producer.setConnection(new SingleRedisConn());
         producer.start();
 
-        IntStream.range(1, 100000).parallel().forEach(i -> {
+        AtomicInteger count = new AtomicInteger(1);
+
+        IntStream.rangeClosed(1, 10000).parallel().forEach(i -> {
             Map<String, String> map = new HashMap<>();
             map.put("name", "zs" + i);
             map.put("age", i + "");
             SendResult result = null;
             result = producer.send("mytopic", map);
-            System.out.println(result + "-------" + map.get("name"));
+            System.out.println(result + "-------" + map.get("name") + "count=" + count.getAndIncrement());
         });
 
     }

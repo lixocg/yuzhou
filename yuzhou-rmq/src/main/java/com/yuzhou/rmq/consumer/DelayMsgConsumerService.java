@@ -37,7 +37,7 @@ public class DelayMsgConsumerService extends AbstractMQConsumerService {
             return;
         }
 
-        logger.info("定时拉取消息中,topic={}", MixUtil.delayScoreTopic(topic));
+//        logger.info("定时拉取消息中,topic={}", MixUtil.delayScoreTopic(topic));
         PullResult pullResult = mqClientInstance.readDelayMsgBeforeNow(group, topic);
         msgHandler.handle(pullResult);
     }

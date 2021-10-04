@@ -21,5 +21,7 @@ public interface MQConsumerService {
 
     boolean isStopped();
 
+    boolean isRunning();
+
     String getServiceName();
 }

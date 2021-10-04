@@ -118,6 +118,10 @@ public abstract class ServiceThread implements Runnable {
         return stopped;
     }
 
+    public boolean isRunning(){
+        return !stopped;
+    }
+
     public boolean isDaemon() {
         return isDaemon;
     }

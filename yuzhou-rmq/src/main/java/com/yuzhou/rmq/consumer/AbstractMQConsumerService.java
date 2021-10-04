@@ -82,7 +82,7 @@ public abstract class AbstractMQConsumerService extends ServiceThread implements
             }
 
             //拉取消息,Redis队列没有消息时阻塞
-            logger.info("拉取消息中,服务名;{},服务状态:{}", this.getServiceName(), this.isStopped());
+            logger.info("拉取消息中,服务名;{},服务状态:{}", this.getServiceName(), this.isRunning());
             PullResult pullResult = mqClientInstance.blockedReadMsgs(group, consumerName, topic, pullBatchSize);
             msgHandler.handle(pullResult);
         }

@@ -62,7 +62,7 @@ public abstract class AbstractMsgHandler implements MsgHandler {
             logger.info("shutdown hook execute........");
             //关闭拉取消息线程，不拉取新的消息
             mqConsumerService.makeStop();
-            logger.info("mqConsumerService name={}, status={}", mqConsumerService.getServiceName(), mqConsumerService.isStopped());
+            logger.info("mqConsumerService name={}, status={}", mqConsumerService.getServiceName(), mqConsumerService.isRunning());
             //优雅关闭
             ThreadUtils.shutdownGracefully(consumeMsgExecutor, 30, TimeUnit.SECONDS);
         }));

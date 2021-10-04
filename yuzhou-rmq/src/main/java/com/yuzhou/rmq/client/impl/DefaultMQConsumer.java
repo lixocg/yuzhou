@@ -1,6 +1,7 @@
 package com.yuzhou.rmq.client.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.yuzhou.rmq.client.ClientConfig;
 import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.ConsumeContext;
@@ -27,7 +28,7 @@ import static com.yuzhou.rmq.utils.MixUtil.wrap;
  * Date: 2021-09-17
  * Time: 下午8:12
  */
-public class DefaultMQConsumer implements MQConfigConsumer {
+public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer {
 
     private final String topic;
 
@@ -136,10 +137,10 @@ public class DefaultMQConsumer implements MQConfigConsumer {
             public ConsumeStatus onMessage(List<MessageExt> msgs, ConsumeContext context) {
                 msgs.forEach(msg -> {
                     System.out.println(String.format("time=%s,msgId=%s,data=%s,msgCount=%d",
-                            DateUtil.nowStr(), msg.getMsgId(), msg.getContent(),count.incrementAndGet()));
+                            DateUtil.nowStr(), msg.getMsgId(), msg.getContent(),count.getAndIncrement()));
                 });
                 try {
-                    Thread.sleep(1);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

@@ -11,7 +11,7 @@ public class SingleRedisConn implements Connection{
 
     @Override
     public String host() {
-        return "127.0.0.1";
+        return "192.168.0.19";
     }
 
     @Override

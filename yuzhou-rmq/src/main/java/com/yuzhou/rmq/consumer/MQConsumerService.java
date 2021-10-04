@@ -13,4 +13,13 @@ public interface MQConsumerService {
 
     int maxPoolSize();
 
+    void makeStop();
+
+    void wakeup();
+
+    void waitForRunning(long interval);
+
+    boolean isStopped();
+
+    String getServiceName();
 }

@@ -1,6 +1,8 @@
-package com.yuzhou.rmq.consumer;
+package com.yuzhou.rmq.consumer.handler;
 
 import com.yuzhou.rmq.common.PullResult;
+
+import java.util.concurrent.ExecutorService;
 
 /**
  * 消息处理器
@@ -10,4 +12,12 @@ import com.yuzhou.rmq.common.PullResult;
  */
 public interface MsgHandler{
     void handle(PullResult pullResult);
+
+    boolean isBusy();
+
+    boolean setBusy();
+
+    boolean setIdle();
+
+    ExecutorService executorService();
 }

@@ -140,8 +140,8 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
                             DateUtil.nowStr(), msg.getMsgId(), msg.getContent(),count.getAndIncrement()));
                 });
                 try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
+//                    Thread.sleep(3);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 return ConsumeStatus.CONSUME_SUCCESS;

@@ -10,7 +10,6 @@ import com.yuzhou.rmq.connection.SingleRedisConn;
 import com.yuzhou.rmq.exception.IllegalMsgException;
 import com.yuzhou.rmq.exception.RmqException;
 import com.yuzhou.rmq.factory.MQClientInstance;
-import com.yuzhou.rmq.utils.MixUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -105,7 +104,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
         PutResult putResult;
 
         //topic名包装一下
-        message.setTopic(MixUtil.wrap(message.getTopic()));
+        message.setTopic(message.getTopic());
         if (StringUtils.isNotBlank(message.getTag())) {
             //tag标记
             message.getContent().put(ReservedKey.TAG_KEY.val, message.getTag());
@@ -113,7 +112,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
 
         if (message.getDelayTime() > 0) {
             //发送延迟消息
-            message.getContent().put(ReservedKey.DELAY_KEY.val, String.valueOf(message.getDelayTime()));
+            message.getContent().put(ReservedKey.DELAY_KEY.val,String.valueOf(message.getDelayTime()));
             putResult = mqClientInstance.putDelayMsg(message.getTopic(), message.getContent(), message.getDelayTime());
         } else {
             //发送普通消息
@@ -133,12 +132,12 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
 
         AtomicInteger count = new AtomicInteger(1);
 
-        IntStream.rangeClosed(1, 10000).parallel().forEach(i -> {
+        IntStream.rangeClosed(1, 100).forEach(i -> {
             Map<String, String> map = new HashMap<>();
             map.put("name", "zs" + i);
             map.put("age", i + "");
             SendResult result = null;
-            result = producer.send("mytopic", map);
+            result = producer.send("mytopic", map, i * 1000);
             System.out.println(result + "-------" + map.get("name") + "count=" + count.getAndIncrement());
         });
 

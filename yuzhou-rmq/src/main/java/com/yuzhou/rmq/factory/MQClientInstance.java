@@ -88,7 +88,7 @@ public class MQClientInstance {
     }
 
     public PutResult putMsg(String topic, Map<String, String> msg) {
-        return PutResult.id(remoting.xadd(topic, msg));
+        return PutResult.id(remoting.xadd(MixUtil.wrap(topic), msg));
     }
 
 
@@ -107,7 +107,8 @@ public class MQClientInstance {
             return PutResult.err("投入stream失败");
         }
         //2.往zset队列中存入,%DELAYSCORE%_topic  TODO 这两个操作需要事物保证
-        long zadd = remoting.zadd(MixUtil.delayScoreTopic(topic), msgId, TypeUtil.l2d(timestamp));
+        double score = TypeUtil.l2d(System.currentTimeMillis() + timestamp);
+        long zadd = remoting.zadd(MixUtil.delayScoreTopic(topic), msgId, score);
         return PutResult.id(msgId);
     }
 

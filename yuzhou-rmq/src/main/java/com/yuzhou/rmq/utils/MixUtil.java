@@ -49,7 +49,7 @@ public class MixUtil {
      * @return
      */
     public static String delayTopic(String topic) {
-        return DELAY_PREFIX + topic;
+        return DELAY_PREFIX + wrap(topic);
     }
 
     /**
@@ -59,7 +59,7 @@ public class MixUtil {
      * @return
      */
     public static String delayScoreTopic(String topic) {
-        return DELAY_SCORE_PREFIX + topic;
+        return DELAY_SCORE_PREFIX + wrap(topic);
     }
 
     public static String id(long time, long seq) {

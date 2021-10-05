@@ -4,7 +4,6 @@ import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.exception.RmqException;
 import com.yuzhou.rmq.factory.MQClientInstance;
-import com.yuzhou.rmq.utils.DateUtil;
 import com.yuzhou.rmq.utils.MixUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +36,7 @@ public class DelayMsgConsumerService extends AbstractMQConsumerService {
             return;
         }
 
-        logger.info("定时拉取消息中,topic={}", MixUtil.delayScoreTopic(topic));
+//        logger.info("定时拉取消息中,topic={}", MixUtil.delayScoreTopic(topic));
         PullResult pullResult = mqClientInstance.readDelayMsgBeforeNow(group, topic);
         msgHandler.handle(pullResult);
     }

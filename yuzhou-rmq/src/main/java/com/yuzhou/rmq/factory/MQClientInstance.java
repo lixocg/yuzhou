@@ -101,6 +101,7 @@ public class MQClientInstance {
      * @return
      */
     public PutResult putDelayMsg(String topic, Map<String, String> msg, long timestamp) {
+        topic = MixUtil.wrap(topic);
         //1.往延迟topic stream队列中存入元数据,%DELAY%_topic
         String msgId = remoting.xadd(MixUtil.delayTopic(topic), msg);
         if (StringUtils.isBlank(msgId)) {

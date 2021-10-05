@@ -1,11 +1,10 @@
 package com.yuzhou.rmq.remoting.redis;
 
-import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PendingEntry;
 import com.yuzhou.rmq.common.StreamIDEntry;
 import com.yuzhou.rmq.connection.Connection;
-import com.yuzhou.rmq.factory.stat.ConsumerInfo;
+import com.yuzhou.rmq.stat.ConsumerInfo;
 import com.yuzhou.rmq.remoting.Remoting;
 import com.yuzhou.rmq.utils.MixUtil;
 import redis.clients.jedis.Jedis;
@@ -16,7 +15,6 @@ import redis.clients.jedis.StreamConsumersInfo;
 import redis.clients.jedis.StreamEntry;
 import redis.clients.jedis.StreamEntryID;
 import redis.clients.jedis.StreamGroupInfo;
-import redis.clients.jedis.StreamInfo;
 import redis.clients.jedis.StreamPendingEntry;
 import redis.clients.jedis.Transaction;
 

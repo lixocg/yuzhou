@@ -1,4 +1,4 @@
-package com.yuzhou.rmq.factory.stat;
+package com.yuzhou.rmq.stat;
 
 import java.io.Serializable;
 

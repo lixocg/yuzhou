@@ -2,7 +2,7 @@ package com.yuzhou.rmq.remoting;
 
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PendingEntry;
-import com.yuzhou.rmq.factory.stat.ConsumerInfo;
+import com.yuzhou.rmq.stat.ConsumerInfo;
 
 import java.util.List;
 import java.util.Map;

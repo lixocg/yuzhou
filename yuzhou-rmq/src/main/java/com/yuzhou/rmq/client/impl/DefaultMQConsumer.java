@@ -46,9 +46,13 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
 
     private Connection conn;
 
+    private int cosumePoolCoreSize;
+
+    private int cosumePoolMaxCoreSize;
+
     public DefaultMQConsumer(String group, String topic) {
-        this.group = wrap(group);
-        this.topic = wrap(topic);
+        this.topic = topic;
+        this.group = group;
     }
 
     @Override
@@ -103,6 +107,26 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
     }
 
     @Override
+    public int consumePoolCoreSize() {
+        return cosumePoolCoreSize;
+    }
+
+    @Override
+    public int consumePoolMaxCoreSize() {
+        return cosumePoolMaxCoreSize;
+    }
+
+    @Override
+    public void setCosumePoolCoreSize(int cosumePoolCoreSize) {
+        this.cosumePoolCoreSize = cosumePoolCoreSize;
+    }
+
+    @Override
+    public void setCosumePoolMaxCoreSize(int cosumePoolMaxCoreSize) {
+        this.cosumePoolMaxCoreSize = cosumePoolMaxCoreSize;
+    }
+
+    @Override
     public void setConnection(Connection conn) {
         this.conn = conn;
     }
@@ -127,7 +151,6 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
 
      static  AtomicInteger count  = new AtomicInteger(1);
     public static void main(String[] args) {
-        logger.info("000000");
         DefaultMQConsumer consumer = new DefaultMQConsumer("mygroup", "mytopic");
         consumer.setConnection(new SingleRedisConn());
         consumer.setPullBatchSize(5);
@@ -136,11 +159,12 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
             @Override
             public ConsumeStatus onMessage(List<MessageExt> msgs, ConsumeContext context) {
                 msgs.forEach(msg -> {
-                    System.out.println(String.format("time=%s,msgId=%s,data=%s,msgCount=%d",
+                    System.out.println(String.format("topic=%s,time=%s,msgId=%s,data=%s,msgCount=%d",
+                            context.getTopic(),
                             DateUtil.nowStr(), msg.getMsgId(), msg.getContent(),count.getAndIncrement()));
                 });
                 try {
-//                    Thread.sleep(3);
+                    Thread.sleep(200);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

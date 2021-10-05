@@ -2,16 +2,15 @@ package com.yuzhou.rmq.rc;
 
 import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.client.MQConfigConsumer;
-import com.yuzhou.rmq.common.ThreadFactoryImpl;
+import com.yuzhou.rmq.concurrent.ThreadUtils;
 import com.yuzhou.rmq.factory.MQClientInstance;
-import com.yuzhou.rmq.factory.stat.ConsumerInfo;
+import com.yuzhou.rmq.stat.ConsumerInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -34,7 +33,7 @@ public class ManageCenter {
      * 消费者心跳
      */
     private final ScheduledExecutorService consumerStatExecutor =
-            Executors.newSingleThreadScheduledExecutor(new ThreadFactoryImpl("ConsumeHeartBeatThread_"));
+            ThreadUtils.newSingleThreadScheduledExecutor("ConsumeHeartBeatThread");
 
     public ManageCenter(MQClientInstance mqClientInstance) {
         this.mqClientInstance = mqClientInstance;

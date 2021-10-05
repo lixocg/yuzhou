@@ -2,13 +2,9 @@ package com.yuzhou.rmq.consumer.handler;
 
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.PullResult;
-import com.yuzhou.rmq.consumer.DefaultMQConsumerService;
 import com.yuzhou.rmq.consumer.MQConsumerService;
-import com.yuzhou.rmq.utils.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created with IntelliJ IDEA

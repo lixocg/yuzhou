@@ -1,5 +1,5 @@
 
-package com.yuzhou.rmq.common;
+package com.yuzhou.rmq.concurrent;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;

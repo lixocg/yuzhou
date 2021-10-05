@@ -11,13 +11,34 @@ import java.util.concurrent.ExecutorService;
  * Time: 上午12:03
  */
 public interface MsgHandler{
+
+    /**
+     * 消息处理，消费回调
+     * @param pullResult
+     */
     void handle(PullResult pullResult);
 
+    /**
+     * 处理器线程池是否繁忙
+     * @return
+     */
     boolean isBusy();
 
-    boolean setBusy();
+    /**
+     * 标记线程池处于繁忙状态
+     * @return
+     */
+    boolean markBusy();
 
-    boolean setIdle();
+    /**
+     * 标记线程池处于空闲状态
+     * @return
+     */
+    boolean markIdle();
 
+    /**
+     * 线程池服务
+     * @return
+     */
     ExecutorService executorService();
 }

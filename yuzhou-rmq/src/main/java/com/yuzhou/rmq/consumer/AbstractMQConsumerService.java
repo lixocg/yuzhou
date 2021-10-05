@@ -10,6 +10,8 @@ import com.yuzhou.rmq.factory.MQClientInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.yuzhou.rmq.utils.MixUtil.wrap;
+
 /**
  * User: lixiongcheng
  * Date: 2021-09-19
@@ -26,7 +28,7 @@ public abstract class AbstractMQConsumerService extends ServiceThread implements
 
     protected final boolean openIntervalPull;
 
-    protected final String topic;
+    protected String topic;
 
     protected final String group;
 
@@ -45,8 +47,11 @@ public abstract class AbstractMQConsumerService extends ServiceThread implements
         this.mqClientInstance = mqClientInstance;
 
         this.openIntervalPull = mqConfigConsumer.pullInterval() > 0;
-        this.topic = mqConfigConsumer.topic();
-        this.group = mqConfigConsumer.group();
+
+        //转化一下group和topic
+        this.topic = wrap(mqConfigConsumer.topic());
+        this.group = wrap(mqConfigConsumer.group());
+
         this.messageListener = mqConfigConsumer.messageListener();
         this.pullBatchSize = mqConfigConsumer.pullBatchSize();
 

@@ -51,8 +51,8 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
     private int cosumePoolMaxCoreSize;
 
     public DefaultMQConsumer(String group, String topic) {
-        this.group = wrap(group);
-        this.topic = wrap(topic);
+        this.topic = topic;
+        this.group = group;
     }
 
     @Override
@@ -159,7 +159,8 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
             @Override
             public ConsumeStatus onMessage(List<MessageExt> msgs, ConsumeContext context) {
                 msgs.forEach(msg -> {
-                    System.out.println(String.format("time=%s,msgId=%s,data=%s,msgCount=%d",
+                    System.out.println(String.format("topic=%s,time=%s,msgId=%s,data=%s,msgCount=%d",
+                            context.getTopic(),
                             DateUtil.nowStr(), msg.getMsgId(), msg.getContent(),count.getAndIncrement()));
                 });
                 try {

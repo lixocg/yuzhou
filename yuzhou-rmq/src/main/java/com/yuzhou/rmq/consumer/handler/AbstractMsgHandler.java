@@ -107,6 +107,7 @@ public abstract class AbstractMsgHandler implements MsgHandler {
         this.consumeMsgExecutor.execute(() -> {
             try {
                 ConsumeContext context = new ConsumeContext();
+                context.setTopic(pullResult.topic());
                 ConsumeStatus consumeStatus = messageListener.onMessage(messageExts, context);
                 if (consumeStatus == ConsumeStatus.CONSUME_LATER) {
                     processCallback.onFail(processCallbackCxt);

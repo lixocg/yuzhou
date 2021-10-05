@@ -49,8 +49,8 @@ public abstract class AbstractMQConsumerService extends ServiceThread implements
         this.openIntervalPull = mqConfigConsumer.pullInterval() > 0;
 
         //转化一下group和topic
-        this.topic = wrap(mqConfigConsumer.topic());
-        this.group = wrap(mqConfigConsumer.group());
+        this.topic = mqConfigConsumer.topic();
+        this.group = mqConfigConsumer.group();
 
         this.messageListener = mqConfigConsumer.messageListener();
         this.pullBatchSize = mqConfigConsumer.pullBatchSize();

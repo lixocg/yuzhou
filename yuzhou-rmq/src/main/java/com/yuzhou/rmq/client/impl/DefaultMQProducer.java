@@ -132,7 +132,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
 
         AtomicInteger count = new AtomicInteger(1);
 
-        IntStream.rangeClosed(1, 10).forEach(i -> {
+        IntStream.rangeClosed(1, 1000).forEach(i -> {
             Map<String, String> map = new HashMap<>();
             map.put("name", "zs" + i);
             map.put("age", i + "");

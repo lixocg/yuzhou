@@ -125,7 +125,7 @@ public class MQClientInstance {
 
         return PullResult.builder()
                 .messageExts(messageExts)
-                .topic(topic)
+                .topic(MixUtil.delayTopic(topic))
                 .group(groupName)
                 .processCallback(new DefaultProcessCallback())
                 .build();
@@ -216,7 +216,7 @@ public class MQClientInstance {
         public void onSuccess(Context context) {
             //ack 消息
             List<String> msgIds = context.getMessageExts().stream().map(MessageExt::getMsgId).collect(Collectors.toList());
-            remoting.xack(context.getTopic(), context.getGroup(), msgIds);
+            long xack = remoting.xack(context.getTopic(), context.getGroup(), msgIds);
         }
 
         @Override

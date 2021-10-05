@@ -51,8 +51,8 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
     private int cosumePoolMaxCoreSize;
 
     public DefaultMQConsumer(String group, String topic) {
-        this.topic = topic;
-        this.group = group;
+        this.topic = wrap(topic);
+        this.group = wrap(group);
     }
 
     @Override

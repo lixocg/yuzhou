@@ -3,6 +3,7 @@
 *.ipr
 *.iws
 *.ml
+.DS_Store
 
 .ideal/*
 out

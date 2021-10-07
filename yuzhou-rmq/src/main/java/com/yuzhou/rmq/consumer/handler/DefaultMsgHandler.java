@@ -2,8 +2,6 @@ package com.yuzhou.rmq.consumer.handler;
 
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.consumer.MQConsumerService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created with IntelliJ IDEA

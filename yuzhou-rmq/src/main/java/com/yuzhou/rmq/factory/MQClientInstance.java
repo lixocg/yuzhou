@@ -5,14 +5,14 @@ import com.yuzhou.rmq.client.ClientConfig;
 import com.yuzhou.rmq.common.ConsumeContext;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.MsgRetryLevel;
+import com.yuzhou.rmq.common.PendingEntry;
 import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.common.PutResult;
 import com.yuzhou.rmq.connection.Connection;
-import com.yuzhou.rmq.consumer.DefaultMQConsumerService;
-import com.yuzhou.rmq.stat.ConsumerInfo;
 import com.yuzhou.rmq.rc.ConsumerGroup;
 import com.yuzhou.rmq.remoting.Remoting;
 import com.yuzhou.rmq.remoting.redis.SingleRedisClient;
+import com.yuzhou.rmq.stat.ConsumerInfo;
 import com.yuzhou.rmq.utils.MixUtil;
 import com.yuzhou.rmq.utils.TypeUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -35,22 +35,16 @@ import java.util.stream.Collectors;
  */
 public class MQClientInstance {
 
-    Logger log = LoggerFactory.getLogger(DefaultMQConsumerService.class);
+    Logger log = LoggerFactory.getLogger(MQClientInstance.class);
 
     private Remoting remoting;
 
-    private String host;
+    private final ClientConfig clientConfig;
 
-    private int ip;
+    private final Connection conn;
 
-    private Connection conn;
-
-    public MQClientInstance(String host, int ip) {
-        this.host = host;
-        this.ip = ip;
-    }
-
-    public MQClientInstance(Connection conn) {
+    public MQClientInstance(ClientConfig clientConfig,Connection conn) {
+        this.clientConfig = clientConfig;
         this.conn = conn;
     }
 
@@ -67,26 +61,6 @@ public class MQClientInstance {
         return remoting.xgroupCreate(stream, groupName);
     }
 
-
-    /**
-     * 阻塞试读取未被其他同组其他消费者消费的数据
-     *
-     * @param groupName
-     * @param consumer
-     * @param topic
-     * @param count
-     * @return
-     */
-    public PullResult blockedReadMsgs(String groupName, String consumer, String topic, int count) {
-        List<MessageExt> messageExts = remoting.xreadGroup(groupName, consumer, topic, count);
-        return PullResult.builder()
-                .messageExts(messageExts)
-                .topic(topic)
-                .group(groupName)
-                .processCallback(new DefaultProcessCallback())
-                .build();
-    }
-
     public PutResult putMsg(String topic, Map<String, String> msg) {
         return PutResult.id(remoting.xadd(MixUtil.wrap(topic), msg));
     }
@@ -95,10 +69,10 @@ public class MQClientInstance {
     /**
      * 消息投入到延迟队列中
      *
-     * @param topic
-     * @param msg
+     * @param topic topic
+     * @param msg msg
      * @param timestamp 延迟时间，单位毫秒
-     * @return
+     * @return putResult
      */
     public PutResult putDelayMsg(String topic, Map<String, String> msg, long timestamp) {
         topic = MixUtil.wrap(topic);
@@ -114,10 +88,54 @@ public class MQClientInstance {
     }
 
     /**
+     * 阻塞试读取未被其他同组其他消费者消费的数据
+     *
+     * @param groupName group
+     * @param consumer consumer
+     * @param topic topic
+     * @param count count
+     * @return PullResult
+     */
+    public PullResult blockedReadMsgs(String groupName, String consumer, String topic, int count) {
+        List<MessageExt> messageExts = remoting.xreadGroup(groupName, consumer, topic, count);
+        return PullResult.builder()
+                .messageExts(messageExts)
+                .topic(topic)
+                .group(groupName)
+                .processCallback(new DefaultProcessCallback())
+                .build();
+    }
+
+    /**
+     * 拉取idletime大于clientConfig.pendingIdleMs()配置pending列表
+     * @param groupName group
+     * @param consumer consumer
+     * @param topic topic
+     * @param count count
+     * @return PullResult
+     */
+    public PullResult pendingReadMsg(String groupName, String consumer, String topic, int count) {
+        List<PendingEntry> pendingEntries = remoting.xpending(topic, groupName, consumer, count);
+        if (pendingEntries == null || pendingEntries.size() == 0) {
+            return PullResult.builder().build();
+        }
+        List<MessageExt> messageExts = pendingEntries.stream()
+                .filter(pendingEntry -> pendingEntry.getIdleTime() > clientConfig.pendingIdleMs())
+                .map(pendingEntry -> remoting.xRead(topic, pendingEntry.getMsgId()))
+                .filter(Objects::nonNull).collect(Collectors.toList());
+        return PullResult.builder()
+                .messageExts(messageExts)
+                .topic(topic)
+                .group(groupName)
+                .processCallback(new DefaultProcessCallback())
+                .build();
+    }
+
+    /**
      * 读取延迟队列中小于当前时间消息列表
      * 获取到数据需要删除数据
      *
-     * @return
+     * @return PullResult
      */
     public PullResult readDelayMsgBeforeNow(String groupName, String topic) {
         long currentTimeMillis = System.currentTimeMillis();
@@ -148,13 +166,8 @@ public class MQClientInstance {
                     log.error("无效重试次数,msgId={},count={}", messageExt.getMsgId(), count);
                     return;
                 }
-                if (count == 0) {
-                    content.put(ClientConfig.ReservedKey.RETRY_COUNT_KEY.val, String.valueOf(++count));
-                    putDelayMsg(context.getTopic(), content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
-                } else {
-                    content.put(ClientConfig.ReservedKey.RETRY_COUNT_KEY.val, String.valueOf(++count));
-                    putDelayMsg(context.getTopic(), content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
-                }
+                content.put(ClientConfig.ReservedKey.RETRY_COUNT_KEY.val, String.valueOf(++count));
+                putDelayMsg(context.getTopic(), content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
                 //放入重试队列后，原队列消息ack
                 remoting.xack(context.getTopic(), context.getGroup(), Collections.singletonList(messageExt.getMsgId()));
             });
@@ -168,8 +181,8 @@ public class MQClientInstance {
      * 读取延迟队列指定范围数据
      * 获取到数据需要删除数据
      *
-     * @param topic
-     * @return
+     * @param topic topic
+     * @return List<MessageExt>
      */
     public List<MessageExt> readDelayMsg(String topic, long start, long end) {
         Set<String> msgIds = remoting.zrangeAndRemByScore(MixUtil.delayScoreTopic(topic), start, end);
@@ -216,7 +229,7 @@ public class MQClientInstance {
         public void onSuccess(Context context) {
             //ack 消息
             List<String> msgIds = context.getMessageExts().stream().map(MessageExt::getMsgId).collect(Collectors.toList());
-            long xack = remoting.xack(context.getTopic(), context.getGroup(), msgIds);
+            remoting.xack(context.getTopic(), context.getGroup(), msgIds);
         }
 
         @Override

@@ -1,6 +1,8 @@
 package com.yuzhou;
 
+import com.yuzhou.rmq.client.ClientConfig;
 import com.yuzhou.rmq.common.PutResult;
+import com.yuzhou.rmq.connection.Connection;
 import com.yuzhou.rmq.factory.MQClientInstance;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +29,17 @@ public class MQClientInstanceTest {
 
     @Before
     public void before() {
-        instance = new MQClientInstance("127.0.0.1",6379);
+        instance = new MQClientInstance(new ClientConfig(), new Connection() {
+            @Override
+            public String host() {
+                return "127.0.0.1";
+            }
+
+            @Override
+            public int ip() {
+                return 6379;
+            }
+        });
         instance.start();
 
     }

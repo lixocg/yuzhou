@@ -4,7 +4,6 @@ import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.exception.RmqException;
 import com.yuzhou.rmq.factory.MQClientInstance;
-import com.yuzhou.rmq.utils.MixUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,8 +16,6 @@ import org.slf4j.LoggerFactory;
  */
 public class DelayMsgConsumerService extends AbstractMQConsumerService {
 
-    Logger logger = LoggerFactory.getLogger(DelayMsgConsumerService.class);
-
     public DelayMsgConsumerService(MQConfigConsumer mqConfigConsumer, MQClientInstance mqClientInstance) {
         super(mqConfigConsumer, mqClientInstance);
     }
@@ -26,19 +23,12 @@ public class DelayMsgConsumerService extends AbstractMQConsumerService {
 
     @Override
     public void run() {
-        if (msgHandler.isBusy()) {
-            logger.warn("消费线程池处于繁忙中，等待任务处理中.....");
-            waitForRunning(Long.MAX_VALUE);
-        }
+        run0();
+    }
 
-        if (this.isStopped()) {
-            logger.warn("拉取服务已停止...服务名:" + this.getServiceName());
-            return;
-        }
-
-//        logger.info("定时拉取消息中,topic={}", MixUtil.delayScoreTopic(topic));
-        PullResult pullResult = mqClientInstance.readDelayMsgBeforeNow(group, topic);
-        msgHandler.handle(pullResult);
+    @Override
+    protected PullResult pullResult() {
+        return mqClientInstance.readDelayMsgBeforeNow(group, topic);
     }
 
     @Override

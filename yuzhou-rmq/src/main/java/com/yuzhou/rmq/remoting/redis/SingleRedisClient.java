@@ -194,7 +194,8 @@ public class SingleRedisClient implements Remoting {
         Jedis jedis = jedisPool.getResource();
         try {
             List<StreamPendingEntry> pendingEntries =
-                    jedis.xpending(stream, group, new StreamEntryID("-"), new StreamEntryID("+"), count, consumer);
+                    jedis.xpending(stream, group, new StreamEntryID(0,0),
+                            new StreamEntryID(Long.MAX_VALUE,0), count, consumer);
             if (pendingEntries == null || pendingEntries.size() == 0) {
                 return Collections.emptyList();
             }

@@ -58,7 +58,7 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
     @Override
     public void start() {
         //启动jedis通信实例
-        mqClientInstance = new MQClientInstance(conn);
+        mqClientInstance = new MQClientInstance(this, conn);
         mqClientInstance.start();
 
         //启动消费线程
@@ -149,7 +149,8 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
 
     static Logger logger = InnerLog.getLogger(DefaultMQConsumer.class);
 
-     static  AtomicInteger count  = new AtomicInteger(1);
+    static AtomicInteger count = new AtomicInteger(1);
+
     public static void main(String[] args) {
         DefaultMQConsumer consumer = new DefaultMQConsumer("mygroup", "mytopic");
         consumer.setConnection(new SingleRedisConn());
@@ -161,7 +162,7 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
                 msgs.forEach(msg -> {
                     System.out.println(String.format("topic=%s,time=%s,msgId=%s,data=%s,msgCount=%d",
                             context.getTopic(),
-                            DateUtil.nowStr(), msg.getMsgId(), msg.getContent(),count.getAndIncrement()));
+                            DateUtil.nowStr(), msg.getMsgId(), msg.getContent(), count.getAndIncrement()));
                 });
                 try {
                     Thread.sleep(200);

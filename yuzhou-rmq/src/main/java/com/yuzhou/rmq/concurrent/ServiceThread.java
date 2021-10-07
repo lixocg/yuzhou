@@ -93,6 +93,10 @@ public abstract class ServiceThread implements Runnable {
         }
     }
 
+    public void waitForRunning(){
+        waitForRunning(Long.MAX_VALUE);
+    }
+
     public void waitForRunning(long interval) {
         if (hasNotified.compareAndSet(true, false)) {
             this.onWaitEnd();

@@ -4,8 +4,8 @@ import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.concurrent.ThreadUtils;
 import com.yuzhou.rmq.factory.MQClientInstance;
+import com.yuzhou.rmq.log.InnerLog;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class DefaultMQConsumerService extends AbstractMQConsumerService {
 
-    Logger logger = LoggerFactory.getLogger(DefaultMQConsumerService.class);
+    Logger logger = InnerLog.getLogger(DefaultMQConsumerService.class);
 
     /**
      * 间隔消息拉取定时

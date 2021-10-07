@@ -4,9 +4,11 @@ import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PendingEntry;
 import com.yuzhou.rmq.common.StreamIDEntry;
 import com.yuzhou.rmq.connection.Connection;
+import com.yuzhou.rmq.log.InnerLog;
 import com.yuzhou.rmq.stat.ConsumerInfo;
 import com.yuzhou.rmq.remoting.Remoting;
 import com.yuzhou.rmq.utils.MixUtil;
+import org.slf4j.Logger;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -32,6 +34,8 @@ import java.util.stream.Collectors;
  * Time: 下午10:17
  */
 public class SingleRedisClient implements Remoting {
+
+    Logger logger = InnerLog.getLogger(SingleRedisClient.class);
 
     public static final String SUCCESS = "ok";
 
@@ -71,16 +75,17 @@ public class SingleRedisClient implements Remoting {
         Jedis jedis = jedisPool.getResource();
         try {
             if (existGroup(stream, groupName)) {
-                System.out.println("消费组已存在");
+                logger.info("消费组已存在,topic={},group={}", stream, groupName);
                 return true;
             }
             //创建消费组从队列未读取，$标识从最大消息id消费，即消费新加入的消息,$标识最大ID
             String ok = jedis.xgroupCreate(stream, groupName, StreamEntryID.LAST_ENTRY, true);
             if (SUCCESS.equals(ok)) {
+                logger.info("消费组创建成功,topic={},group={}", stream, groupName);
                 return true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("消费组创建失败", e);
         } finally {
             jedisPool.returnResource(jedis);
         }
@@ -194,8 +199,8 @@ public class SingleRedisClient implements Remoting {
         Jedis jedis = jedisPool.getResource();
         try {
             List<StreamPendingEntry> pendingEntries =
-                    jedis.xpending(stream, group, new StreamEntryID(0,0),
-                            new StreamEntryID(Long.MAX_VALUE,0), count, consumer);
+                    jedis.xpending(stream, group, new StreamEntryID(0, 0),
+                            new StreamEntryID(Long.MAX_VALUE, 0), count, consumer);
             if (pendingEntries == null || pendingEntries.size() == 0) {
                 return Collections.emptyList();
             }

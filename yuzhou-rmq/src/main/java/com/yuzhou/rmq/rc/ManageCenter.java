@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.concurrent.ThreadUtils;
 import com.yuzhou.rmq.factory.MQClientInstance;
+import com.yuzhou.rmq.log.InnerLog;
 import com.yuzhou.rmq.stat.ConsumerInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ManageCenter {
 
-    Logger logger = LoggerFactory.getLogger(ManageCenter.class);
+    Logger logger = InnerLog.getLogger(ManageCenter.class);
 
     private final MQClientInstance mqClientInstance;
 

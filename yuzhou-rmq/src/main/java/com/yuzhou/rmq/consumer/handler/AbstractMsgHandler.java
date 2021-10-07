@@ -8,6 +8,7 @@ import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.concurrent.ThreadUtils;
 import com.yuzhou.rmq.consumer.MQConsumerService;
 import com.yuzhou.rmq.factory.ProcessCallback;
+import com.yuzhou.rmq.log.InnerLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +27,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public abstract class AbstractMsgHandler implements MsgHandler {
 
-    Logger logger = LoggerFactory.getLogger(AbstractMsgHandler.class);
+    Logger logger = InnerLog.getLogger(AbstractMsgHandler.class);
 
     private final static int CONSUMER_QUEUE_SIZE = 10;
 

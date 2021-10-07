@@ -1,5 +1,6 @@
 package com.yuzhou.rmq.concurrent;
 
+import com.yuzhou.rmq.log.InnerLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public final class ThreadUtils {
 
-    private static final Logger log = LoggerFactory.getLogger(ThreadUtils.class);
+    private static final Logger log = InnerLog.getLogger(ThreadUtils.class);
 
     public static ExecutorService newThreadPoolExecutor(int corePoolSize,
                                                         int maximumPoolSize,

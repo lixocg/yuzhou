@@ -9,6 +9,7 @@ import com.yuzhou.rmq.common.PendingEntry;
 import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.common.PutResult;
 import com.yuzhou.rmq.connection.Connection;
+import com.yuzhou.rmq.log.InnerLog;
 import com.yuzhou.rmq.rc.ConsumerGroup;
 import com.yuzhou.rmq.remoting.Remoting;
 import com.yuzhou.rmq.remoting.redis.SingleRedisClient;
@@ -35,7 +36,7 @@ import java.util.stream.Collectors;
  */
 public class MQClientInstance {
 
-    Logger log = LoggerFactory.getLogger(MQClientInstance.class);
+    Logger log = InnerLog.getLogger(MQClientInstance.class);
 
     private Remoting remoting;
 

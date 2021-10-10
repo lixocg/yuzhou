@@ -1,5 +1,6 @@
 package com.yuzhou.rmq.remoting.redis;
 
+import com.yuzhou.rmq.common.ConsumeFromWhere;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PendingEntry;
 import com.yuzhou.rmq.common.StreamIDEntry;
@@ -71,7 +72,7 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
-    public boolean xgroupCreate(String stream, String groupName) {
+    public boolean xgroupCreate(String stream, String groupName,StreamEntryID streamEntryID) {
         Jedis jedis = jedisPool.getResource();
         try {
             if (existGroup(stream, groupName)) {
@@ -79,8 +80,8 @@ public class SingleRedisClient implements Remoting {
                 return true;
             }
             //创建消费组从队列未读取，$标识从最大消息id消费，即消费新加入的消息,$标识最大ID
-            String ok = jedis.xgroupCreate(stream, groupName, StreamEntryID.LAST_ENTRY, true);
-            if (SUCCESS.equals(ok)) {
+            String ok = jedis.xgroupCreate(stream, groupName, streamEntryID, true);
+            if (SUCCESS.equalsIgnoreCase(ok)) {
                 logger.info("消费组创建成功,topic={},group={}", stream, groupName);
                 return true;
             }
@@ -139,7 +140,7 @@ public class SingleRedisClient implements Remoting {
         try {
             //>读取未被ack的消息
             StreamIDEntry<String, StreamEntryID> streamEntryIDEntry =
-                    new StreamIDEntry<>(stream, StreamEntryID.UNRECEIVED_ENTRY);
+                    new StreamIDEntry<>(stream, StreamEntryID.UNRECEIVED_ENTRY);;
 
             //只读取当前topic的stream key,没数据阻塞
             List<Map.Entry<String/*key*/, List<StreamEntry>>> entries =

@@ -1,5 +1,6 @@
 package com.yuzhou.rmq.client;
 
+import com.yuzhou.rmq.common.ConsumeFromWhere;
 import com.yuzhou.rmq.common.Message;
 import com.yuzhou.rmq.exception.IllegalMsgException;
 import org.apache.commons.lang3.StringUtils;
@@ -19,9 +20,12 @@ public class ClientConfig {
      */
     private static final long PENDING_IDLE_MS = 20;
 
+
     public long pendingIdleMs(){
         return PENDING_IDLE_MS;
     }
+
+    public ConsumeFromWhere getConsumeFromWhere(){return null;};
 
     public enum ReservedKey{
         DELAY_KEY("_delay","延迟消息标记"),

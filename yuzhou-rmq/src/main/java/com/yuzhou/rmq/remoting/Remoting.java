@@ -3,6 +3,7 @@ package com.yuzhou.rmq.remoting;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PendingEntry;
 import com.yuzhou.rmq.stat.ConsumerInfo;
+import redis.clients.jedis.StreamEntryID;
 
 import java.util.List;
 import java.util.Map;
@@ -23,9 +24,9 @@ public interface Remoting {
      * 创建stream消费组
      * @param stream stream key
      * @param groupName stream 组
-     * @return
+     * @return true
      */
-    boolean xgroupCreate(String stream, String groupName);
+    boolean xgroupCreate(String stream, String groupName, StreamEntryID streamEntryID);
 
     /**
      * 非阻塞式读取stream指定消息
@@ -36,12 +37,12 @@ public interface Remoting {
     MessageExt xRead(String stream, String msgId);
 
     /**
-     * stream消费者阻塞试读取数据
+     * stream消费者阻塞从未投递对尾读取数据
      * @param groupName 组名
      * @param consumer 消费者
      * @param stream stream key
      * @param count 读取条数
-     * @return
+     * @return List<MessageExt>
      */
     List<MessageExt> xreadGroup(String groupName, String consumer, String stream, int count);
 

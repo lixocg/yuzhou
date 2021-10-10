@@ -29,7 +29,7 @@ public class MixUtil {
 
     private final static Logger logger = InnerLog.getLogger(MixUtil.class);
 
-    private static final char DELIMITER = '_';
+    public static final String DELIMITER = "_";
 
     private static final String DELAY_PREFIX = "%DELAY%" + DELIMITER;
 

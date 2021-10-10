@@ -3,6 +3,7 @@ package com.yuzhou.rmq.factory;
 import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.client.ClientConfig;
 import com.yuzhou.rmq.common.ConsumeContext;
+import com.yuzhou.rmq.common.ConsumeFromWhere;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.MsgRetryLevel;
 import com.yuzhou.rmq.common.PendingEntry;
@@ -18,7 +19,7 @@ import com.yuzhou.rmq.utils.MixUtil;
 import com.yuzhou.rmq.utils.TypeUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import redis.clients.jedis.StreamEntryID;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -44,7 +45,7 @@ public class MQClientInstance {
 
     private final Connection conn;
 
-    public MQClientInstance(ClientConfig clientConfig,Connection conn) {
+    public MQClientInstance(ClientConfig clientConfig, Connection conn) {
         this.clientConfig = clientConfig;
         this.conn = conn;
     }
@@ -59,7 +60,14 @@ public class MQClientInstance {
     }
 
     public boolean createGroup(String stream, String groupName) {
-        return remoting.xgroupCreate(stream, groupName);
+        ConsumeFromWhere consumeFromWhere = clientConfig.getConsumeFromWhere();
+        if (consumeFromWhere == ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET) {
+            return remoting.xgroupCreate(stream, groupName, StreamEntryID.LAST_ENTRY);
+        } else if (consumeFromWhere == ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET) {
+            return remoting.xgroupCreate(stream, groupName, new StreamEntryID("0-0"));
+        } else {
+            return remoting.xgroupCreate(stream, groupName, new StreamEntryID(consumeFromWhere.toString()));
+        }
     }
 
     public PutResult putMsg(String topic, Map<String, String> msg) {
@@ -70,8 +78,8 @@ public class MQClientInstance {
     /**
      * 消息投入到延迟队列中
      *
-     * @param topic topic
-     * @param msg msg
+     * @param topic     topic
+     * @param msg       msg
      * @param timestamp 延迟时间，单位毫秒
      * @return putResult
      */
@@ -92,13 +100,14 @@ public class MQClientInstance {
      * 阻塞试读取未被其他同组其他消费者消费的数据
      *
      * @param groupName group
-     * @param consumer consumer
-     * @param topic topic
-     * @param count count
+     * @param consumer  consumer
+     * @param topic     topic
+     * @param count     count
      * @return PullResult
      */
     public PullResult blockedReadMsgs(String groupName, String consumer, String topic, int count) {
         List<MessageExt> messageExts = remoting.xreadGroup(groupName, consumer, topic, count);
+        ;
         return PullResult.builder()
                 .messageExts(messageExts)
                 .topic(topic)
@@ -109,10 +118,11 @@ public class MQClientInstance {
 
     /**
      * 拉取idletime大于clientConfig.pendingIdleMs()配置pending列表
+     *
      * @param groupName group
-     * @param consumer consumer
-     * @param topic topic
-     * @param count count
+     * @param consumer  consumer
+     * @param topic     topic
+     * @param count     count
      * @return PullResult
      */
     public PullResult pendingReadMsg(String groupName, String consumer, String topic, int count) {

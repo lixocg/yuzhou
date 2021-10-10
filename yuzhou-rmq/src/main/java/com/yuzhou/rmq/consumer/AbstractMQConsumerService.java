@@ -60,7 +60,7 @@ public abstract class AbstractMQConsumerService extends ServiceThread implements
 
     protected void createGroupIfNecessary() {
         if (!mqClientInstance.createGroup(this.topic, this.group)) {
-            throw new RmqException(String.format("消费组创建失败，topic=%d,group=%d", topic, group));
+            throw new RmqException(String.format("消费组创建失败，topic=%s,group=%s", topic, group));
         }
     }
 

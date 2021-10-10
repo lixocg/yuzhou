@@ -1,5 +1,7 @@
 package com.yuzhou.rmq.client;
 
+import com.yuzhou.rmq.common.ConsumeFromWhere;
+
 /**
  * 消费者配置
  * User: lixiongcheng
@@ -31,4 +33,8 @@ public interface MQConfigConsumer extends MQConsumer {
     int consumePoolCoreSize();
 
     int consumePoolMaxCoreSize();
+
+    void setConsumeFromWhere(ConsumeFromWhere consumeFromWhere);
+
+    ConsumeFromWhere getConsumeFromWhere();
 }

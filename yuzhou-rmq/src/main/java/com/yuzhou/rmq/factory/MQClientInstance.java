@@ -92,7 +92,7 @@ public class MQClientInstance {
             return PutResult.err("投入stream失败");
         }
         //2.往zset队列中存入,%DELAYSCORE%_topic  TODO 这两个操作需要事物保证
-        double score = TypeUtil.l2d(timestamp);
+        double score = TypeUtil.l2d(System.currentTimeMillis() + timestamp);
         long zadd = remoting.zadd(MixUtil.delayScoreTopic(topic), msgId, score);
         return PutResult.id(msgId);
     }
@@ -179,7 +179,7 @@ public class MQClientInstance {
                     return;
                 }
                 content.put(ClientConfig.ReservedKey.RETRY_COUNT_KEY.val, String.valueOf(++count));
-                putDelayMsg(context.getTopic(), content, System.currentTimeMillis() + (msgRetryLevel.getDelay() * 1000));
+                putDelayMsg(context.getTopic(), content, msgRetryLevel.getDelay() * 1000);
                 //放入重试队列后，原队列消息ack
                 remoting.xack(context.getTopic(), context.getGroup(), Collections.singletonList(messageExt.getMsgId()));
             });

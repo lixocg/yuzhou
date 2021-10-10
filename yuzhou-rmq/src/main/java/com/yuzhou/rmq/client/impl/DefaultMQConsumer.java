@@ -166,7 +166,7 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
 
 
     public static void main(String[] args) {
-        DefaultMQConsumer consumer = new DefaultMQConsumer("mygroup8", "mytopic");
+        DefaultMQConsumer consumer = new DefaultMQConsumer("mygroup9", "mytopic");
         consumer.setConnection(new SingleRedisConn());
         consumer.setPullBatchSize(50);
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);

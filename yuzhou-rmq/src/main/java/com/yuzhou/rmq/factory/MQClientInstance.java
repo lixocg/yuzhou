@@ -67,7 +67,7 @@ public class MQClientInstance {
         } else if (consumeFromWhere == ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET) {
             return remoting.xgroupCreate(stream, groupName, new StreamEntryID("0-0"));
         } else {
-            return remoting.xgroupCreate(stream, groupName, new StreamEntryID(consumeFromWhere.toString()+"-0"));
+            return remoting.xgroupCreate(stream, groupName, new StreamEntryID(consumeFromWhere.toString() + "-0"));
         }
     }
 
@@ -92,7 +92,7 @@ public class MQClientInstance {
             return PutResult.err("投入stream失败");
         }
         //2.往zset队列中存入,%DELAYSCORE%_topic  TODO 这两个操作需要事物保证
-        double score = TypeUtil.l2d(System.currentTimeMillis() + timestamp);
+        double score = TypeUtil.l2d(timestamp);
         long zadd = remoting.zadd(MixUtil.delayScoreTopic(topic), msgId, score);
         return PutResult.id(msgId);
     }
@@ -231,7 +231,7 @@ public class MQClientInstance {
         return remoting.xinfoConsumers(topic, group);
     }
 
-    public TopicInfo topicInfo(String topic){
+    public TopicInfo topicInfo(String topic) {
         return remoting.xInfoStream(topic);
     }
 

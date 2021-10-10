@@ -165,10 +165,11 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
 
 
     public static void main(String[] args) {
-        DefaultMQConsumer consumer = new DefaultMQConsumer("mygroup12", "mytopic");
+        DefaultMQConsumer consumer = new DefaultMQConsumer("mygroups12", "mytopics");
         consumer.setConnection(new SingleRedisConn());
         consumer.setPullBatchSize(2);
-        consumer.setConsumeFromWhere(new ConsumeFromWhere(1633493228000L));
+        consumer.setConsumeFromWhere(new ConsumeFromWhere(1633855596020L));
+//                consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
 //        consumer.setPullInterval(3 * 1000);
         consumer.registerMessageListener(new MessageListener() {
             @Override

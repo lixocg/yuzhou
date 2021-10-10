@@ -18,7 +18,7 @@ public class ClientConfig {
     /**
      * pending空闲时间，超过此时间的pending消息将被处理
      */
-    private static final long PENDING_IDLE_MS = 20;
+    private static final long PENDING_IDLE_MS = 20*1000;
 
 
     public long pendingIdleMs(){

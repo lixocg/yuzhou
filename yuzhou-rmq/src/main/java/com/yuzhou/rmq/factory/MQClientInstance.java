@@ -108,7 +108,7 @@ public class MQClientInstance {
      */
     public PullResult blockedReadMsgs(String groupName, String consumer, String topic, int count) {
         List<MessageExt> messageExts = remoting.xreadGroup(groupName, consumer, topic, count);
-        ;
+
         return PullResult.builder()
                 .messageExts(messageExts)
                 .topic(topic)

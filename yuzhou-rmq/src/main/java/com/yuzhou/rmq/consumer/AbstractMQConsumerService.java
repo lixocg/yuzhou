@@ -11,8 +11,6 @@ import com.yuzhou.rmq.factory.MQClientInstance;
 import com.yuzhou.rmq.log.InnerLog;
 import org.slf4j.Logger;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 /**
  * User: lixiongcheng
  * Date: 2021-09-19
@@ -40,9 +38,6 @@ public abstract class AbstractMQConsumerService extends ServiceThread implements
 
     protected final MsgHandler msgHandler;
 
-    private static AtomicBoolean groupCreated = new AtomicBoolean(false);
-
-
     public AbstractMQConsumerService(MQConfigConsumer mqConfigConsumer,
                                      MQClientInstance mqClientInstance) {
         this.mqConfigConsumer = mqConfigConsumer;
@@ -50,7 +45,6 @@ public abstract class AbstractMQConsumerService extends ServiceThread implements
 
         this.openIntervalPull = mqConfigConsumer.pullInterval() > 0;
 
-        //转化一下group和topic
         this.topic = mqConfigConsumer.topic();
         this.group = mqConfigConsumer.group();
 
@@ -64,13 +58,9 @@ public abstract class AbstractMQConsumerService extends ServiceThread implements
 
     protected void createGroupIfNecessary() {
         synchronized (AbstractMQConsumerService.class) {
-            if (groupCreated.get()) {
-                return;
-            }
             if (!mqClientInstance.createGroup(this.topic, this.group)) {
                 throw new RmqException(String.format("消费组创建失败，topic=%s,group=%s", topic, group));
             }
-            groupCreated.set(true);
         }
     }
 

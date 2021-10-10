@@ -5,9 +5,7 @@ import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.concurrent.ThreadUtils;
 import com.yuzhou.rmq.factory.MQClientInstance;
 import com.yuzhou.rmq.log.InnerLog;
-import com.yuzhou.rmq.stat.ConsumerInfo;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.List;
@@ -41,19 +39,14 @@ public class ManageCenter {
     }
 
     public void start() {
-        consumerStatExecutor.scheduleAtFixedRate(this::stat, 3, 30, TimeUnit.SECONDS);
+        consumerStatExecutor.scheduleAtFixedRate(this::stat, 3, 10, TimeUnit.SECONDS);
     }
 
     private void stat() {
         System.out.println("===============stat-=======");
-        ConsumerGroup consumerGroup = loadCurGroup(mqConfigConsumer.group());
-        if (consumerGroup == null) {
-            return;
-        }
-        String groupName = consumerGroup.getGroupName();
 
-        List<ConsumerInfo> consumers = mqClientInstance.infoOfconsumers(mqConfigConsumer.topic(), groupName);
-        System.out.println(JSON.toJSONString(consumers));
+        TopicInfo topicInfo = mqClientInstance.topicInfo(mqConfigConsumer.topic());
+        System.out.println(JSON.toJSONString(topicInfo));
     }
 
     public ManageCenter(MQConfigConsumer configConsumer, MQClientInstance mqClientInstance) {

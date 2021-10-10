@@ -1,17 +1,13 @@
-package com.yuzhou.rmq.stat;
-
-import java.io.Serializable;
+package com.yuzhou.rmq.rc;
 
 /**
- * 消费者信息
+ * Created with IntelliJ IDEA
+ * Description:
  * User: lixiongcheng
- * Date: 2021-10-02
- * Time: 下午12:27
+ * Date: 2021-10-10
+ * Time: 下午3:21
  */
-public class ConsumerInfo implements Serializable {
-
-    private static final long serialVersionUID = -1334574994030195300L;
-
+public class ConsumerInfo {
     /**
      * 消费者名
      */

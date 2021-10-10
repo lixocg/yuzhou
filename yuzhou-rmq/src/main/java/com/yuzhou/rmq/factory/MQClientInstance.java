@@ -12,9 +12,10 @@ import com.yuzhou.rmq.common.PutResult;
 import com.yuzhou.rmq.connection.Connection;
 import com.yuzhou.rmq.log.InnerLog;
 import com.yuzhou.rmq.rc.ConsumerGroup;
+import com.yuzhou.rmq.rc.ConsumerInfo;
+import com.yuzhou.rmq.rc.TopicInfo;
 import com.yuzhou.rmq.remoting.Remoting;
 import com.yuzhou.rmq.remoting.redis.SingleRedisClient;
-import com.yuzhou.rmq.stat.ConsumerInfo;
 import com.yuzhou.rmq.utils.MixUtil;
 import com.yuzhou.rmq.utils.TypeUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -228,6 +229,10 @@ public class MQClientInstance {
 
     public List<ConsumerInfo> infoOfconsumers(String topic, String group) {
         return remoting.xinfoConsumers(topic, group);
+    }
+
+    public TopicInfo topicInfo(String topic){
+        return remoting.xInfoStream(topic);
     }
 
 

@@ -68,7 +68,6 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
         defaultMQConsumerService.start();
 
         ManageCenter manageCenter = new ManageCenter(this, mqClientInstance);
-        manageCenter.registerConsumer(this);
         manageCenter.start();
 
     }
@@ -200,5 +199,41 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
             }
         });
         consumer.start();
+
+
+//        DefaultMQConsumer consumer1 = new DefaultMQConsumer("mygroup10", "mytopic");
+//        consumer1.setConnection(new SingleRedisConn());
+//        consumer1.setPullBatchSize(50);
+//        consumer1.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
+////        consumer.setPullInterval(3 * 1000);
+//        consumer1.registerMessageListener(new MessageListener() {
+//            @Override
+//            public ConsumeStatus onMessage(List<MessageExt> msgs, ConsumeContext context) {
+//                System.out.println("批次：" + msgs.size());
+//                msgs.forEach(msg -> {
+//                    System.out.println(String.format("topic=%s,time=%s,msgId=%s,msgIdTime=%s,data=%s,msgCount=%d",
+//                            context.getTopic(),
+//                            DateUtil.nowStr(), msg.getMsgId(), msgId(msg.getMsgId()), msg.getContent(), count.getAndIncrement()));
+//                });
+//                try {
+//                    Thread.sleep(200);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                return ConsumeStatus.CONSUME_SUCCESS;
+////                return ConsumeStatus.CONSUME_LATER;
+//            }
+//
+//            private String msgId(String msgId) {
+//                String[] split = msgId.split("-");
+//                return DateUtil.toStr(Long.parseLong(split[0])) + "-" + split[1];
+//            }
+//
+//            @Override
+//            public void onMaxRetryFailMessage(List<MessageExt> msgs, ConsumeContext consumeContext) {
+//                System.out.println("最大重试失败:" + JSON.toJSONString(msgs));
+//            }
+//        });
+//        consumer1.start();
     }
 }

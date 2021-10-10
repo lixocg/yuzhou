@@ -2,7 +2,8 @@ package com.yuzhou.rmq.remoting;
 
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PendingEntry;
-import com.yuzhou.rmq.stat.ConsumerInfo;
+import com.yuzhou.rmq.rc.ConsumerInfo;
+import com.yuzhou.rmq.rc.TopicInfo;
 import redis.clients.jedis.StreamEntryID;
 
 import java.util.List;
@@ -74,6 +75,8 @@ public interface Remoting {
      * @return
      */
     List<PendingEntry> xpending(String stream, String group, String consumer, int count);
+
+    TopicInfo xInfoStream(String stream);
 
     /**
      * 指定stream的某个消费组下的消费者列表

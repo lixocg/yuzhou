@@ -1,12 +1,14 @@
 package com.yuzhou.rmq.remoting.redis;
 
-import com.yuzhou.rmq.common.ConsumeFromWhere;
+import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PendingEntry;
 import com.yuzhou.rmq.common.StreamIDEntry;
 import com.yuzhou.rmq.connection.Connection;
 import com.yuzhou.rmq.log.InnerLog;
-import com.yuzhou.rmq.stat.ConsumerInfo;
+import com.yuzhou.rmq.rc.ConsumerInfo;
+import com.yuzhou.rmq.rc.GroupInfo;
+import com.yuzhou.rmq.rc.TopicInfo;
 import com.yuzhou.rmq.remoting.Remoting;
 import com.yuzhou.rmq.utils.MixUtil;
 import org.slf4j.Logger;
@@ -18,9 +20,11 @@ import redis.clients.jedis.StreamConsumersInfo;
 import redis.clients.jedis.StreamEntry;
 import redis.clients.jedis.StreamEntryID;
 import redis.clients.jedis.StreamGroupInfo;
+import redis.clients.jedis.StreamInfo;
 import redis.clients.jedis.StreamPendingEntry;
 import redis.clients.jedis.Transaction;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -219,27 +223,42 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
+    public TopicInfo xInfoStream(String stream){
+        Jedis jedis = jedisPool.getResource();
+        try {
+            List<StreamGroupInfo> streamGroupInfos1 = jedis.xinfoGroup(stream);
+            TopicInfo topicInfo = new TopicInfo();
+            topicInfo.setTopic(stream);
+            List<GroupInfo> groupInfos = streamGroupInfos1.stream().map(sgroup -> {
+                GroupInfo groupInfo = new GroupInfo();
+                groupInfo.setName(sgroup.getName());
+                groupInfo.setLastDeliveredId(sgroup.getLastDeliveredId().toString());
+                groupInfo.setPendingSize(sgroup.getPending());
+                groupInfo.setConsumerInfos(xinfoConsumers(stream,sgroup.getName()));
+                return groupInfo;
+            }).collect(Collectors.toList());
+            topicInfo.setGroupInfos(groupInfos);
+            topicInfo.setGroups(groupInfos.size());
+
+            return topicInfo;
+        } finally {
+            jedisPool.returnResource(jedis);
+        }
+    }
+
+    @Override
     public List<ConsumerInfo> xinfoConsumers(String stream, String group) {
         Jedis jedis = jedisPool.getResource();
         try {
             List<StreamConsumersInfo> streamConsumersInfos = jedis.xinfoConsumers(stream, group);
-            if (streamConsumersInfos == null || streamConsumersInfos.size() == 0) {
-                return null;
-            }
-
-//            System.out.println("======================");
-//            List<StreamGroupInfo> streamGroupInfos = jedis.xinfoGroup(stream);
-//            System.out.println("xinfogroup...." + JSON.toJSONString(streamGroupInfos));
-//            StreamInfo streamInfo = jedis.xinfoStream(stream);
-//            System.out.println("xinfostream...." + JSON.toJSONString(streamInfo));
             return streamConsumersInfos.stream().map(sci -> {
                 ConsumerInfo consumerInfo = new ConsumerInfo();
-                consumerInfo.setIdle(sci.getIdle());
                 consumerInfo.setName(sci.getName());
                 consumerInfo.setPending(sci.getPending());
+                consumerInfo.setIdle(sci.getIdle());
                 return consumerInfo;
             }).collect(Collectors.toList());
-        } finally {
+        }finally {
             jedisPool.returnResource(jedis);
         }
     }

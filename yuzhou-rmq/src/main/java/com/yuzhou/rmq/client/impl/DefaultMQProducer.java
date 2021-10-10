@@ -132,10 +132,10 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
 
         AtomicInteger count = new AtomicInteger(1);
 
-        IntStream.rangeClosed(1, 10).forEach(i -> {
+        IntStream.rangeClosed(1, 2000).parallel().forEach(i -> {
 
             try {
-                Thread.sleep(3000);
+                Thread.sleep(2);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -144,7 +144,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
             map.put("age", i + "");
             SendResult result = null;
 //            result = producer.send("mytopic", map, i * 1000);
-            result = producer.send("mytopic", map);
+            result = producer.send("mytopics", map);
             System.out.println(result + "-------" + map.get("name") + "count=" + count.getAndIncrement());
         });
 

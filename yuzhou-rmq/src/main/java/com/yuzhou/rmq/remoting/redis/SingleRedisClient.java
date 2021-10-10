@@ -2,6 +2,7 @@ package com.yuzhou.rmq.remoting.redis;
 
 import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.common.MessageExt;
+import com.yuzhou.rmq.common.MsgId;
 import com.yuzhou.rmq.common.PendingEntry;
 import com.yuzhou.rmq.common.StreamIDEntry;
 import com.yuzhou.rmq.connection.Connection;
@@ -76,7 +77,7 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
-    public boolean xgroupCreate(String stream, String groupName,StreamEntryID streamEntryID) {
+    public boolean xgroupCreate(String stream, String groupName, StreamEntryID streamEntryID) {
         Jedis jedis = jedisPool.getResource();
         try {
             if (existGroup(stream, groupName)) {
@@ -144,7 +145,8 @@ public class SingleRedisClient implements Remoting {
         try {
             //>读取未被ack的消息
             StreamIDEntry<String, StreamEntryID> streamEntryIDEntry =
-                    new StreamIDEntry<>(stream, StreamEntryID.UNRECEIVED_ENTRY);;
+                    new StreamIDEntry<>(stream, StreamEntryID.UNRECEIVED_ENTRY);
+            ;
 
             //只读取当前topic的stream key,没数据阻塞
             List<Map.Entry<String/*key*/, List<StreamEntry>>> entries =
@@ -211,7 +213,7 @@ public class SingleRedisClient implements Remoting {
             }
             return pendingEntries.stream().map(pe -> {
                 PendingEntry pendingEntry = new PendingEntry();
-                pendingEntry.setMsgId(MixUtil.id(pe.getID().getTime(), pe.getID().getSequence()));
+                pendingEntry.setMsgId(MsgId.id(pe.getID().getTime(), pe.getID().getSequence()));
                 pendingEntry.setConsumerName(consumer);
                 pendingEntry.setDeliveredTimes(pe.getDeliveredTimes());
                 pendingEntry.setIdleTime(pe.getIdleTime());
@@ -223,27 +225,28 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
-    public TopicInfo xInfoStream(String stream){
+    public TopicInfo xInfoStream(String stream) {
         Jedis jedis = jedisPool.getResource();
+        TopicInfo topicInfo = new TopicInfo();
         try {
             List<StreamGroupInfo> streamGroupInfos1 = jedis.xinfoGroup(stream);
-            TopicInfo topicInfo = new TopicInfo();
             topicInfo.setTopic(stream);
             List<GroupInfo> groupInfos = streamGroupInfos1.stream().map(sgroup -> {
                 GroupInfo groupInfo = new GroupInfo();
                 groupInfo.setName(sgroup.getName());
                 groupInfo.setLastDeliveredId(sgroup.getLastDeliveredId().toString());
-                groupInfo.setPendingSize(sgroup.getPending());
-                groupInfo.setConsumerInfos(xinfoConsumers(stream,sgroup.getName()));
+                groupInfo.setPending(sgroup.getPending());
+                groupInfo.setConsumerInfos(xinfoConsumers(stream, sgroup.getName()));
                 return groupInfo;
             }).collect(Collectors.toList());
             topicInfo.setGroupInfos(groupInfos);
             topicInfo.setGroups(groupInfos.size());
-
-            return topicInfo;
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             jedisPool.returnResource(jedis);
         }
+        return topicInfo;
     }
 
     @Override
@@ -258,7 +261,7 @@ public class SingleRedisClient implements Remoting {
                 consumerInfo.setIdle(sci.getIdle());
                 return consumerInfo;
             }).collect(Collectors.toList());
-        }finally {
+        } finally {
             jedisPool.returnResource(jedis);
         }
     }

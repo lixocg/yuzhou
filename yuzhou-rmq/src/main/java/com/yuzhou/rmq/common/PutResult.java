@@ -32,7 +32,7 @@ public class PutResult {
     }
 
     public static PutResult id(long time, long seq) {
-        return new PutResult(MixUtil.id(time, seq));
+        return new PutResult(MsgId.id(time, seq));
     }
 
     public static PutResult err(String errorMsg) {

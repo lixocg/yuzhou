@@ -63,10 +63,6 @@ public class MixUtil {
         return DELAY_SCORE_PREFIX + topic;
     }
 
-    public static String id(long time, long seq) {
-        return time + "-" + seq;
-    }
-
 
     /**
      * 将一个list均分成n个list,主要通过偏移量来实现的

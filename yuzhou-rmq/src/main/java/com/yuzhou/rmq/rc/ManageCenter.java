@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -46,7 +47,11 @@ public class ManageCenter {
         System.out.println("===============stat-=======");
 
         TopicInfo topicInfo = mqClientInstance.topicInfo(mqConfigConsumer.topic());
-        System.out.println(JSON.toJSONString(topicInfo));
+
+        Optional<GroupInfo> any =
+                topicInfo.getGroupInfos().stream().filter(groupInfo -> groupInfo.getName().equalsIgnoreCase(mqConfigConsumer.group())).findAny();
+
+        any.ifPresent(groupInfo -> System.out.println(JSON.toJSONString(groupInfo)));
     }
 
     public ManageCenter(MQConfigConsumer configConsumer, MQClientInstance mqClientInstance) {

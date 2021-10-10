@@ -67,7 +67,7 @@ public class MQClientInstance {
         } else if (consumeFromWhere == ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET) {
             return remoting.xgroupCreate(stream, groupName, new StreamEntryID("0-0"));
         } else {
-            return remoting.xgroupCreate(stream, groupName, new StreamEntryID(consumeFromWhere.toString()));
+            return remoting.xgroupCreate(stream, groupName, new StreamEntryID(consumeFromWhere.toString()+"-0"));
         }
     }
 

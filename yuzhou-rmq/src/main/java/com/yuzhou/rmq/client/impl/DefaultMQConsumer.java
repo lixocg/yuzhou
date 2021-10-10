@@ -5,6 +5,7 @@ import com.yuzhou.rmq.client.ClientConfig;
 import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.client.MessageListener;
 import com.yuzhou.rmq.common.ConsumeContext;
+import com.yuzhou.rmq.common.ConsumeFromWhere;
 import com.yuzhou.rmq.common.ConsumeStatus;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.connection.Connection;
@@ -50,6 +51,8 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
 
     private int cosumePoolMaxCoreSize;
 
+    private ConsumeFromWhere consumeFromWhere = ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET;
+
     public DefaultMQConsumer(String group, String topic) {
         this.topic = wrap(topic);
         this.group = wrap(group);
@@ -57,8 +60,7 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
 
     @Override
     public void start() {
-        //启动jedis通信实例
-        mqClientInstance = new MQClientInstance(conn);
+        mqClientInstance = new MQClientInstance(this, conn);
         mqClientInstance.start();
 
         //启动消费线程
@@ -79,6 +81,16 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
     @Override
     public void registerMessageListener(MessageListener messageListener) {
         this.messageListener = messageListener;
+    }
+
+    @Override
+    public ConsumeFromWhere getConsumeFromWhere() {
+        return consumeFromWhere;
+    }
+
+    @Override
+    public void setConsumeFromWhere(ConsumeFromWhere consumeFromWhere) {
+        this.consumeFromWhere = consumeFromWhere;
     }
 
     @Override
@@ -116,6 +128,7 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
         return cosumePoolMaxCoreSize;
     }
 
+
     @Override
     public void setCosumePoolCoreSize(int cosumePoolCoreSize) {
         this.cosumePoolCoreSize = cosumePoolCoreSize;
@@ -149,19 +162,23 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
 
     static Logger logger = InnerLog.getLogger(DefaultMQConsumer.class);
 
-     static  AtomicInteger count  = new AtomicInteger(1);
+    static AtomicInteger count = new AtomicInteger(1);
+
+
     public static void main(String[] args) {
-        DefaultMQConsumer consumer = new DefaultMQConsumer("mygroup", "mytopic");
+        DefaultMQConsumer consumer = new DefaultMQConsumer("mygroup9", "mytopic");
         consumer.setConnection(new SingleRedisConn());
-        consumer.setPullBatchSize(5);
+        consumer.setPullBatchSize(50);
+        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
 //        consumer.setPullInterval(3 * 1000);
         consumer.registerMessageListener(new MessageListener() {
             @Override
             public ConsumeStatus onMessage(List<MessageExt> msgs, ConsumeContext context) {
+                System.out.println("批次：" + msgs.size());
                 msgs.forEach(msg -> {
-                    System.out.println(String.format("topic=%s,time=%s,msgId=%s,data=%s,msgCount=%d",
+                    System.out.println(String.format("topic=%s,time=%s,msgId=%s,msgIdTime=%s,data=%s,msgCount=%d",
                             context.getTopic(),
-                            DateUtil.nowStr(), msg.getMsgId(), msg.getContent(),count.getAndIncrement()));
+                            DateUtil.nowStr(), msg.getMsgId(), msgId(msg.getMsgId()), msg.getContent(), count.getAndIncrement()));
                 });
                 try {
                     Thread.sleep(200);
@@ -170,6 +187,11 @@ public class DefaultMQConsumer extends ClientConfig implements MQConfigConsumer 
                 }
                 return ConsumeStatus.CONSUME_SUCCESS;
 //                return ConsumeStatus.CONSUME_LATER;
+            }
+
+            private String msgId(String msgId) {
+                String[] split = msgId.split("-");
+                return DateUtil.toStr(Long.parseLong(split[0])) + "-" + split[1];
             }
 
             @Override

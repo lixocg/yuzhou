@@ -10,6 +10,4 @@ package com.yuzhou.rmq.client;
 public interface MQConsumer extends MQAdmin{
 
     void registerMessageListener(MessageListener messageListener);
-
-
 }

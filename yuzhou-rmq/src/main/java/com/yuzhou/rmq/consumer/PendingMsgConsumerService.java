@@ -6,15 +6,14 @@ import com.yuzhou.rmq.exception.RmqException;
 import com.yuzhou.rmq.factory.MQClientInstance;
 
 /**
- * Created with IntelliJ IDEA
- * Description:
+ * 消费者pending消息
  * User: lixiongcheng
  * Date: 2021-09-19
  * Time: 上午1:04
  */
-public class IntervalMsgConsumerService extends AbstractMQConsumerService {
+public class PendingMsgConsumerService extends AbstractMQConsumerService {
 
-    public IntervalMsgConsumerService(MQConfigConsumer mqConfigConsumer, MQClientInstance mqClientInstance) {
+    public PendingMsgConsumerService(MQConfigConsumer mqConfigConsumer, MQClientInstance mqClientInstance) {
         super(mqConfigConsumer, mqClientInstance);
         this.createGroupIfNecessary();
     }
@@ -26,7 +25,7 @@ public class IntervalMsgConsumerService extends AbstractMQConsumerService {
 
     @Override
     protected PullResult pullResult() {
-        return mqClientInstance.blockedReadMsgs(group, consumerName, topic, pullBatchSize);
+        return mqClientInstance.pendingReadMsg(group, consumerName, topic, 50);
     }
 
     @Override

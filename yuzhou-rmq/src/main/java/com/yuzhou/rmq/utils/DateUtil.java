@@ -13,8 +13,15 @@ import java.util.Date;
  */
 public class DateUtil {
 
+    public final static String FULL = "yyyy-MM-dd HH:mm:ss.SSS";
+
+    public final static String STANDARD = "yyyy-MM-dd HH:mm:ss";
+
     public static String nowStr() {
-        return FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss").format(new Date());
+        return FastDateFormat.getInstance(STANDARD).format(new Date());
     }
 
+    public static String toStr(long timestamp) {
+        return FastDateFormat.getInstance(FULL).format(timestamp);
+    }
 }

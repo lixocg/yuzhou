@@ -1,5 +1,6 @@
 package com.yuzhou.rmq.concurrent;
 
+import com.yuzhou.rmq.log.InnerLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,7 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class ServiceThread implements Runnable {
 
-    private static final Logger log = LoggerFactory.getLogger(ServiceThread.class);
+    private static final Logger log = InnerLog.getLogger(ServiceThread.class);
 
     private static final long JOIN_TIME = 90 * 1000;
 
@@ -91,6 +92,10 @@ public abstract class ServiceThread implements Runnable {
         if (hasNotified.compareAndSet(false, true)) {
             waitPoint.countDown(); // notify
         }
+    }
+
+    public void waitForRunning(){
+        waitForRunning(Long.MAX_VALUE);
     }
 
     public void waitForRunning(long interval) {

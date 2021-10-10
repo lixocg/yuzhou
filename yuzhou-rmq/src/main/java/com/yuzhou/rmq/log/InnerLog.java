@@ -21,7 +21,7 @@ public class InnerLog {
     /**
      * 默认日志格式
      */
-    private final static String DEFAULT_PATTERN = "commonlog|%d{yyyy-MM-dd HH:mm:ss.SSS}|%X{EAGLEEYE_TRACE_ID}|%thread|%level|%logger{36}|%m%n";
+    private final static String DEFAULT_PATTERN = "rmq|%d{yyyy-MM-dd HH:mm:ss.SSS}|%X{EAGLEEYE_TRACE_ID}|%thread|%level|%logger{36}|%m%n";
 
     /**
      * 日志存储目录

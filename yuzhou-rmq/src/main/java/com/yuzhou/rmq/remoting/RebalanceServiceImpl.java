@@ -24,7 +24,7 @@
 // */
 //public class RebalanceServiceImpl {
 //
-//    private final static Logger logger = LoggerFactory.getLogger(RebalanceServiceImpl.class);
+//    private final static Logger logger = InnerLog.getLogger(RebalanceServiceImpl.class);
 //
 //    private final Remoting remoting;
 //

@@ -6,11 +6,12 @@ import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.concurrent.ServiceThread;
 import com.yuzhou.rmq.consumer.handler.DefaultMsgHandler;
 import com.yuzhou.rmq.consumer.handler.MsgHandler;
+import com.yuzhou.rmq.exception.RmqException;
 import com.yuzhou.rmq.factory.MQClientInstance;
+import com.yuzhou.rmq.log.InnerLog;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import static com.yuzhou.rmq.utils.MixUtil.wrap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * User: lixiongcheng
@@ -19,8 +20,7 @@ import static com.yuzhou.rmq.utils.MixUtil.wrap;
  */
 public abstract class AbstractMQConsumerService extends ServiceThread implements MQConsumerService {
 
-    Logger logger = LoggerFactory.getLogger(AbstractMQConsumerService.class);
-
+    Logger logger = InnerLog.getLogger(AbstractMQConsumerService.class);
 
     protected final MQConfigConsumer mqConfigConsumer;
 
@@ -39,6 +39,8 @@ public abstract class AbstractMQConsumerService extends ServiceThread implements
     protected final int pullBatchSize;
 
     protected final MsgHandler msgHandler;
+
+    private static AtomicBoolean groupCreated = new AtomicBoolean(false);
 
 
     public AbstractMQConsumerService(MQConfigConsumer mqConfigConsumer,
@@ -61,31 +63,42 @@ public abstract class AbstractMQConsumerService extends ServiceThread implements
     }
 
     protected void createGroupIfNecessary() {
-        mqClientInstance.createGroup(this.topic, this.group);
+        synchronized (AbstractMQConsumerService.class) {
+            if (groupCreated.get()) {
+                return;
+            }
+            if (!mqClientInstance.createGroup(this.topic, this.group)) {
+                throw new RmqException(String.format("消费组创建失败，topic=%s,group=%s", topic, group));
+            }
+            groupCreated.set(true);
+        }
     }
 
 
-    @Override
-    public void run() {
-        //启动普通消息拉取,非间隔拉取才启动该处理器
-        while (!this.isStopped() && !openIntervalPull) {
+    public abstract void run();
+
+    protected void run0() {
+        try {
             if (msgHandler.isBusy()) {
-                logger.warn("消费线程池处于繁忙中，等待任务处理中.....");
-                waitForRunning(Long.MAX_VALUE);
+                logger.info("消费线程池处于繁忙中，等待任务处理中.....");
+                waitForRunning();
             }
 
             if (this.isStopped()) {
-                logger.warn("拉取服务已停止...服务名:" + this.getServiceName());
+                logger.info("拉取服务已停止...服务名:" + this.getServiceName());
                 return;
             }
 
             //拉取消息,Redis队列没有消息时阻塞
             logger.info("拉取消息中,服务名;{},服务状态:{}", this.getServiceName(), this.isRunning());
-            PullResult pullResult = mqClientInstance.blockedReadMsgs(group, consumerName, topic, pullBatchSize);
+            PullResult pullResult = pullResult();
             msgHandler.handle(pullResult);
+        } catch (Exception e) {
+            logger.error("", e);
         }
-        logger.info("stop..........");
     }
+
+    protected abstract PullResult pullResult();
 
 
     @Override

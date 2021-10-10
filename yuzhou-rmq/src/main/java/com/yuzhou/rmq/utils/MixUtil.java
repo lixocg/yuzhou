@@ -2,6 +2,7 @@ package com.yuzhou.rmq.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.common.TopicGroup;
+import com.yuzhou.rmq.log.InnerLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,9 +27,9 @@ import java.util.Objects;
  */
 public class MixUtil {
 
-    private final static Logger logger = LoggerFactory.getLogger(MixUtil.class);
+    private final static Logger logger = InnerLog.getLogger(MixUtil.class);
 
-    private static final char DELIMITER = '_';
+    public static final String DELIMITER = "_";
 
     private static final String DELAY_PREFIX = "%DELAY%" + DELIMITER;
 

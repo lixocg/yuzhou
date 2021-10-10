@@ -34,7 +34,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
         if (conn == null) {
             throw new RmqException("缺少conn信息");
         }
-        mqClientInstance = new MQClientInstance(conn);
+        mqClientInstance = new MQClientInstance(this,conn);
         mqClientInstance.start();
     }
 

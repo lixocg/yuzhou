@@ -1,5 +1,6 @@
 package com.yuzhou.rmq.client;
 
+import com.yuzhou.rmq.common.ConsumeFromWhere;
 import com.yuzhou.rmq.common.Message;
 import com.yuzhou.rmq.exception.IllegalMsgException;
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +14,18 @@ import java.util.Map;
  * Time: 下午11:20
  */
 public class ClientConfig {
+
+    /**
+     * pending空闲时间，超过此时间的pending消息将被处理
+     */
+    private static final long PENDING_IDLE_MS = 20;
+
+
+    public long pendingIdleMs(){
+        return PENDING_IDLE_MS;
+    }
+
+    public ConsumeFromWhere getConsumeFromWhere(){return null;};
 
     public enum ReservedKey{
         DELAY_KEY("_delay","延迟消息标记"),

@@ -24,7 +24,7 @@ public class Producer {
 
         AtomicInteger count = new AtomicInteger(1);
 
-        IntStream.rangeClosed(1, 5).parallel().forEach(i -> {
+        IntStream.rangeClosed(1, 50000).parallel().forEach(i -> {
 
             try {
                 Thread.sleep(2);
@@ -35,8 +35,8 @@ public class Producer {
             map.put("name", "zs" + i);
             map.put("age", i + "");
             SendResult result = null;
-            result = producer.send("mytopics1", map, i * 1000);
-//            result = producer.send("mytopics1", map);
+//            result = producer.send("mytopics1", map, i * 1000);
+            result = producer.send("mytopics1", map);
             System.out.println(result + "-------" + map.get("name") + "count=" + count.getAndIncrement());
         });
 

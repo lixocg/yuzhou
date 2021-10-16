@@ -313,6 +313,9 @@ public class SingleRedisClient implements Remoting {
             }
             return contentBytes.stream().map(bytes -> SerializeUtils.deserialize(bytes, Map.class))
                     .collect(Collectors.toSet());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptySet();
         } finally {
             jedisPool.returnResource(jedis);
         }

@@ -25,9 +25,16 @@ public class DelayMsgConsumerService extends AbstractMQConsumerService {
 
     @Override
     public void run() {
-        Set<Map<String, String>> delayMsg = mqClientInstance.readDelayMsg(MixUtil.delayScoreTopic(topic),
-                0, System.currentTimeMillis());
-        delayMsg.forEach(content -> mqClientInstance.putMsg(topic, content));
+        try {
+            Set<Map<String, String>> delayMsg = mqClientInstance.readDelayMsg(MixUtil.delayScoreTopic(topic),
+                    0, System.currentTimeMillis());
+            if(delayMsg == null){
+                return;
+            }
+            delayMsg.forEach(content -> mqClientInstance.putMsg(topic, content));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

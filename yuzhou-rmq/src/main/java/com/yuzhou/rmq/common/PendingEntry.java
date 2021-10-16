@@ -12,7 +12,7 @@ public class PendingEntry implements Serializable {
 
     private static final long serialVersionUID = -515390598736806792L;
 
-    private String msgId;
+    private String offsetMsgId;
 
     private String consumerName;
 
@@ -20,16 +20,13 @@ public class PendingEntry implements Serializable {
 
     private long deliveredTimes;
 
-    public String getMsgId() {
-        return msgId;
-    }
-
-    public void setMsgId(String msgId) {
-        this.msgId = msgId;
-    }
 
     public String getConsumerName() {
         return consumerName;
+    }
+
+    public String getOffsetMsgId() {
+        return offsetMsgId;
     }
 
     public void setConsumerName(String consumerName) {
@@ -50,5 +47,9 @@ public class PendingEntry implements Serializable {
 
     public void setDeliveredTimes(long deliveredTimes) {
         this.deliveredTimes = deliveredTimes;
+    }
+
+    public void setOffsetMsgId(String offsetMsgId) {
+        this.offsetMsgId = offsetMsgId;
     }
 }

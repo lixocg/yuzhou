@@ -18,18 +18,18 @@ public class SerializeTest {
 
     public static void main(String[] args) {
         StreamEntryID entryID = new StreamEntryID("11-111");
-        byte[] data = SerializeUtils.serialize(entryID, StreamEntryID.class);
+        byte[] data = SerializeUtils.serialize(entryID);
 
-        StreamEntryID streamEntryID = SerializeUtils.deSerialize(data, StreamEntryID.class);
+        StreamEntryID streamEntryID = SerializeUtils.deserialize(data, StreamEntryID.class);
         System.out.println(streamEntryID);
 
 
         TestEntry<byte[],byte[]> streamEntry = new TestEntry<>();
-        streamEntry.k = SerializeUtils.serialize("ss1",String.class);
-        streamEntry.v = SerializeUtils.serialize(entryID,StreamEntryID.class);
+        streamEntry.k = SerializeUtils.serialize("ss1");
+        streamEntry.v = SerializeUtils.serialize(entryID);
 
-        System.out.println(SerializeUtils.deSerialize(streamEntry.k,String.class));
-        System.out.println(SerializeUtils.deSerialize(streamEntry.v,StreamEntryID.class));
+        System.out.println(SerializeUtils.deserialize(streamEntry.k,String.class));
+        System.out.println(SerializeUtils.deserialize(streamEntry.v,StreamEntryID.class));
     }
 
 

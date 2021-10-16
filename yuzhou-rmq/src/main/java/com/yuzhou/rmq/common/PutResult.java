@@ -1,7 +1,5 @@
 package com.yuzhou.rmq.common;
 
-import com.yuzhou.rmq.utils.MixUtil;
-
 /**
  * Created with IntelliJ IDEA
  * Description:
@@ -13,7 +11,7 @@ public class PutResult {
 
     private static final long serialVersionUID = -4015154304320910205L;
 
-    private String msgId;
+    private String offsetMsgId;
 
     private boolean success;
 
@@ -22,13 +20,13 @@ public class PutResult {
     public PutResult() {
     }
 
-    public PutResult(String msgId) {
+    public PutResult(String offsetMsgId) {
         this.success = true;
-        this.msgId = msgId;
+        this.offsetMsgId = offsetMsgId;
     }
 
-    public static PutResult id(String msgId){
-        return new PutResult(msgId);
+    public static PutResult id(String offsetMsgId){
+        return new PutResult(offsetMsgId);
     }
 
     public static PutResult id(long time, long seq) {
@@ -42,16 +40,16 @@ public class PutResult {
         return result;
     }
 
-    public String getMsgId() {
-        return msgId;
+    public String getOffsetMsgId() {
+        return offsetMsgId;
     }
 
     public boolean isSuccess() {
         return success;
     }
 
-    public void setMsgId(String msgId) {
-        this.msgId = msgId;
+    public void setOffsetMsgId(String offsetMsgId) {
+        this.offsetMsgId = offsetMsgId;
     }
 
     public void setSuccess(boolean success) {
@@ -61,7 +59,7 @@ public class PutResult {
     @Override
     public String toString() {
         return "PutResult{" +
-                "msgId='" + msgId + '\'' +
+                "offsetMsgId='" + offsetMsgId + '\'' +
                 '}';
     }
 

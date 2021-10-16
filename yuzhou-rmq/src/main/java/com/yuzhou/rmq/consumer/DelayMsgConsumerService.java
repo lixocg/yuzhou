@@ -4,8 +4,10 @@ import com.yuzhou.rmq.client.MQConfigConsumer;
 import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.exception.RmqException;
 import com.yuzhou.rmq.factory.MQClientInstance;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.yuzhou.rmq.utils.MixUtil;
+
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA
@@ -23,12 +25,14 @@ public class DelayMsgConsumerService extends AbstractMQConsumerService {
 
     @Override
     public void run() {
-        run0();
+        Set<Map<String, String>> delayMsg = mqClientInstance.readDelayMsg(MixUtil.delayScoreTopic(topic),
+                0, System.currentTimeMillis());
+        delayMsg.forEach(content -> mqClientInstance.putMsg(topic, content));
     }
 
     @Override
     protected PullResult pullResult() {
-        return mqClientInstance.readDelayMsgBeforeNow(group, topic);
+        throw new RmqException("no result");
     }
 
     @Override

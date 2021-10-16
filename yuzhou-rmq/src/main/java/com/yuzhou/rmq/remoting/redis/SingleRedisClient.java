@@ -1,6 +1,5 @@
 package com.yuzhou.rmq.remoting.redis;
 
-import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.MsgId;
 import com.yuzhou.rmq.common.PendingEntry;
@@ -12,6 +11,7 @@ import com.yuzhou.rmq.rc.GroupInfo;
 import com.yuzhou.rmq.rc.TopicInfo;
 import com.yuzhou.rmq.remoting.Remoting;
 import com.yuzhou.rmq.utils.MixUtil;
+import com.yuzhou.rmq.utils.SerializeUtils;
 import org.slf4j.Logger;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -21,11 +21,9 @@ import redis.clients.jedis.StreamConsumersInfo;
 import redis.clients.jedis.StreamEntry;
 import redis.clients.jedis.StreamEntryID;
 import redis.clients.jedis.StreamGroupInfo;
-import redis.clients.jedis.StreamInfo;
 import redis.clients.jedis.StreamPendingEntry;
 import redis.clients.jedis.Transaction;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -47,16 +45,7 @@ public class SingleRedisClient implements Remoting {
 
     public JedisPool jedisPool;
 
-    private String host;
-
-    private int port;
-
     private Connection conn;
-
-    public SingleRedisClient(String host, int port) {
-        this.host = host;
-        this.port = port;
-    }
 
     public SingleRedisClient(Connection connection) {
         this.conn = connection;
@@ -127,8 +116,8 @@ public class SingleRedisClient implements Remoting {
             StreamEntry streamEntry = entries.get(0);
             MessageExt messageExt = new MessageExt();
             messageExt.setContent(streamEntry.getFields());
-            messageExt.setMsgId(streamEntry.getID().toString());
-            return messageExt;
+            messageExt.setOffsetMsgId(streamEntry.getID().toString());
+            return MixUtil.settleMsg(messageExt);
         } finally {
             jedisPool.returnResource(jedis);
         }
@@ -157,10 +146,10 @@ public class SingleRedisClient implements Remoting {
             Map.Entry<String, List<StreamEntry>> streamEntryList = entries.get(0);
             return streamEntryList.getValue().stream().map(streamEntry -> {
                 MessageExt messageExt = new MessageExt();
-                messageExt.setMsgId(streamEntry.getID().toString());
+                messageExt.setOffsetMsgId(streamEntry.getID().toString());
                 Map<String, String> content = streamEntry.getFields();
                 messageExt.setContent(content);
-                return messageExt;
+                return MixUtil.settleMsg(messageExt);
             }).collect(Collectors.toList());
 
         } finally {
@@ -213,7 +202,7 @@ public class SingleRedisClient implements Remoting {
             }
             return pendingEntries.stream().map(pe -> {
                 PendingEntry pendingEntry = new PendingEntry();
-                pendingEntry.setMsgId(MsgId.id(pe.getID().getTime(), pe.getID().getSequence()));
+                pendingEntry.setOffsetMsgId(MsgId.id(pe.getID().getTime(), pe.getID().getSequence()));
                 pendingEntry.setConsumerName(consumer);
                 pendingEntry.setDeliveredTimes(pe.getDeliveredTimes());
                 pendingEntry.setIdleTime(pe.getIdleTime());
@@ -286,6 +275,17 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
+    public long zadd(String key, double score, Map<String, String> content) {
+        Jedis jedis = jedisPool.getResource();
+        try {
+            Long zadd = jedis.zadd(key.getBytes(), score, SerializeUtils.serialize(content));
+            return zadd == null ? 0 : zadd;
+        } finally {
+            jedisPool.returnResource(jedis);
+        }
+    }
+
+    @Override
     public Set<String> zrangeByScore(String key, long start, long end) {
         Jedis jedis = jedisPool.getResource();
         try {
@@ -300,18 +300,19 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
-    public Set<String> zrangeAndRemByScore(String key, long start, long end) {
+    public Set zrangeAndRemByScore(String key, long start, long end) {
         Jedis jedis = jedisPool.getResource();
         try {
             Transaction multi = jedis.multi();
-            Response<Set<String>> zrangeByScore = multi.zrangeByScore(key, start, end);
-            Response<Long> longResponse = multi.zremrangeByScore(key, start, end);
+            Response<Set<byte[]>> zrangeByScore = multi.zrangeByScore(key.getBytes(), start, end);
+            multi.zremrangeByScore(key.getBytes(), start, end);
             multi.exec();
-            Set<String> msgIds = zrangeByScore.get();
-            if (msgIds == null || msgIds.size() == 0) {
+            Set<byte[]> contentBytes = zrangeByScore.get();
+            if (contentBytes == null || contentBytes.size() == 0) {
                 return null;
             }
-            return msgIds;
+            return contentBytes.stream().map(bytes -> SerializeUtils.deserialize(bytes, Map.class))
+                    .collect(Collectors.toSet());
         } finally {
             jedisPool.returnResource(jedis);
         }

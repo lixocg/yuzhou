@@ -12,10 +12,16 @@ public class MessageExt {
 
     private String msgId;
 
+    private String offsetMsgId;
+
     private Map<String,String> content;
 
     public String getMsgId() {
         return msgId;
+    }
+
+    public String getOffsetMsgId() {
+        return offsetMsgId;
     }
 
     public void setMsgId(String msgId) {
@@ -28,5 +34,9 @@ public class MessageExt {
 
     public void setContent(Map<String, String> content) {
         this.content = content;
+    }
+
+    public void setOffsetMsgId(String offsetMsgId) {
+        this.offsetMsgId = offsetMsgId;
     }
 }

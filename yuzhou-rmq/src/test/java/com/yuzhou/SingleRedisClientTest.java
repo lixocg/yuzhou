@@ -2,6 +2,7 @@ package com.yuzhou;
 
 import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.common.StreamIDEntry;
+import com.yuzhou.rmq.connection.SingleRedisConn;
 import com.yuzhou.rmq.remoting.redis.SingleRedisClient;
 import com.yuzhou.rmq.utils.SerializeUtils;
 import org.apache.commons.lang3.SerializationUtils;
@@ -15,6 +16,7 @@ import redis.clients.jedis.params.XReadParams;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA
@@ -24,35 +26,34 @@ import java.util.Map;
  * Time: 下午11:58
  */
 public class SingleRedisClientTest {
+
     SingleRedisClient client;
 
 
-
     @Before
-    public void before(){
-         client = new SingleRedisClient("127.0.0.1", 6379);
-         client.start();
+    public void before() {
+        client = new SingleRedisClient(new SingleRedisConn());
+        client.start();
     }
 
     @Test
-    public void testdeSerialize(){
+    public void testdeSerialize() {
         Jedis jedis = client.jedisPool.getResource();
         XReadParams params = new XReadParams();
         params.count(2);
 
         StreamEntryID streamEntryID = new StreamEntryID("112123-0");
-        StreamIDEntry<String,StreamEntryID> streamIDEntry = new StreamIDEntry("ss1",streamEntryID);
+        StreamIDEntry<String, StreamEntryID> streamIDEntry = new StreamIDEntry("ss1", streamEntryID);
 
-        Map<String,StreamEntryID> map = new HashMap<>();
-        map.put(streamIDEntry.getKey(),streamIDEntry.getValue());
+        Map<String, StreamEntryID> map = new HashMap<>();
+        map.put(streamIDEntry.getKey(), streamIDEntry.getValue());
 //        List<Map.Entry<String, List<StreamEntry>>> xread = jedis.xread(params, map);
 //        System.out.println(JSON.toJSONString(xread));
 
 
-
-        StreamIDEntry<byte[],byte[]> streamIDEntryBytes = new StreamIDEntry<>(
-                SerializeUtils.serialize(streamIDEntry.getKey(),String.class),
-                SerializeUtils.serialize(streamIDEntry.getValue(),StreamEntryID.class)
+        StreamIDEntry<byte[], byte[]> streamIDEntryBytes = new StreamIDEntry<>(
+                SerializeUtils.serialize(streamIDEntry.getKey()),
+                SerializeUtils.serialize(streamIDEntry.getValue())
         );
         List<byte[]> xread1 = jedis.xread(params, streamIDEntryBytes);
         Object deserialize = SerializationUtils.deserialize(xread1.get(0));
@@ -61,8 +62,22 @@ public class SingleRedisClientTest {
     }
 
     @Test
-    public void tesetMutilStream(){
+    public void tesetMutilStream() {
         Jedis jedis = client.jedisPool.getResource();
+    }
+
+
+    @Test
+    public void testzadd() {
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "zs");
+        Jedis jedis = client.jedisPool.getResource();
+        jedis.zadd("zzz".getBytes(), 1, SerializeUtils.serialize(map));
+        Set<byte[]> bytes = jedis.zrangeByScore("zzz".getBytes(), 0, 1000);
+
+        bytes.forEach(bytes1 -> {
+            System.out.println(SerializeUtils.deserialize(bytes1,Map.class));
+        });
     }
 
 }

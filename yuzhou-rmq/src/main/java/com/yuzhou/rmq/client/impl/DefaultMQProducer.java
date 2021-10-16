@@ -2,20 +2,19 @@ package com.yuzhou.rmq.client.impl;
 
 import com.yuzhou.rmq.client.ClientConfig;
 import com.yuzhou.rmq.client.MQProducer;
+import com.yuzhou.rmq.client.id.MessageId;
 import com.yuzhou.rmq.common.Message;
 import com.yuzhou.rmq.common.PutResult;
 import com.yuzhou.rmq.common.SendResult;
 import com.yuzhou.rmq.connection.Connection;
-import com.yuzhou.rmq.connection.SingleRedisConn;
 import com.yuzhou.rmq.exception.IllegalMsgException;
 import com.yuzhou.rmq.exception.RmqException;
 import com.yuzhou.rmq.factory.MQClientInstance;
+import com.yuzhou.rmq.utils.MixUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
 
 /**
  * 消息生产者
@@ -34,7 +33,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
         if (conn == null) {
             throw new RmqException("缺少conn信息");
         }
-        mqClientInstance = new MQClientInstance(this,conn);
+        mqClientInstance = new MQClientInstance(this, conn);
         mqClientInstance.start();
     }
 
@@ -61,8 +60,9 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
         if (delay <= 0) {
             throw new IllegalMsgException("延迟时间不能小于等于0");
         }
+        Map<String,String> content = new HashMap<>(msg);
         Message message = new Message();
-        message.setContent(msg);
+        message.setContent(content);
         message.setTopic(topic);
         message.setDelayTime(delay);
         return send(message);
@@ -110,43 +110,20 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
             message.getContent().put(ReservedKey.TAG_KEY.val, message.getTag());
         }
 
+        String msgId = MessageId.createUniqID();
+        message.getContent().put(ReservedKey.INNER_MSG_ID.val, msgId);
         if (message.getDelayTime() > 0) {
             //发送延迟消息
-            message.getContent().put(ReservedKey.DELAY_KEY.val,String.valueOf(message.getDelayTime()));
-            putResult = mqClientInstance.putDelayMsg(message.getTopic(), message.getContent(), message.getDelayTime());
+            message.getContent().put(ReservedKey.DELAY_KEY.val, String.valueOf(message.getDelayTime()));
+            putResult = mqClientInstance.putDelayMsg(MixUtil.delayScoreTopic(MixUtil.wrap(message.getTopic())),
+                    message.getContent(), message.getDelayTime());
         } else {
             //发送普通消息
-            putResult = mqClientInstance.putMsg(message.getTopic(), message.getContent());
+            putResult = mqClientInstance.putMsg(MixUtil.wrap(message.getTopic()), message.getContent());
         }
         if (putResult != null && putResult.isSuccess()) {
-            return SendResult.ok(putResult.getMsgId());
+            return SendResult.ok(msgId, putResult.getOffsetMsgId());
         }
         return SendResult.notOk();
-    }
-
-
-    public static void main(String[] args) throws InterruptedException {
-        DefaultMQProducer producer = new DefaultMQProducer();
-        producer.setConnection(new SingleRedisConn());
-        producer.start();
-
-        AtomicInteger count = new AtomicInteger(1);
-
-        IntStream.rangeClosed(1, 2000).parallel().forEach(i -> {
-
-            try {
-                Thread.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            Map<String, String> map = new HashMap<>();
-            map.put("name", "zs" + i);
-            map.put("age", i + "");
-            SendResult result = null;
-//            result = producer.send("mytopic", map, i * 1000);
-            result = producer.send("mytopics", map);
-            System.out.println(result + "-------" + map.get("name") + "count=" + count.getAndIncrement());
-        });
-
     }
 }

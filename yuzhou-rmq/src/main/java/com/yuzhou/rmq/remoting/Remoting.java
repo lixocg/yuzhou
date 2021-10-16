@@ -1,5 +1,6 @@
 package com.yuzhou.rmq.remoting;
 
+import com.yuzhou.rmq.common.Message;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.PendingEntry;
 import com.yuzhou.rmq.rc.ConsumerInfo;
@@ -88,6 +89,8 @@ public interface Remoting {
 
     long zadd(String key, String msgId, double score);
 
+    long zadd(String key, double score, Map<String, String> content);
+
     Set<String> zrangeByScore(String topic, long start, long end);
 
     /**
@@ -97,7 +100,7 @@ public interface Remoting {
      * @param end 结束元素
      * @return
      */
-    Set<String> zrangeAndRemByScore(String key, long start, long end);
+    Set zrangeAndRemByScore(String key, long start, long end);
 
     long zremrangeByScore(String key, long start, long end);
 

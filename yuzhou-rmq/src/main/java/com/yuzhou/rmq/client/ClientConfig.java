@@ -28,6 +28,7 @@ public class ClientConfig {
     public ConsumeFromWhere getConsumeFromWhere(){return null;};
 
     public enum ReservedKey{
+        INNER_MSG_ID("_innerMsgId","消息id"),
         DELAY_KEY("_delay","延迟消息标记"),
         TAG_KEY("_tag","消息过滤标记"),
         RETRY_COUNT_KEY("_count","重试次数标记"),

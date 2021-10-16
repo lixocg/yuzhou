@@ -15,47 +15,24 @@ public class SendResult implements Serializable {
 
     private String msgId;
 
+    private String offsetMsgId;
+
     private boolean success;
 
     public SendResult(){}
 
-    public SendResult(String msgId) {
+    public SendResult(String msgId,String offsetMsgId) {
         this.success = true;
         this.msgId = msgId;
+        this.offsetMsgId = offsetMsgId;
     }
 
-    public static SendResult ok(String msgId){
-        return new SendResult(msgId);
+    public static SendResult ok(String msgId,String offsetMsgId){
+        return new SendResult(msgId,offsetMsgId);
     }
 
     public static SendResult notOk(){
         return new SendResult();
     }
 
-    public static SendResult id(long time, long seq) {
-        return new SendResult(time + "-" + seq);
-    }
-
-    public String getMsgId() {
-        return msgId;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setMsgId(String msgId) {
-        this.msgId = msgId;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    @Override
-    public String toString() {
-        return "SendResult{" +
-                "msgId='" + msgId + '\'' +
-                '}';
-    }
 }

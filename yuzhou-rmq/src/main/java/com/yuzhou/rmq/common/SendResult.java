@@ -35,4 +35,11 @@ public class SendResult implements Serializable {
         return new SendResult();
     }
 
+    @Override
+    public String toString() {
+        return "SendResult{" +
+                "msgId='" + msgId + '\'' +
+                ", offsetMsgId='" + offsetMsgId + '\'' +
+                '}';
+    }
 }

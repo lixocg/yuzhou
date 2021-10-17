@@ -32,7 +32,7 @@ public class Consumer {
 
 
     public static void main(String[] args) {
-        DefaultMQConsumer consumer = new DefaultMQConsumer("delayGroup", "mytopics1");
+        DefaultMQConsumer consumer = new DefaultMQConsumer("delayGroup", "mytopics2");
         consumer.setConnection(new SingleRedisConn());
         consumer.setPullBatchSize(2);
 //        consumer.setConsumeFromWhere(new ConsumeFromWhere(1633855596020L));
@@ -51,8 +51,8 @@ public class Consumer {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-//                return ConsumeStatus.CONSUME_SUCCESS;
-                return ConsumeStatus.CONSUME_LATER;
+                return ConsumeStatus.CONSUME_SUCCESS;
+//                return ConsumeStatus.CONSUME_LATER;
             }
 
             private String msgId(String msgId) {

@@ -159,6 +159,7 @@ public class MQClientInstance {
                 Message retryMsg = new Message();
                 retryMsg.setTopic(context.getTopic());
                 retryMsg.setDelayMs(msgRetryLevel.getDelay()*1000);
+                content.put(ClientConfig.ReservedKey.INNER_MSG_ID.val, messageExt.getMsgId());
                 retryMsg.setContent(content);
                 putDelayMsg(MixUtil.delayScoreTopic(context.getTopic()), retryMsg);
                 //放入重试队列后，原队列消息ack

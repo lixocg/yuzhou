@@ -29,7 +29,7 @@ public class DelayMsgConsumerService extends AbstractMQConsumerService {
         try {
             Set<Message> delayMsg = mqClientInstance.readDelayMsg(MixUtil.delayScoreTopic(topic),
                     0, System.currentTimeMillis());
-            if(delayMsg == null){
+            if(delayMsg == null || delayMsg.size() == 0){
                 return;
             }
             delayMsg.forEach(message -> mqClientInstance.putMsg(topic, message.getContent()));

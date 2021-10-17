@@ -1,6 +1,7 @@
 package com.yuzhou;
 
 import com.alibaba.fastjson.JSON;
+import com.yuzhou.rmq.common.Message;
 import com.yuzhou.rmq.common.StreamIDEntry;
 import com.yuzhou.rmq.connection.SingleRedisConn;
 import com.yuzhou.rmq.remoting.redis.SingleRedisClient;
@@ -69,14 +70,19 @@ public class SingleRedisClientTest {
 
     @Test
     public void testzadd() {
+        Message message = new Message();
         Map<String, String> map = new HashMap<>();
         map.put("name", "zs");
+        map.put("_count", "1");
+        message.setTopic("test");
+        message.setContent(map);
+
         Jedis jedis = client.jedisPool.getResource();
-        jedis.zadd("zzz".getBytes(), 1, SerializeUtils.serialize(map));
-        Set<byte[]> bytes = jedis.zrangeByScore("zzz".getBytes(), 0, 1000);
+        jedis.zadd(message.getTopic().getBytes(), 1, SerializeUtils.serialize(message));
+        Set<byte[]> bytes = jedis.zrangeByScore(message.getTopic().getBytes(), 0, 1000);
 
         bytes.forEach(bytes1 -> {
-            System.out.println(SerializeUtils.deserialize(bytes1,Map.class));
+            System.out.println(SerializeUtils.deserialize(bytes1,Message.class));
         });
     }
 

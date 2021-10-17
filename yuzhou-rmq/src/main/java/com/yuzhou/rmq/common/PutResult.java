@@ -17,11 +17,12 @@ public class PutResult {
 
     private String errorMsg;
 
-    public PutResult() {
+    private PutResult() {
+        this.success = true;
     }
 
-    public PutResult(String offsetMsgId) {
-        this.success = true;
+    private PutResult(String offsetMsgId) {
+        this();
         this.offsetMsgId = offsetMsgId;
     }
 
@@ -55,12 +56,4 @@ public class PutResult {
     public void setSuccess(boolean success) {
         this.success = success;
     }
-
-    @Override
-    public String toString() {
-        return "PutResult{" +
-                "offsetMsgId='" + offsetMsgId + '\'' +
-                '}';
-    }
-
 }

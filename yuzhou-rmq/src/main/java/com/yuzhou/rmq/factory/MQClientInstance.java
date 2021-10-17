@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.yuzhou.rmq.client.ClientConfig;
 import com.yuzhou.rmq.common.ConsumeContext;
 import com.yuzhou.rmq.common.ConsumeFromWhere;
+import com.yuzhou.rmq.common.Message;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.MsgRetryLevel;
 import com.yuzhou.rmq.common.PendingEntry;
@@ -79,15 +80,14 @@ public class MQClientInstance {
     /**
      * 消息投入到延迟队列中
      *
-     * @param topic     topic
-     * @param msg       msg
-     * @param timestamp 延迟时间，单位毫秒
+     * @param topic   topic
+     * @param message msg
      * @return putResult
      */
-    public PutResult putDelayMsg(String topic, Map<String, String> msg, long timestamp) {
-        double score = TypeUtil.l2d(System.currentTimeMillis() + timestamp);
-        remoting.zadd(topic, score, msg);
-        return PutResult.id("0");
+    public PutResult putDelayMsg(String topic, Message message) {
+        double score = TypeUtil.l2d(System.currentTimeMillis() + message.getDelayMs());
+        remoting.zadd(topic, score, message);
+        return PutResult.id(0, 0);
     }
 
     /**
@@ -155,7 +155,12 @@ public class MQClientInstance {
                     return;
                 }
                 content.put(ClientConfig.ReservedKey.RETRY_COUNT_KEY.val, String.valueOf(++count));
-                putDelayMsg(context.getTopic(), content, msgRetryLevel.getDelay() * 1000);
+
+                Message retryMsg = new Message();
+                retryMsg.setTopic(context.getTopic());
+                retryMsg.setDelayMs(msgRetryLevel.getDelay()*1000);
+                retryMsg.setContent(content);
+                putDelayMsg(MixUtil.delayScoreTopic(context.getTopic()), retryMsg);
                 //放入重试队列后，原队列消息ack
                 remoting.xack(context.getTopic(), context.getGroup(), Collections.singletonList(messageExt.getOffsetMsgId()));
             });
@@ -172,7 +177,7 @@ public class MQClientInstance {
      * @param topic topic
      * @return List<MessageExt>
      */
-    public Set<Map<String, String>>  readDelayMsg(String topic, long start, long end) {
+    public Set<Message> readDelayMsg(String topic, long start, long end) {
         return remoting.zrangeAndRemByScore(topic, start, end);
     }
 

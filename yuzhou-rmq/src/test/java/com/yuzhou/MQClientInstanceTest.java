@@ -72,12 +72,6 @@ public class MQClientInstanceTest {
 
     @Test
     public void testDelayMsg() {
-        String topic = "topic1";
-
-        Map<String, String> msg = new HashMap<>();
-        msg.put("name", "lisi");
-        PutResult result = instance.putDelayMsg(topic, msg, System.currentTimeMillis() - 5 * 60 * 1000);
-        System.out.println(result);
 
     }
 

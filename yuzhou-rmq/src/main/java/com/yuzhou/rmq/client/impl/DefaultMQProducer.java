@@ -64,7 +64,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
         Message message = new Message();
         message.setContent(content);
         message.setTopic(topic);
-        message.setDelayTime(delay);
+        message.setDelayMs(delay);
         return send(message);
     }
 
@@ -76,7 +76,6 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
         Message message = new Message();
         message.setContent(msg);
         message.setTopic(topic);
-        message.setTag(tag);
         return send(message);
     }
 
@@ -92,8 +91,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
         Message message = new Message();
         message.setContent(msg);
         message.setTopic(topic);
-        message.setDelayTime(delay);
-        message.setTag(tag);
+        message.setDelayMs(delay);
         return send(message);
     }
 
@@ -104,22 +102,17 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
         PutResult putResult;
 
         //topic名包装一下
-        message.setTopic(message.getTopic());
-        if (StringUtils.isNotBlank(message.getTag())) {
-            //tag标记
-            message.getContent().put(ReservedKey.TAG_KEY.val, message.getTag());
-        }
+        message.setTopic(MixUtil.wrap(message.getTopic()));
 
         String msgId = MessageId.createUniqID();
         message.getContent().put(ReservedKey.INNER_MSG_ID.val, msgId);
-        if (message.getDelayTime() > 0) {
+        if (message.getDelayMs() > 0) {
             //发送延迟消息
-            message.getContent().put(ReservedKey.DELAY_KEY.val, String.valueOf(message.getDelayTime()));
-            putResult = mqClientInstance.putDelayMsg(MixUtil.delayScoreTopic(MixUtil.wrap(message.getTopic())),
-                    message.getContent(), message.getDelayTime());
+            message.getContent().put(ReservedKey.DELAY_KEY.val, String.valueOf(message.getDelayMs()));
+            putResult = mqClientInstance.putDelayMsg(MixUtil.delayScoreTopic(message.getTopic()), message);
         } else {
             //发送普通消息
-            putResult = mqClientInstance.putMsg(MixUtil.wrap(message.getTopic()), message.getContent());
+            putResult = mqClientInstance.putMsg(message.getTopic(), message.getContent());
         }
         if (putResult != null && putResult.isSuccess()) {
             return SendResult.ok(msgId, putResult.getOffsetMsgId());

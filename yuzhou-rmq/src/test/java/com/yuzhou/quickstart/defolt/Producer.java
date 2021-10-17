@@ -24,7 +24,7 @@ public class Producer {
 
         AtomicInteger count = new AtomicInteger(1);
 
-        IntStream.rangeClosed(1, 50000).parallel().forEach(i -> {
+        IntStream.rangeClosed(1, 1).parallel().forEach(i -> {
 
             try {
                 Thread.sleep(2);

@@ -1,6 +1,7 @@
 package com.yuzhou.rmq.consumer;
 
 import com.yuzhou.rmq.client.MQConfigConsumer;
+import com.yuzhou.rmq.common.Message;
 import com.yuzhou.rmq.common.PullResult;
 import com.yuzhou.rmq.exception.RmqException;
 import com.yuzhou.rmq.factory.MQClientInstance;
@@ -26,12 +27,12 @@ public class DelayMsgConsumerService extends AbstractMQConsumerService {
     @Override
     public void run() {
         try {
-            Set<Map<String, String>> delayMsg = mqClientInstance.readDelayMsg(MixUtil.delayScoreTopic(topic),
+            Set<Message> delayMsg = mqClientInstance.readDelayMsg(MixUtil.delayScoreTopic(topic),
                     0, System.currentTimeMillis());
             if(delayMsg == null){
                 return;
             }
-            delayMsg.forEach(content -> mqClientInstance.putMsg(topic, content));
+            delayMsg.forEach(message -> mqClientInstance.putMsg(topic, message.getContent()));
         }catch (Exception e){
             e.printStackTrace();
         }

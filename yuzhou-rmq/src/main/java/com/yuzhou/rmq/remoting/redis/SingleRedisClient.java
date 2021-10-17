@@ -1,5 +1,6 @@
 package com.yuzhou.rmq.remoting.redis;
 
+import com.yuzhou.rmq.common.Message;
 import com.yuzhou.rmq.common.MessageExt;
 import com.yuzhou.rmq.common.MsgId;
 import com.yuzhou.rmq.common.PendingEntry;
@@ -256,29 +257,11 @@ public class SingleRedisClient implements Remoting {
     }
 
 
-    /**
-     * O(log(N)
-     *
-     * @param key
-     * @param msgId
-     * @param score
-     */
     @Override
-    public long zadd(String key, String msgId, double score) {
+    public long zadd(String key, double score, Message message) {
         Jedis jedis = jedisPool.getResource();
         try {
-            Long zadd = jedis.zadd(key, score, msgId);
-            return zadd == null ? 0 : zadd;
-        } finally {
-            jedisPool.returnResource(jedis);
-        }
-    }
-
-    @Override
-    public long zadd(String key, double score, Map<String, String> content) {
-        Jedis jedis = jedisPool.getResource();
-        try {
-            Long zadd = jedis.zadd(key.getBytes(), score, SerializeUtils.serialize(content));
+            Long zadd = jedis.zadd(key.getBytes(), score, SerializeUtils.serialize(message));
             return zadd == null ? 0 : zadd;
         } finally {
             jedisPool.returnResource(jedis);
@@ -300,7 +283,7 @@ public class SingleRedisClient implements Remoting {
     }
 
     @Override
-    public Set zrangeAndRemByScore(String key, long start, long end) {
+    public Set<Message> zrangeAndRemByScore(String key, long start, long end) {
         Jedis jedis = jedisPool.getResource();
         try {
             Transaction multi = jedis.multi();
@@ -309,9 +292,9 @@ public class SingleRedisClient implements Remoting {
             multi.exec();
             Set<byte[]> contentBytes = zrangeByScore.get();
             if (contentBytes == null || contentBytes.size() == 0) {
-                return null;
+                return Collections.emptySet();
             }
-            return contentBytes.stream().map(bytes -> SerializeUtils.deserialize(bytes, Map.class))
+            return contentBytes.stream().map(bytes -> SerializeUtils.deserialize(bytes, Message.class))
                     .collect(Collectors.toSet());
         } catch (Exception e) {
             e.printStackTrace();

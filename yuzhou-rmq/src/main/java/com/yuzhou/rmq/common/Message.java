@@ -15,8 +15,6 @@ public class Message implements Serializable {
 
     private String topic;
 
-    private String tag;
-
     /**
      * 消息内容
      */
@@ -25,7 +23,7 @@ public class Message implements Serializable {
     /**
      * 延迟时间，ms
      */
-    private long delayTime;
+    private long delayMs;
 
     public Map<String, String> getContent() {
         return content;
@@ -35,27 +33,19 @@ public class Message implements Serializable {
         return topic;
     }
 
-    public String getTag() {
-        return tag;
+    public long getDelayMs() {
+        return delayMs;
     }
 
     public void setContent(Map<String, String> content) {
         this.content = content;
     }
 
-    public long getDelayTime() {
-        return delayTime;
-    }
-
-    public void setDelayTime(long delayTime) {
-        this.delayTime = delayTime;
-    }
-
     public void setTopic(String topic) {
         this.topic = topic;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setDelayMs(long delayMs) {
+        this.delayMs = delayMs;
     }
 }

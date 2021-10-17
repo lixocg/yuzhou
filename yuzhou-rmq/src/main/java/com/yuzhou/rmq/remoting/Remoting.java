@@ -87,9 +87,7 @@ public interface Remoting {
      */
     List<ConsumerInfo> xinfoConsumers(String stream, String group);
 
-    long zadd(String key, String msgId, double score);
-
-    long zadd(String key, double score, Map<String, String> content);
+    long zadd(String key, double score, Message message);
 
     Set<String> zrangeByScore(String topic, long start, long end);
 
@@ -100,7 +98,7 @@ public interface Remoting {
      * @param end 结束元素
      * @return
      */
-    Set zrangeAndRemByScore(String key, long start, long end);
+    Set<Message> zrangeAndRemByScore(String key, long start, long end);
 
     long zremrangeByScore(String key, long start, long end);
 

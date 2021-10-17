@@ -32,7 +32,6 @@ public class Consumer {
 
 
     public static void main(String[] args) {
-        Set<String> set = new CopyOnWriteArraySet<>();
         DefaultMQConsumer consumer = new DefaultMQConsumer("delayGroup", "mytopics1");
         consumer.setConnection(new SingleRedisConn());
         consumer.setPullBatchSize(2);
@@ -43,23 +42,17 @@ public class Consumer {
             @Override
             public ConsumeStatus onMessage(List<MessageExt> msgs, ConsumeContext context) {
                 msgs.forEach(msg -> {
-                    if(set.contains(msg.getMsgId())){
-                        System.out.println("==============================================="+msg.getMsgId());
-                        throw new RuntimeException("----");
-                    }
-                    set.add(msg.getMsgId());
                     System.out.println(String.format("topic=%s,time=%s,msgId=%s,offsetMsgId=%s,msgIdTime=%s,data=%s,msgCount=%d",
                             context.getTopic(),
                             DateUtil.nowStr(), msg.getMsgId(),msg.getOffsetMsgId(), msgId(msg.getOffsetMsgId()), msg.getContent(), count.getAndIncrement()));
-                    System.out.println("-----setSize:"+set.size());
                 });
                 try {
                     Thread.sleep(2);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                return ConsumeStatus.CONSUME_SUCCESS;
-//                return ConsumeStatus.CONSUME_LATER;
+//                return ConsumeStatus.CONSUME_SUCCESS;
+                return ConsumeStatus.CONSUME_LATER;
             }
 
             private String msgId(String msgId) {

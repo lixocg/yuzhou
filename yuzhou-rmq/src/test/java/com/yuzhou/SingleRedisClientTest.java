@@ -12,6 +12,7 @@ import org.junit.Test;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.StreamEntry;
 import redis.clients.jedis.StreamEntryID;
+import redis.clients.jedis.params.XReadGroupParams;
 import redis.clients.jedis.params.XReadParams;
 
 import java.util.HashMap;
@@ -35,6 +36,9 @@ public class SingleRedisClientTest {
     public void before() {
         client = new SingleRedisClient(new SingleRedisConn());
         client.start();
+
+        client.xgroupCreate(stream1,group,StreamEntryID.LAST_ENTRY);
+        client.xgroupCreate(stream2,group,StreamEntryID.LAST_ENTRY);
     }
 
     @Test
@@ -86,5 +90,58 @@ public class SingleRedisClientTest {
         });
     }
 
+    private String group = "testGroup";
 
+    private String consumer = "testConsumer";
+
+    private String stream1 = "testStream1";
+
+    private String stream2 = "testStream2";
+
+
+    @Test
+    public void testReadMulitKey() throws InterruptedException {
+        Jedis jedis = client.jedisPool.getResource();
+
+        new Thread(() ->{
+            XReadGroupParams xReadGroupParams = new XReadGroupParams();
+            xReadGroupParams.block(0);
+            xReadGroupParams.count(5);
+            Map<String, StreamEntryID> streams = new HashMap<>();
+            streams.put("testStream1",StreamEntryID.UNRECEIVED_ENTRY);
+            streams.put("testStream2",StreamEntryID.UNRECEIVED_ENTRY);
+
+            while (true) {
+                List<Map.Entry<String, List<StreamEntry>>> entries =
+                        jedis.xreadGroup(group, consumer, xReadGroupParams, streams);
+                entries.forEach(entry ->{
+                    String stream = entry.getKey();
+                    List<StreamEntry> dataList = entry.getValue();
+                    dataList.forEach(s ->{
+                        StreamEntryID id = s.getID();
+                        Map<String, String> fields = s.getFields();
+                        System.out.println(String.format("stream=%s,id=%s,data=%s",stream,id,JSON.toJSONString(fields)));
+                    });
+
+                    System.out.println("=================");
+                });
+            }
+        }).start();
+
+
+        new Thread(()->{
+            for(int i =0;i<10;i++) {
+                Map<String,String> data = new HashMap<>();
+                data.put("name","zs"+i);
+                if(i % 2 == 0) {
+                    client.xadd(stream1, data);
+                }else{
+                    client.xadd(stream2, data);
+                }
+            }
+        }).start();
+
+
+        Thread.sleep(Integer.MAX_VALUE);
+    }
 }

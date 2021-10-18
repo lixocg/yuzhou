@@ -136,7 +136,7 @@ public class SingleRedisClient implements Remoting {
             //>读取未被ack的消息
             StreamIDEntry<String, StreamEntryID> streamEntryIDEntry =
                     new StreamIDEntry<>(stream, StreamEntryID.UNRECEIVED_ENTRY);
-            ;
+
 
             //只读取当前topic的stream key,没数据阻塞
             List<Map.Entry<String/*key*/, List<StreamEntry>>> entries =

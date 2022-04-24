@@ -124,7 +124,7 @@ public class SerializeUtils {
         private T data;
 
         public static <T> Wrapper<T> builder(T data) {
-            Wrapper<T> wrapper = new Wrapper();
+            Wrapper<T> wrapper = new Wrapper<T>();
             wrapper.setData(data);
             return wrapper;
         }

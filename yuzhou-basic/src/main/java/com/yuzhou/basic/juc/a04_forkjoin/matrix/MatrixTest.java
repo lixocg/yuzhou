@@ -5,6 +5,12 @@ package com.yuzhou.basic.juc.a04_forkjoin.matrix;
  */
 public class MatrixTest {
     public static void main(String[] args) {
+        for(int i = 0;i<10000;i++){
+            compute();
+        }
+    }
+
+    public static void  compute(){
         int N = 2000;
         Matrix a = new Matrix(N, N);
         a.randomMatrix(10);

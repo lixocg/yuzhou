@@ -101,6 +101,7 @@ public class DefaultMQProducer extends ClientConfig implements MQProducer {
         checkMsg(message);
         PutResult putResult;
 
+
         //topic名包装一下
         message.setTopic(MixUtil.wrap(message.getTopic()));
 

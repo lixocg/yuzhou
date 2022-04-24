@@ -104,8 +104,8 @@ public abstract class LogServiceAdapter implements LogService {
         if (BeanUtils.isSimpleValueType(obj.getClass())) {
             paramMap.put(params[0], obj);
         } else {
-            for (int x = 0; x < params.length; x++) {
-                Object fieldValue = ReflectionUtil.getField(params[x], obj);
+            for (String s : params) {
+                Object fieldValue = ReflectionUtil.getField(s, obj);
                 if (ObjectUtil.isEmpty(fieldValue)) {
                     continue;
                 }
@@ -114,7 +114,7 @@ public abstract class LogServiceAdapter implements LogService {
                     keyBuilder.append(obj.getClass().getSimpleName());
                     keyBuilder.append("$");
                 }
-                keyBuilder.append(params[x]);
+                keyBuilder.append(s);
                 paramMap.put(keyBuilder.toString(), fieldValue);
             }
         }

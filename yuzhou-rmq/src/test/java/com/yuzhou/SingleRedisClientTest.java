@@ -5,6 +5,7 @@ import com.yuzhou.rmq.common.Message;
 import com.yuzhou.rmq.common.StreamIDEntry;
 import com.yuzhou.rmq.connection.SingleRedisConn;
 import com.yuzhou.rmq.remoting.redis.SingleRedisClient;
+import com.yuzhou.rmq.utils.DateUtil;
 import com.yuzhou.rmq.utils.SerializeUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Before;
@@ -37,8 +38,8 @@ public class SingleRedisClientTest {
         client = new SingleRedisClient(new SingleRedisConn());
         client.start();
 
-        client.xgroupCreate(stream1,group,StreamEntryID.LAST_ENTRY);
-        client.xgroupCreate(stream2,group,StreamEntryID.LAST_ENTRY);
+        client.xgroupCreate(stream1, group, StreamEntryID.LAST_ENTRY);
+        client.xgroupCreate(stream2, group, StreamEntryID.LAST_ENTRY);
     }
 
     @Test
@@ -86,7 +87,7 @@ public class SingleRedisClientTest {
         Set<byte[]> bytes = jedis.zrangeByScore(message.getTopic().getBytes(), 0, 1000);
 
         bytes.forEach(bytes1 -> {
-            System.out.println(SerializeUtils.deserialize(bytes1,Message.class));
+            System.out.println(SerializeUtils.deserialize(bytes1, Message.class));
         });
     }
 
@@ -103,24 +104,34 @@ public class SingleRedisClientTest {
     public void testReadMulitKey() throws InterruptedException {
         Jedis jedis = client.jedisPool.getResource();
 
-        new Thread(() ->{
+        new Thread(() -> {
             XReadGroupParams xReadGroupParams = new XReadGroupParams();
             xReadGroupParams.block(0);
             xReadGroupParams.count(5);
             Map<String, StreamEntryID> streams = new HashMap<>();
-            streams.put("testStream1",StreamEntryID.UNRECEIVED_ENTRY);
-            streams.put("testStream2",StreamEntryID.UNRECEIVED_ENTRY);
+            streams.put("testStream1", StreamEntryID.UNRECEIVED_ENTRY);
+            streams.put("testStream2", StreamEntryID.UNRECEIVED_ENTRY);
 
             while (true) {
                 List<Map.Entry<String, List<StreamEntry>>> entries =
                         jedis.xreadGroup(group, consumer, xReadGroupParams, streams);
-                entries.forEach(entry ->{
+                entries.parallelStream().forEach(entry -> {
                     String stream = entry.getKey();
+
+                    if (stream1.equals(stream)) {
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     List<StreamEntry> dataList = entry.getValue();
-                    dataList.forEach(s ->{
+                    dataList.forEach(s -> {
                         StreamEntryID id = s.getID();
                         Map<String, String> fields = s.getFields();
-                        System.out.println(String.format("stream=%s,id=%s,data=%s",stream,id,JSON.toJSONString(fields)));
+
+                        System.out.println(String.format("time=%s,stream=%s,id=%s,data=%s", DateUtil.nowStr(),
+                                stream, id, JSON.toJSONString(fields)));
                     });
 
                     System.out.println("=================");
@@ -129,13 +140,13 @@ public class SingleRedisClientTest {
         }).start();
 
 
-        new Thread(()->{
-            for(int i =0;i<10;i++) {
-                Map<String,String> data = new HashMap<>();
-                data.put("name","zs"+i);
-                if(i % 2 == 0) {
+        new Thread(() -> {
+            for (int i = 0; i < 10; i++) {
+                Map<String, String> data = new HashMap<>();
+                data.put("name", "zs" + i);
+                if (i % 2 == 0) {
                     client.xadd(stream1, data);
-                }else{
+                } else {
                     client.xadd(stream2, data);
                 }
             }
@@ -143,5 +154,15 @@ public class SingleRedisClientTest {
 
 
         Thread.sleep(Integer.MAX_VALUE);
+    }
+
+    @Test
+    public void testAdd() {
+        for (int i = 0; i < 100; i++) {
+            Map<String, String> data = new HashMap<>();
+            data.put("name", "zs" + i);
+//            client.xadd(stream1, data);
+            client.xadd(stream2, data);
+        }
     }
 }

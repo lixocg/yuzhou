@@ -12,6 +12,7 @@ import com.yuzhou.rmq.log.InnerLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -64,6 +65,7 @@ public abstract class AbstractMsgHandler implements MsgHandler {
             //优雅关闭
             ThreadUtils.shutdownGracefully(consumeMsgExecutor, 30, TimeUnit.SECONDS);
         }));
+
     }
 
     @Override

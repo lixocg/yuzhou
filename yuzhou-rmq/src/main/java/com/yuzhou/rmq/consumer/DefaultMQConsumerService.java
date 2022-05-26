@@ -34,7 +34,7 @@ public class DefaultMQConsumerService extends AbstractMQConsumerService {
             ThreadUtils.newSingleThreadScheduledExecutor("DelayConsumeMessageThread");
 
     /**
-     * 延迟消息拉取定时
+     * pendding消息拉取定时
      */
     private final ScheduledExecutorService pendingPullMsgExecutor =
             ThreadUtils.newSingleThreadScheduledExecutor("ConsumePendingMessageThread");

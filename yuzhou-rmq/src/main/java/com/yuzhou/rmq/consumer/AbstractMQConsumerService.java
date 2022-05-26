@@ -65,6 +65,7 @@ public abstract class AbstractMQConsumerService extends ServiceThread implements
     }
 
 
+    @Override
     public abstract void run();
 
     protected void run0() {

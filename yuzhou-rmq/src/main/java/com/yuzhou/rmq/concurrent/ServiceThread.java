@@ -2,7 +2,6 @@ package com.yuzhou.rmq.concurrent;
 
 import com.yuzhou.rmq.log.InnerLog;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;

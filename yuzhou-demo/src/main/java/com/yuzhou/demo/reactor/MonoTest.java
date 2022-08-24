@@ -44,6 +44,13 @@ public class MonoTest {
         Mono.from(Flux.just("from", "flux")).subscribe(log::info);  // 只返回flux第一个
     }
 
+    @Test
+    public void mono1(){
+        Mono.defer(()->Mono.just(1))
+                .log()
+                .subscribe();
+    }
+
 
     /**
      * 使用StepVerifier 测试

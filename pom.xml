@@ -16,6 +16,7 @@
         <module>yuzhou-netty</module>
         <module>yuzhou-rmq</module>
         <module>yuzhou-start</module>
+        <module>yuzhou-gatling</module>
     </modules>
 
     <name>yuzhou</name>

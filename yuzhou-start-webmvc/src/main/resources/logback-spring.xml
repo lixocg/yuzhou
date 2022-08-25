@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- https://github.com/spring-projects/spring-boot/blob/v1.4.2.RELEASE/spring-boot/src/main/resources/org/springframework/boot/logging/logback/defaults.xml -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <property name="APP_NAME" value="kaoyu-paper"/>
+    <property name="LOG_PATH" value="${user.home}/${APP_NAME}/logs"/>
+    <property name="LOG_FILE" value="${LOG_PATH}/${APP_NAME}.log"/>
+    <property name="LOG_PATTERN" value="logflag|%d{yyyy-MM-dd HH:mm:ss.SSS}|%X{EAGLEEYE_TRACE_ID}|%thread|%level|%logger{36}|%m%n"/>
+
+
+
+    <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/docking.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_PATH}/docking.log-%d{yyyy-MM-dd}.log.%i</FileNamePattern>
+            <maxFileSize>1GB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.yuzhou" level="INFO" additivity="false">
+        <appender-ref ref="fileAppender"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+
+    <root level="INFO">
+        <appender-ref ref="fileAppender"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

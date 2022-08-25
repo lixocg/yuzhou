@@ -17,6 +17,7 @@
         <module>yuzhou-rmq</module>
         <module>yuzhou-start</module>
         <module>yuzhou-gatling</module>
+        <module>yuzhou-start-webmvc</module>
     </modules>
 
     <name>yuzhou</name>

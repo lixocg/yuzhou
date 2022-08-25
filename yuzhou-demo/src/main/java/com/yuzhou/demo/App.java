@@ -1,5 +1,6 @@
 package com.yuzhou.demo;
 
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -10,23 +11,8 @@ public class App {
     private static AtomicInteger cnt = new AtomicInteger();
 
     public static void main(String[] args) throws InterruptedException {
-//        System.out.println("Hello World!");
-//
-//        String str = "h_j";
-//        List<String> strString = Arrays.asList(str.split("_"));
-////        strString.add("fff");
-//        System.out.println(strString);
-//
-//        long l = BigDecimal.valueOf(12).multiply(BigDecimal.valueOf(0.1)).setScale(0, RoundingMode.UP)
-//                .longValue();
-//        System.out.println(l);
-//
-//        List<byte[]> arr = new ArrayList<>();
-//        while (true) {
-//            byte[] bytes = new byte[1024 * 1024];
-//            arr.add(bytes);
-//            Thread.sleep(100);
-//        }
-
+        String s = "101:longTimeExportResult:9ad3b9ddf21e6096ee460cbd960fc4af@销售统计导出@20220825094747";
+        String[] split = s.split("@");
+        Arrays.stream(split).forEach(System.out::println);
     }
 }

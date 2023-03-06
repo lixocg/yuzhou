@@ -1,5 +1,6 @@
 package com.yuzhou.openai.api.completion;
 
+import com.yuzhou.openai.api.Message;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,19 +25,24 @@ public class CompletionRequest {
      * The name of the model to use.
      * Required if specifying a fine tuned model or if using the new v1/completions endpoint.
      */
-    String model;
+    private String model;
 
     /**
      * An optional prompt to complete from
      */
-    String prompt;
+    private String prompt;
+
+    /**
+     * chatgpt prompt参数
+     */
+    private List<Message> messages;
 
     /**
      * The maximum number of tokens to generate.
      * Requests can use up to 2048 tokens shared between prompt and completion.
      * (One token is roughly 4 characters for normal English text)
      */
-    Integer maxTokens;
+    private Integer maxTokens;
 
     /**
      * What sampling temperature to use. Higher values means the model will take more risks.
@@ -44,7 +50,7 @@ public class CompletionRequest {
      *
      * We generally recommend using this or {@link CompletionRequest#topP} but not both.
      */
-    Double temperature;
+    private Double temperature;
 
     /**
      * An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of
@@ -53,7 +59,7 @@ public class CompletionRequest {
      *
      * We generally recommend using this or {@link CompletionRequest#temperature} but not both.
      */
-    Double topP;
+    private Double topP;
 
     /**
      * How many completions to generate for each prompt.
@@ -61,14 +67,14 @@ public class CompletionRequest {
      * Because this parameter generates many completions, it can quickly consume your token quota.
      * Use carefully and ensure that you have reasonable settings for {@link CompletionRequest#maxTokens} and {@link CompletionRequest#stop}.
      */
-    Integer n;
+    private Integer n;
 
     /**
      * Whether to stream back partial progress.
      * If set, tokens will be sent as data-only server-sent events as they become available,
      * with the stream terminated by a data: DONE message.
      */
-    Boolean stream;
+    private  Boolean stream;
 
     /**
      * Include the log probabilities on the logprobs most likely tokens, as well the chosen tokens.
@@ -76,30 +82,30 @@ public class CompletionRequest {
      * The API will always return the logprob of the sampled token,
      * so there may be up to logprobs+1 elements in the response.
      */
-    Integer logprobs;
+    private Integer logprobs;
 
     /**
      * Echo back the prompt in addition to the completion
      */
-    Boolean echo;
+    private Boolean echo;
 
     /**
      * Up to 4 sequences where the API will stop generating further tokens.
      * The returned text will not contain the stop sequence.
      */
-    List<String> stop;
+    private List<String> stop;
 
     /**
      * Number between 0 and 1 (default 0) that penalizes new tokens based on whether they appear in the text so far.
      * Increases the model's likelihood to talk about new topics.
      */
-    Double presencePenalty;
+    private Double presencePenalty;
 
     /**
      * Number between 0 and 1 (default 0) that penalizes new tokens based on their existing frequency in the text so far.
      * Decreases the model's likelihood to repeat the same line verbatim.
      */
-    Double frequencyPenalty;
+    private  Double frequencyPenalty;
 
     /**
      * Generates best_of completions server-side and returns the "best"
@@ -109,7 +115,7 @@ public class CompletionRequest {
      * When used with {@link CompletionRequest#n}, best_of controls the number of candidate completions and n specifies how many to return,
      * best_of must be greater than n.
      */
-    Integer bestOf;
+    private Integer bestOf;
 
     /**
      * Modify the likelihood of specified tokens appearing in the completion.
@@ -118,10 +124,10 @@ public class CompletionRequest {
      *
      * https://beta.openai.com/docs/api-reference/completions/create#completions/create-logit_bias
      */
-    Map<String, Integer> logitBias;
+    private Map<String, Integer> logitBias;
 
     /**
      * A unique identifier representing your end-user, which will help OpenAI to monitor and detect abuse.
      */
-    String user;
+    private String user;
 }

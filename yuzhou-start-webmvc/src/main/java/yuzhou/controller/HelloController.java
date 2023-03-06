@@ -3,6 +3,9 @@ package yuzhou.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class HelloController {
 
@@ -32,6 +35,21 @@ public class HelloController {
     @RequestMapping("hello")
     public String hello() {
         return "hello ....";
+    }
+
+    @RequestMapping("testMem")
+    public String testMem(){
+        List<byte[]> memory = new ArrayList<>();
+        for(int i =0;i<200;i++){
+            try {
+                byte[] men = new byte[1024 * 1024];
+                memory.add(men);
+                Thread.sleep(1000);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return "ok";
     }
 
 }

@@ -111,4 +111,8 @@ public interface OpenAiApi {
     @Deprecated
     @GET("/v1/engines/{engine_id}")
     Single<Engine> getEngine(@Path("engine_id") String engineId);
+
+    /************************chatgpt*******************************/
+    @POST("/v1/chat/completions")
+    Single<CompletionResult> chatCompletion(@Body CompletionRequest request);
 }

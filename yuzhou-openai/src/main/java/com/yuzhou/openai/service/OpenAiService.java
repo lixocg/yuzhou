@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.yuzhou.openai.api.DeleteResult;
-import com.yuzhou.openai.client.OpenAiApi;
 import com.yuzhou.openai.api.OpenAiError;
 import com.yuzhou.openai.api.OpenAiHttpException;
 import com.yuzhou.openai.api.completion.CompletionRequest;
@@ -25,6 +24,7 @@ import com.yuzhou.openai.api.image.ImageResult;
 import com.yuzhou.openai.api.model.Model;
 import com.yuzhou.openai.api.moderation.ModerationRequest;
 import com.yuzhou.openai.api.moderation.ModerationResult;
+import com.yuzhou.openai.client.OpenAiApi;
 import io.reactivex.Single;
 import okhttp3.ConnectionPool;
 import okhttp3.MediaType;
@@ -44,7 +44,9 @@ import java.util.concurrent.TimeUnit;
 public class OpenAiService {
 
     private static final String BASE_URL = "https://api.openai.com/";
+
     private static final Duration DEFAULT_TIMEOUT = Duration.ofSeconds(50);
+
     private static final ObjectMapper errorMapper = defaultObjectMapper();
 
     private final OpenAiApi api;
@@ -68,8 +70,8 @@ public class OpenAiService {
         this(buildApi(token, timeout));
     }
 
-    public OpenAiService(final String token, final int seconds){
-        this(token,Duration.ofSeconds(seconds));
+    public OpenAiService(final String token, final int seconds) {
+        this(token, Duration.ofSeconds(seconds));
     }
 
     /**
@@ -92,6 +94,10 @@ public class OpenAiService {
 
     public CompletionResult createCompletion(CompletionRequest request) {
         return execute(api.createCompletion(request));
+    }
+
+    public CompletionResult chatCompletion(CompletionRequest request) {
+        return execute(api.chatCompletion(request));
     }
 
     public EditResult createEdit(EditRequest request) {
@@ -265,4 +271,5 @@ public class OpenAiService {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
+
 }

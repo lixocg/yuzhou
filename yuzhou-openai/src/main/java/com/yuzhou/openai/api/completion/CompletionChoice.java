@@ -1,5 +1,6 @@
 package com.yuzhou.openai.api.completion;
 
+import com.yuzhou.openai.api.Message;
 import lombok.Data;
 
 /**
@@ -12,20 +13,22 @@ public class CompletionChoice {
     /**
      * The generated text. Will include the prompt if {@link CompletionRequest#echo } is true
      */
-    String text;
+    private String text;
 
     /**
      * This index of this completion in the returned list.
      */
-    Integer index;
+    private Integer index;
 
     /**
      * The log probabilities of the chosen tokens and the top {@link CompletionRequest#logprobs} tokens
      */
-    LogProbResult logprobs;
+    private LogProbResult logprobs;
 
     /**
      * The reason why GPT-3 stopped generating, for example "length".
      */
-    String finish_reason;
+    private String finish_reason;
+
+    private Message message;
 }

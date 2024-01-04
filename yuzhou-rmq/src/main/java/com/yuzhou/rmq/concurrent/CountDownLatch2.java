@@ -37,6 +37,7 @@ public class CountDownLatch2 {
         sync.reset();
     }
 
+    @Override
     public String toString() {
         return super.toString() + "[Count = " + sync.getCount() + "]";
     }

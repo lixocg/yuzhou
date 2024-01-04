@@ -19,6 +19,7 @@
         <module>yuzhou-gatling</module>
         <module>yuzhou-start-webmvc</module>
         <module>yuzhou-openai</module>
+        <module>yuzhou-dts</module>
     </modules>
 
     <name>yuzhou</name>

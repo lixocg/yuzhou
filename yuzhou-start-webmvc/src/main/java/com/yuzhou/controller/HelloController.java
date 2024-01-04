@@ -1,10 +1,11 @@
-package yuzhou.controller;
+package com.yuzhou.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 public class HelloController {
@@ -50,6 +51,17 @@ public class HelloController {
             }
         }
         return "ok";
+    }
+
+    @RequestMapping("testMonitor")
+    public String testMonitor(){
+        Random r = new Random(System.currentTimeMillis());
+        long consume = r.nextInt(2000);
+        try{
+            System.out.println("耗时:"+consume);
+            Thread.sleep(consume);
+        }catch (Exception e){}
+        return "okk";
     }
 
 }

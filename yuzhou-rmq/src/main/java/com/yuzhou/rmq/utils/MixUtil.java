@@ -129,6 +129,10 @@ public class MixUtil {
         return localAddress;
     }
 
+    public static void main(String[] args) {
+        System.out.println(getLocalAddress());
+    }
+
 
     private static String getLocalAddress() {
         try {
